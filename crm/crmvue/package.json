@@ -1,0 +1,31 @@
+{
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@vueup/vue-quill": "^1.0.0-alpha.40",
+    "axios": "^0.21.1",
+    "dart-sass": "^1.25.0",
+    "dayjs": "^1.10.7",
+    "element-china-area-data": "^5.0.2",
+    "element-plus": "*",
+    "element-ui": "^2.15.3",
+    "moment": "^2.29.1",
+    "qs": "^6.10.1",
+    "sass": "^1.35.2",
+    "save": "^2.4.0",
+    "vue": "^3.0.5",
+    "vue-axios": "^3.2.4",
+    "vue-quill-editor": "^3.0.6",
+    "vue-router": "^4.0.10",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.2.4",
+    "@vue/compiler-sfc": "^3.0.5",
+    "vite": "^2.4.0"
+  }
+}
