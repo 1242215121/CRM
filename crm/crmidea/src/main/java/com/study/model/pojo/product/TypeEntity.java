@@ -4,9 +4,9 @@ import javax.persistence.*;
 import java.util.Objects;
 
 public class TypeEntity {
-    private int typeId;
-    private String typeName;
-    private Integer parentId;
+    private int typeId; //类别编号
+    private String typeName; //类别名称
+    private Integer parentId; //父级类别
 
     public TypeEntity() {
         super();
