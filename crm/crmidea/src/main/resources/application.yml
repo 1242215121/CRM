@@ -15,7 +15,7 @@ server:
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml #mapper映射
-  type-aliases-package: com.study.model.pojo
+  type-aliases-package: com.study.cj.model.pojo
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
