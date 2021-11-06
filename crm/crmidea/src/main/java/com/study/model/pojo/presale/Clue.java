@@ -3,7 +3,9 @@ package com.study.model.pojo.presale;
 
 import java.sql.Timestamp;
 
-
+/**
+ * 线索
+ **/
 public class Clue {
 
     private Integer clueId;//线索id

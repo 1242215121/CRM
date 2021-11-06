@@ -1,8 +1,9 @@
 package com.study.model.pojo.presale;
 
-import java.util.Objects;
 
-
+/**
+ * 客户
+ **/
 public class Client {
     private Integer clientId;//客户id
     private String clientRule;//客户编码

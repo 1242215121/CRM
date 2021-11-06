@@ -3,14 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.model.mapper.presale.ClueMapper">
     <resultMap id="ClueMap" type="com.study.model.pojo.presale.Clue">
-        <id column="CLUE_ID" property="clueId"/>
-        <result column="CLUE_NAME" property="clueUser"/>
-        <result column="CLUE_COMPANY" property="clueCompany"/>
-        <result column="CLUE_POST" property="cluePost"/>
-        <result column="CLUE_CO_STATE" property="clueGoState"/>
-        <result column="CLUE_DUTY" property="clueDuty"/>
-        <result column="CLUE_STATE" property="clueState"/>
-        <result column="CLUE_TIME" property="clueTime"/>
-        <result column="CLUE_PHONE" property="cluePhone"/>
+        <id column="clue_id" property="clueId"/>
+        <result column="clue_name" property="clueUser"/>
+        <result column="clue_company" property="clueCompany"/>
+        <result column="clue_post" property="cluePost"/>
+        <result column="clue_go_state" property="clueGoState"/>
+        <result column="clue_duty" property="clueDuty"/>
+        <result column="clue_state" property="clueState"/>
+        <result column="clue_time" property="clueTime"/>
+        <result column="clue_phone" property="cluePhone"/>
     </resultMap>
 </mapper>

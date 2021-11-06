@@ -3,11 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.model.mapper.presale.ContactsMapper">
     <resultMap id="ContactsMap" type="com.study.model.pojo.presale.Contacts">
-        <id column="CONTACTS_ID" property="contactsId"/>
-        <result column="CONTACTS_NAME" property="contactsName"/>
-        <result column="CONTACTS_DUTY" property="contactsDuty"/>
-        <result column="CONTACTS_PHONE" property="contactsPhone"/>
-        <result column="CONTACTS_ROLE" property="contactsRole"/>
-        <result column="CONTACTS_CASE" property="contactsCase"/>
+        <id column="contacts_id" property="contactsId"/>
+        <result column="contacts_name" property="contactsName"/>
+        <result column="contacts_duty" property="contactsDuty"/>
+        <result column="contacts_phone" property="contactsPhone"/>
+        <result column="contacts_role" property="contactsRole"/>
+        <result column="contacts_case" property="contactsCase"/>
     </resultMap>
 </mapper>

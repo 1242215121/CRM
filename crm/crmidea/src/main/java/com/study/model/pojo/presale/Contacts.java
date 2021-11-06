@@ -1,7 +1,9 @@
 package com.study.model.pojo.presale;
 
 
-
+/**
+ * 联系人
+ **/
 public class Contacts {
     private Integer contactsId;//联系人id
     private Integer contactsName;//姓名

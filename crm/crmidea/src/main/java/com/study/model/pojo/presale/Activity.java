@@ -1,7 +1,13 @@
 package com.study.model.pojo.presale;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.study.model.pojo.power.Users;
+
 import java.sql.Date;
 
+/**
+ * 活动
+ **/
 public class Activity {
     private Integer activityId;//活动id
     private String activityName;//活动名称
@@ -16,7 +22,16 @@ public class Activity {
     private String activityPlan;//计划收入
     private Integer activityPlanIncome;//实际收入
     private Integer activityRealityIncome;//活动计划
+    private Users users;
 
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
 
     public Integer getActivityId() {
         return activityId;
