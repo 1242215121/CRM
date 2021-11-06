@@ -27,4 +27,13 @@ public class AjobServices {
     public Ajob selectByAjobId(Integer jobid){
         return mapper.selectByAjobId(jobid);
     }
+
+    /**
+     * 根据职位编号查询职位  不查关系字段
+     * @param jobid
+     * @return
+     */
+    public Ajob selectByAjobIdNoUsers(Integer jobid){
+        return mapper.selectByAjobIdNoUsers(jobid);
+    }
 }

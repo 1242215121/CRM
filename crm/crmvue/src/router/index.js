@@ -121,6 +121,7 @@ let routes = [
 						title: "退货单"
 					},
 				},
+				{
 					path: '/kpbl',
 					component:() => import('@/components/aftersale/Kpbl.vue'),
 					name: 'kpbl',
@@ -136,7 +137,8 @@ let routes = [
 						title: "回款确认"
 					},
 				},
-		 ]
+		 ],
+		 
 	}
 ]
 //2、导入路由对象

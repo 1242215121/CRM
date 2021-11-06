@@ -16,6 +16,16 @@ public class Users {
     private String usersPhone;//电话
     private String usersEmail;//邮箱
     private String usersImgs;//头像地址
+    private Integer state;//用户状态
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
     private Ajob ajob;//职位
     private Dept dept;//部门
     private List<UsersRole> usersRole;//角色
