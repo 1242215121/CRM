@@ -1,5 +1,7 @@
 package com.study.model.pojo.insale;
 
+import com.study.model.pojo.power.Users;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -7,9 +9,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-
-public class Salefunnel { //销售机会
-
+/**
+ * 销售机会
+ */
+public class Salefunnel {
     private Integer sfId;
     private String sfName;
     private BigDecimal sfMoney; //机会金额
@@ -17,6 +20,8 @@ public class Salefunnel { //销售机会
 
     private List<Quotations> quotationsBySfId;  // 一个销售机会可产生多个报价单
     private List<Saleorder> saleordersBySfId;  //一个销售机会可产生多个销售订单
+
+    private Users user;//一个销售机会一个负责人
 
     public Salefunnel() {
     }
@@ -62,7 +67,6 @@ public class Salefunnel { //销售机会
         this.sfDate = sfDate;
     }
 
-
     public List<Quotations> getQuotationsBySfId() {
         return quotationsBySfId;
     }
@@ -70,7 +74,6 @@ public class Salefunnel { //销售机会
     public void setQuotationsBySfId(List<Quotations> quotationsBySfId) {
         this.quotationsBySfId = quotationsBySfId;
     }
-
 
     public List<Saleorder> getSaleordersBySfId() {
         return saleordersBySfId;
@@ -90,4 +93,11 @@ public class Salefunnel { //销售机会
                 '}';
     }
 
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
 }

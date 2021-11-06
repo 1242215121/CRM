@@ -6,7 +6,10 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class Quotations { //报价单
+/**
+ * 报价单
+ */
+public class Quotations {
     private Integer qId;
     private String qName;
     private BigDecimal qMoney; //报价金额

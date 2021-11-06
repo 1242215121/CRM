@@ -3,10 +3,10 @@ package com.study.model.pojo.insale;
 import javax.persistence.*;
 import java.util.Objects;
 
-
-@Entity
-public class Refundpro { //退货单和产品的中间表
-
+/**
+ * 退货单和产品的中间表
+ */
+public class Refundpro {
     private Integer refundproId;
     private Integer proNum; //退货产品数量
     private Integer rId; // 退货单编号

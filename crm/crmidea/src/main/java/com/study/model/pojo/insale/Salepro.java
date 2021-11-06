@@ -3,8 +3,10 @@ package com.study.model.pojo.insale;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-public class Salepro { // 销售机会和产品中间表
+/**
+ * 销售机会和产品中间表
+ */
+public class Salepro {
     private Integer saleproId;
     private Integer proNum; // 产品数量
     private Integer sfId; // 销售机会编号

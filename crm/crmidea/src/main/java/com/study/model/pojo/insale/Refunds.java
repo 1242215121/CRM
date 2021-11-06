@@ -6,7 +6,10 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class Refunds { // 退货单
+/**
+ * 退货单
+ */
+public class Refunds {
     private Integer rId;
     private String rName;
     private BigDecimal rMoney; // 退货金额

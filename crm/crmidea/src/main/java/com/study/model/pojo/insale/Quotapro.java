@@ -3,12 +3,14 @@ package com.study.model.pojo.insale;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-public class Quotapro {//报价单和产品的中间表
+/**
+ * 报价单和产品的中间表
+ */
+public class Quotapro {
     private Integer quotaproId;
     private Integer proNum; //产品数量
     private Integer qId; // 报价单编号
-    private String proId;
+    private String proId; // 产品编号
 
 
     public Quotapro() {

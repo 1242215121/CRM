@@ -3,8 +3,10 @@ package com.study.model.pojo.insale;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-public class Sorderpro { // 销售订单和产品中间表
+/**
+ * 销售订单和产品中间表
+ */
+public class Sorderpro {
     private Integer sorderproId;
     private Integer proNum; // 产品数量
     private Integer soId; // 销售订单

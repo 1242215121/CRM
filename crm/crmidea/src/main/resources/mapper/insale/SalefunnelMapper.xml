@@ -9,6 +9,31 @@
         <result column="sf_name" property="sfName"/>
         <result column="sf_money" property="sfMoney"/>
         <result column="sf_date" property="sfDate"/>
+        <!-- private Users user;//一个销售机会一个负责人-->
+        <association property="user" javaType="com.study.model.pojo.power.Users">
+            <id column="users_id" property="usersId"/>
+            <result column="users_name" property="usersName"/>
+        </association>
     </resultMap>
+
+    <!--连接客户表，员工表，市场活动表，联系人表，查询销售机会
+      public List<Salefunnel> selectAll();-->
+    <select id="selectAll" resultMap="baseMap">
+         SELECT sf_id, sf_name, sf_money, sf_date,u.users_id,u.users_name,
+         c.client_id,c.client_name,a.activity_id,a.activity_name,co.contacts_id,co.contacts_name FROM salefunnel
+        LEFT JOIN client c ON c.client_id = salefunnel.sf_customer
+        LEFT JOIN contacts co ON co.contacts_id = salefunnel.sf_contact
+        LEFT JOIN users u ON u.users_id = salefunnel.sf_change
+        LEFT JOIN activity a ON a.activity_id = salefunnel.sf_activity
+        ORDER BY sf_id DESC
+    </select>
+
+
+    <!-- 新增 销售机会
+     public Integer insert(Salefunnel salefunnel);-->
+    <insert id="insert" parameterType="com.study.model.pojo.insale.Salefunnel">
+        insert into salefunnel(sf_id, sf_name, sf_money, sf_date, sf_change, sf_customer, sf_activity, sf_contact)
+        values (#{sfId}, #{sfName}, #{sfMoney}, #{sfDate}, #{user.usersId},#{clientId},#{activityId},#{contactsId})
+    </insert>
 
 </mapper>

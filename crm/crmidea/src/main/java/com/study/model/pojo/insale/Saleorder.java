@@ -8,7 +8,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-public class Saleorder { // 销售订单
+/**
+ *  销售订单
+ */
+public class Saleorder {
     private Integer soId; // 销售订单编号
     private String soName;  // 订单名称
     private BigDecimal soMoney;  // 订单金额
