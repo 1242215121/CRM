@@ -23,14 +23,22 @@ let routes = [{
 			title: "CRM后台管理系统"
 		},
 		children: [
-			{	
-				name:'product',
-				path:'/product',
-				component:()=>import('@/components/product/Product.vue'),
-				meta: {
-					title: "产品库"
+				{
+					path: '/users',
+					component:() => import('@/components/power/users.vue'),
+					name: 'users',
+					meta: {
+						title: "用户管理"
+					},
 				},
-			},
+				{
+					path: '/dept',
+					component:() => import('@/components/power/Dept.vue'),
+					name: 'dept',
+					meta: {
+						title: "部门管理"
+					},
+				},
 		 ]
 	}
 ]
