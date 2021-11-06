@@ -25,6 +25,7 @@ let routes = [
 			title: "CRM后台管理系统"
 		},
 		children: [
+<<<<<<< .merge_file_a18616
 			{
 				path: '/activity',
 				component: Activity,
@@ -33,6 +34,32 @@ let routes = [
 					title: "市场活动"
 				},
 			},
+=======
+				{
+					path: '/users',
+					component:() => import('@/components/power/users.vue'),
+					name: 'users',
+					meta: {
+						title: "用户管理"
+					},
+				},
+				{
+					path: '/dept',
+					component:() => import('@/components/power/Dept.vue'),
+					name: 'dept',
+					meta: {
+						title: "部门管理"
+					},
+				},
+				{
+					path: '/product',
+					component:() => import('@/components/product/Product.vue'),
+					name: 'product',
+					meta: {
+						title: "产品库"
+					},
+				},
+>>>>>>> .merge_file_a11044
 		 ]
 	}
 ]
