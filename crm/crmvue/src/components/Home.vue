@@ -50,8 +50,12 @@
 								   <i class="el-icon-setting"></i>
 					  			 <router-link to="/FormAttribute">系统设置</router-link>
 					  		</template>
-							<el-menu-item index="1-1">部门管理</el-menu-item>
-							<el-menu-item index="1-2">用户管理</el-menu-item>
+							<el-menu-item index="1-1">
+								 <router-link to="/dept">部门管理</router-link>
+							</el-menu-item>
+							<el-menu-item index="1-2">
+								 <router-link to="/users">用户管理</router-link>
+							</el-menu-item>
 							<el-menu-item index="1-3">权限管理</el-menu-item>
 					  </el-submenu>
 				      <el-submenu index="2">
@@ -82,7 +86,7 @@
 				      </el-submenu>
 					  <el-submenu index="4">
 					    <template #title>
-					  		<i class="el-icon-menu"></i>
+					  		<i class="el-icon-s-unfold"></i>
 					  		<span>
 					  			回款及开票
 					  		</span>
