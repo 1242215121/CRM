@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- namespace 命名空间—— mapper -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mybatis的映射文件：一个映射文件，对应一个Mapper接口-->
+<!--根标签是mapper
+        属性namespace 用来关联指定Mapper接口的全类名-->
+<mapper namespace="com.study.model.mapper.power.UsersMapper">
+    <resultMap id="usersResult" type="com.study.model.pojo.power.Users">
+        <id property="usersId" column="users_id"/>
+        <result property="usersName" column="users_name"/>
+        <result property="usersPwd" column="users_pwd"/>
+        <result property="usersFullname" column="users_fullname"/>
+        <result property="usersSex" column="users_sex"/>
+        <result property="usersBrith" column="users_brith"/>
+        <result property="usersPhone" column="users_phone"/>
+        <result property="usersEmail" column="users_email"/>
+        <result property="usersImgs" column="users_imgs"/>
+<!--        <association property="ajob" column=""-->
+<!--                     select=""-->
+<!--                     javaType="">-->
+
+<!--        </association>-->
+<!--        <association property="dept" column=""-->
+<!--                     select=""-->
+<!--                     javaType="">-->
+
+<!--        </association>-->
+<!--        <collection property="usersRole" column=""-->
+<!--                    select=""-->
+<!--                    ofType="">-->
+
+<!--        </collection>-->
+    </resultMap>
+    <select id="selectAll" resultMap="usersResult">
+
+    </select>
+    <select id="selectByUsersName" resultMap="usersResult">
+
+    </select>
+    <select id="selectByAjobId" resultMap="usersResult">
+        select * from users where ajob_id=#{ajobid} order by users_id desc
+    </select>
+</mapper>

@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Objects;
 
 
+/**
+ * 部门
+ */
 public class Dept {
-    private List<Users> users;
+    private List<Users> users;//
     private Integer deptId;
     private String deptName;
     private String deptDesc;

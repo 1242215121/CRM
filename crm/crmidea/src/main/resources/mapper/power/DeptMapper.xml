@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- namespace 命名空间—— mapper -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mybatis的映射文件：一个映射文件，对应一个Mapper接口-->
+<!--根标签是mapper
+        属性namespace 用来关联指定Mapper接口的全类名-->
+<mapper namespace="com.study.model.mapper.power.DeptMapper">
+
+</mapper>
