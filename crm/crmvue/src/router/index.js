@@ -39,6 +39,14 @@ let routes = [{
 						title: "部门管理"
 					},
 				},
+				{
+					path: '/product',
+					component:() => import('@/components/product/Product.vue'),
+					name: 'product',
+					meta: {
+						title: "产品库"
+					},
+				},
 		 ]
 	}
 ]
