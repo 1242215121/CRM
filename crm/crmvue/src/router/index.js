@@ -82,7 +82,6 @@ let routes = [
 					},
 				},
 				{
-<<<<<<< .merge_file_a25632
 					path: '/salefunnel',
 					component:() => import('@/components/insale/salefunnel.vue'),
 					name: 'salefunnel',
@@ -122,9 +121,6 @@ let routes = [
 						title: "退货单"
 					},
 				},
-				
-				
-=======
 					path: '/kpbl',
 					component:() => import('@/components/aftersale/Kpbl.vue'),
 					name: 'kpbl',
@@ -140,7 +136,6 @@ let routes = [
 						title: "回款确认"
 					},
 				},
->>>>>>> .merge_file_a25100
 		 ]
 	}
 ]
