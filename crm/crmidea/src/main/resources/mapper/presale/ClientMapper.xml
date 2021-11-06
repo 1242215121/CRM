@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.presale.ClientMapper">
+    <resultMap id="ClientMap" type="com.study.model.mapper.presale.ClientMapper">
+        <id column="client_id" property="clientId"/>
+        <result column="client_rule" property="clientRule"/>
+        <result column="client_name" property="clientName"/>
+        <result column="client_address" property="clientAddress"/>
+        <result column="client_phone" property="clientPhone"/>
+        <result column="client_state" property="clientState"/>
+        <result column="client_source" property="clientSource"/>
+        <result column="client_rank" property="clientRank"/>
+        <result column="client_linkman" property="clientLinkman"/>
+        <result column="client_scale" property="clientScale"/>
+
+
+
+    </resultMap>
+</mapper>

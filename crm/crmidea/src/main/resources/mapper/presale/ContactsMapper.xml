@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.presale.ContactsMapper">
+    <resultMap id="ContactsMap" type="com.study.model.pojo.presale.Contacts">
+        <id column="contacts_id" property="contactsId"/>
+        <result column="contacts_name" property="contactsName"/>
+        <result column="contacts_duty" property="contactsDuty"/>
+        <result column="contacts_phone" property="contactsPhone"/>
+        <result column="contacts_role" property="contactsRole"/>
+        <result column="contacts_case" property="contactsCase"/>
+    </resultMap>
+</mapper>

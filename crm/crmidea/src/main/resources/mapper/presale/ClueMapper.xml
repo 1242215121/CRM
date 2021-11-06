@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.presale.ClueMapper">
+    <resultMap id="ClueMap" type="com.study.model.pojo.presale.Clue">
+        <id column="clue_id" property="clueId"/>
+        <result column="clue_name" property="clueUser"/>
+        <result column="clue_company" property="clueCompany"/>
+        <result column="clue_post" property="cluePost"/>
+        <result column="clue_go_state" property="clueGoState"/>
+        <result column="clue_duty" property="clueDuty"/>
+        <result column="clue_state" property="clueState"/>
+        <result column="clue_time" property="clueTime"/>
+        <result column="clue_phone" property="cluePhone"/>
+    </resultMap>
+</mapper>

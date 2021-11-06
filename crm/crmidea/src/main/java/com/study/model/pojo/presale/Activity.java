@@ -1,22 +1,37 @@
 package com.study.model.pojo.presale;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.study.model.pojo.power.Users;
+
 import java.sql.Date;
 
+/**
+ * 活动
+ **/
 public class Activity {
-    private Integer activityId;
-    private String activityName;
-    private Integer activityUser;
-    private Date activityStart;
-    private Date activityOver;
-    private String activityAddress;
-    private String activityType;
-    private String activityState;
-    private Integer activityPlanCost;
-    private Integer activityRealityCost;
-    private String activityPlan;
-    private Integer activityPlanIncome;
-    private Integer activityRealityIncome;
+    private Integer activityId;//活动id
+    private String activityName;//活动名称
+    private Integer activityUser;//所属团队
+    private Date activityStart;//开始时间
+    private Date activityOver;//结束时间
+    private String activityAddress;//活动地址
+    private String activityType;//活动类型
+    private String activityState;//活动状态
+    private Integer activityPlanCost;//计划成本
+    private Integer activityRealityCost;//实际成本
+    private String activityPlan;//计划收入
+    private Integer activityPlanIncome;//实际收入
+    private Integer activityRealityIncome;//活动计划
+    private Users users;
 
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
 
     public Integer getActivityId() {
         return activityId;
@@ -119,6 +134,24 @@ public class Activity {
     }
 
     public void setActivityRealityIncome(Integer activityRealityIncome) {
+        this.activityRealityIncome = activityRealityIncome;
+    }
+
+    public Activity() {
+    }
+
+    public Activity(Integer activityId, String activityName, Date activityStart, Date activityOver, String activityAddress, String activityType, String activityState, Integer activityPlanCost, Integer activityRealityCost, String activityPlan, Integer activityPlanIncome, Integer activityRealityIncome) {
+        this.activityId = activityId;
+        this.activityName = activityName;
+        this.activityStart = activityStart;
+        this.activityOver = activityOver;
+        this.activityAddress = activityAddress;
+        this.activityType = activityType;
+        this.activityState = activityState;
+        this.activityPlanCost = activityPlanCost;
+        this.activityRealityCost = activityRealityCost;
+        this.activityPlan = activityPlan;
+        this.activityPlanIncome = activityPlanIncome;
         this.activityRealityIncome = activityRealityIncome;
     }
 
