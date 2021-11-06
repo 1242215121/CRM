@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.presale.ActivityMapper">
+    <resultMap id="ActivityMap" type="com.study.model.pojo.presale.Activity">
+        <id column="ACTIVITY_ID" property="activityId"/>
+        <result column="ACTIVITY_NAME" property="activityName"/>
+        <result column="ACTIVITY_START" property="activityStart"/>
+        <result column="ACTIVITY_OVER" property="activityOver"/>
+        <result column="ACTIVITY_ADDRESS" property="activityAddress"/>
+        <result column="ACTIVITY_TYPE" property="activityType"/>
+        <result column="ACTIVITY_STATE" property="activityState"/>
+        <result column="ACTIVITY_PLAN_COST" property="activityPlanCost"/>
+        <result column="ACTIVITY_REALITY_COST" property="activityRealityCost"/>
+        <result column="ACTIVITY_PLAN" property="activityPlan"/>
+        <result column="ACTIVITY_PLAN_INCOME" property="activityPlanIncome"/>
+        <result column="ACTIVITY_REALITY_INCOME" property="activityRealityIncome"/>
+    </resultMap>
+</mapper>

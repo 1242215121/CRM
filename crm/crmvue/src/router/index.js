@@ -1,5 +1,6 @@
 import Home from '@/components/Home.vue'
 import Login from '@/components/login.vue'
+import Activity from '@/componets/presale/Activity.vue'
 
 /* 1、创建路由数组 
 	path 唯一，一级路由必须以/开头
@@ -7,7 +8,8 @@ import Login from '@/components/login.vue'
 	component 路径对应子组件对象
 	mate 可选
 */
-let routes = [{
+let routes = [
+	{
 		path: '/login',
 		component: Login,
 		name: 'Login',
@@ -23,7 +25,14 @@ let routes = [{
 			title: "CRM后台管理系统"
 		},
 		children: [
-			
+			{
+				path: '/activity',
+				component: Activity,
+				name: 'Activity',
+				meta: {
+					title: "市场活动"
+				},
+			},
 		 ]
 	}
 ]

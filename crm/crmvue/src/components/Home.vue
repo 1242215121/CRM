@@ -62,7 +62,9 @@
 							  市场及客户
 						  </span>
 				        </template>
-						<el-menu-item index="2-1">市场活动</el-menu-item>
+						<el-menu-item index="2-1">
+							<router-link to="/activity">市场活动</router-link>
+						</el-menu-item>
 						<el-menu-item index="2-2">线索</el-menu-item>
 						<el-menu-item index="2-3">客户</el-menu-item>
 						<el-menu-item index="2-4">联系人</el-menu-item>
