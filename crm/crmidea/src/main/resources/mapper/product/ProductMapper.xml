@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.product.ProductMapper">
+    <resultMap id="ProMap" type="com.study.model.pojo.product.ProductEntity">
+        <id property="proId" column="proId"></id>
+        <result property="proName" column="proName"></result>
+        <result property="proTypeId" column="proTypeId"></result>
+        <result property="proState" column="proState"></result>
+        <result property="proPerson" column="proPerson"></result>
+        <result property="proUnit" column="proUnit"></result>
+        <result property="proPrice" column="proPrice"></result>
+        <result property="proInventoryState" column="proInventoryState"></result>
+        <result property="proInventoryAmount" column="proInventoryAmount"></result>
+        <result property="proInventoryUsable" column="proInventoryUsable"></result>
+        <result property="proInventoryLock" column="proInventoryLock"></result>
+        <result property="proModel" column="proModel"></result>
+        <result property="proDescribe" column="proDescribe"></result>
+        <result property="proDate" column="proDate"></result>
+        <result property="proBar" column="proBar"></result>
+    </resultMap>
+</mapper>
