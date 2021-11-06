@@ -1,27 +1,24 @@
 package com.study.model.pojo.power;
 
-import com.study.model.pojo.insale.Salefunnel;
-
-import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * 用户表
+ */
 public class Users {
-    private Integer usersId;
-    private String usersName;
-    private String usersPwd;
-    private String usersFullname;
-    private Integer usersSex;
-    private Date usersBrith;
-    private String usersPhone;
-    private String usersEmail;
-    private String usersImgs;
-    private Post post;
-    private Dept dept;
-    private List<UsersRole> usersRole;
-
-    private List<Salefunnel> salefunnels;//一个员工可负责多个销售机会
+    private Integer usersId;//编号
+    private String usersName;//用户名
+    private String usersPwd;//密码
+    private String usersFullname;//姓名
+    private Integer usersSex;//性别
+    private Date usersBrith;//生日
+    private String usersPhone;//电话
+    private String usersEmail;//邮箱
+    private String usersImgs;//头像地址
+    private Ajob ajob;//职位
+    private Dept dept;//部门
+    private List<UsersRole> usersRole;//角色
 
     public Integer getUsersId() {
         return usersId;
@@ -95,12 +92,12 @@ public class Users {
         this.usersImgs = usersImgs;
     }
 
-    public Post getPost() {
-        return post;
+    public Ajob getAjob() {
+        return ajob;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setAjob(Ajob ajob) {
+        this.ajob = ajob;
     }
 
     public Dept getDept() {
@@ -117,13 +114,5 @@ public class Users {
 
     public void setUsersRole(List<UsersRole> usersRole) {
         this.usersRole = usersRole;
-    }
-
-    public List<Salefunnel> getSalefunnels() {
-        return salefunnels;
-    }
-
-    public void setSalefunnels(List<Salefunnel> salefunnels) {
-        this.salefunnels = salefunnels;
     }
 }

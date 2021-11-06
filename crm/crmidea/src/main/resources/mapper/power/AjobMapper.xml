@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- namespace 命名空间—— mapper -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mybatis的映射文件：一个映射文件，对应一个Mapper接口-->
+<!--根标签是mapper
+        属性namespace 用来关联指定Mapper接口的全类名-->
+<mapper namespace="com.study.model.mapper.power.AjobMapper">
+    <resultMap id="ajobResult" type="com.study.model.pojo.power.Ajob">
+        <id property="ajobId" column="ajob_id"/>
+        <result property="ajobName" column="ajob_name"/>
+        <result property="ajobDesc" column="ajob_desc"/>
+        <collection property="users" column="ajob_id"
+                    ofType="com.study.model.pojo.power.Ajob"
+                    select="com.study.model.mapper.power.UsersMapper.selectByAjobId">
+
+        </collection>
+    </resultMap>
+    <select id="selectAll" resultMap="ajobResult">
+        select * from ajob order by ajob_id desc
+    </select>
+    <select id="selectByAjobId" resultMap="ajobResult">
+        select * from ajob where ajob_id=#{ajobid} order by ajob_id desc
+    </select>
+</mapper>

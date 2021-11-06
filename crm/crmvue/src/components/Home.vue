@@ -41,7 +41,7 @@
 				      class="el-menu-vertical-demo"
 				      @open="handleOpen"
 				      @close="handleClose"
-				      background-color="#545c64"
+				      background-color="slategray"
 				      text-color="#fff"
 				      active-text-color="#ffd04b">
 					  <el-submenu index="1">
@@ -186,16 +186,16 @@
 
 	.el-header,
 	.el-footer {
-		background-color: skyblue;
+		background-color: silver;
 		color: #fff;
 		text-align: center;
 		line-height: 60px;
 	}
 
 	.el-aside {
-		background-color: #2C3E50;
+		background-color: slategray;
 		color: #fff;
-		min-height: 600px;
+		min-height: 500px;
 	}
 
 	.el-main {
