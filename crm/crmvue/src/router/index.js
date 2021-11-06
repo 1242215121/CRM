@@ -47,6 +47,22 @@ let routes = [{
 						title: "产品库"
 					},
 				},
+				{
+					path: '/kpbl',
+					component:() => import('@/components/aftersale/Kpbl.vue'),
+					name: 'kpbl',
+					meta: {
+						title: "开票办理"
+					},
+				},
+				{
+					path: '/hkqr',
+					component:() => import('@/components/aftersale/Hkqr.vue'),
+					name: 'hkqr',
+					meta: {
+						title: "回款确认"
+					},
+				},
 		 ]
 	}
 ]

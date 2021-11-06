@@ -14,7 +14,7 @@ server:
   port: 8086
 
 mybatis:
-  mapper-locations: classpath*:mapper/*Mapper.xml #mapper映射
+  mapper-locations: classpath*:mapper/*/*.xml #mapper映射
   type-aliases-package: com.study.cj.model.pojo
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

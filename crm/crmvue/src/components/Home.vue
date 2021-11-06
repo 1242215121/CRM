@@ -87,8 +87,12 @@
 					  			回款及开票
 					  		</span>
 					  	</template>
-					  		<el-menu-item index="4-1">开票办理</el-menu-item>
-					  		<el-menu-item index="4-2">回款确认</el-menu-item>
+					  		<el-menu-item index="4-1">
+								<router-link to="/kpbl">开票办理</router-link>
+							</el-menu-item>
+					  		<el-menu-item index="4-2">
+								<router-link to="/hkqr">回款确认</router-link>
+							</el-menu-item>
 					  		<el-menu-item index="4-3">按订单汇总</el-menu-item>
 					  		<el-menu-item index="4-4">开票记录</el-menu-item>
 							<el-menu-item index="4-5">回款记录</el-menu-item>
