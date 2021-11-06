@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.insale.SalefunnelMapper">
+
+    <resultMap id="baseMap" type="com.study.model.pojo.insale.Salefunnel">
+        <id column="sf_id" property="sfId"/>
+        <result column="sf_name" property="sfName"/>
+        <result column="sf_money" property="sfMoney"/>
+        <result column="sf_date" property="sfDate"/>
+    </resultMap>
+
+</mapper>
