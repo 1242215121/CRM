@@ -1,6 +1,6 @@
 import Home from '@/components/Home.vue'
 import Login from '@/components/login.vue'
-import Activity from '@/componets/presale/Activity.vue'
+
 
 /* 1、创建路由数组 
 	path 唯一，一级路由必须以/开头
@@ -25,16 +25,38 @@ let routes = [
 			title: "CRM后台管理系统"
 		},
 		children: [
-<<<<<<< .merge_file_a18616
-			{
-				path: '/activity',
-				component: Activity,
-				name: 'Activity',
-				meta: {
-					title: "市场活动"
+				{
+					path: '/activity',
+					component:() => import('@/components/presale/Activity.vue'),
+					name: 'activity',
+					meta: {
+						title: "市场活动"
+					},
 				},
-			},
-=======
+				{
+					path: '/clue',
+					component:() => import('@/components/presale/Clue.vue'),
+					name: 'clue',
+					meta: {
+						title: "线索"
+					},
+				},
+				{
+					path: '/client',
+					component:() => import('@/components/presale/Client.vue'),
+					name: 'client',
+					meta: {
+						title: "客户"
+					},
+				},
+				{
+					path: '/contacts',
+					component:() => import('@/components/presale/Contacts.vue'),
+					name: 'contacts',
+					meta: {
+						title: "客户"
+					},
+				},
 				{
 					path: '/users',
 					component:() => import('@/components/power/users.vue'),
@@ -59,7 +81,6 @@ let routes = [
 						title: "产品库"
 					},
 				},
->>>>>>> .merge_file_a11044
 		 ]
 	}
 ]

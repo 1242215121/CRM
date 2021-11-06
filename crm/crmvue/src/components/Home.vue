@@ -65,9 +65,15 @@
 						<el-menu-item index="2-1">
 							<router-link to="/activity">市场活动</router-link>
 						</el-menu-item>
-						<el-menu-item index="2-2">线索</el-menu-item>
-						<el-menu-item index="2-3">客户</el-menu-item>
-						<el-menu-item index="2-4">联系人</el-menu-item>
+						<el-menu-item index="2-2">
+							<router-link to="/clue">线索</router-link>
+						</el-menu-item>
+						<el-menu-item index="2-3">
+							<router-link to="/client">客户</router-link>
+					    </el-menu-item>
+						<el-menu-item index="2-4">
+							<router-link to="/contacts">联系人</router-link>
+						</el-menu-item>
 				      </el-submenu>
 	
 				      <el-submenu index="3">
