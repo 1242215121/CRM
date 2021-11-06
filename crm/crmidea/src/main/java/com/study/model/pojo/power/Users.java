@@ -1,5 +1,7 @@
 package com.study.model.pojo.power;
 
+import com.study.model.pojo.insale.Salefunnel;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
@@ -18,6 +20,8 @@ public class Users {
     private Post post;
     private Dept dept;
     private List<UsersRole> usersRole;
+
+    private List<Salefunnel> salefunnels;//一个员工可负责多个销售机会
 
     public Integer getUsersId() {
         return usersId;
@@ -113,5 +117,13 @@ public class Users {
 
     public void setUsersRole(List<UsersRole> usersRole) {
         this.usersRole = usersRole;
+    }
+
+    public List<Salefunnel> getSalefunnels() {
+        return salefunnels;
+    }
+
+    public void setSalefunnels(List<Salefunnel> salefunnels) {
+        this.salefunnels = salefunnels;
     }
 }

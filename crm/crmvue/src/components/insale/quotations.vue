@@ -1,5 +1,5 @@
 <template>
-	<h3>销售机会</h3>	
+	<h3>报价单</h3>
 </template>
 
 <script>

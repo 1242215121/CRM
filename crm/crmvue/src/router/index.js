@@ -47,6 +47,48 @@ let routes = [{
 						title: "产品库"
 					},
 				},
+				{
+					path: '/salefunnel',
+					component:() => import('@/components/insale/salefunnel.vue'),
+					name: 'salefunnel',
+					meta: {
+						title: "销售机会"
+					},
+				},
+				{
+					path: '/salefunnelAdd',
+					component:() => import('@/components/insale/salefunnelAdd.vue'),
+					name: 'salefunnelAdd',
+					meta: {
+						title: "新增销售机会"
+					},
+				},
+				{
+					path: '/quotations',
+					component:() => import('@/components/insale/quotations.vue'),
+					name: 'quotations',
+					meta: {
+						title: "报价单"
+					},
+				},
+				{
+					path: '/saleorder',
+					component:() => import('@/components/insale/saleorder.vue'),
+					name: 'saleorder',
+					meta: {
+						title: "销售订单"
+					},
+				},
+				{
+					path: '/refunds',
+					component:() => import('@/components/insale/refunds.vue'),
+					name: 'refunds',
+					meta: {
+						title: "退货单"
+					},
+				},
+				
+				
 		 ]
 	}
 ]

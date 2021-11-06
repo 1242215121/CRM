@@ -75,10 +75,18 @@
 								销售过程管理
 							</span>
 						</template>
-						<el-menu-item index="3-1">销售机会</el-menu-item>
-						<el-menu-item index="3-2">报价单</el-menu-item>
-						<el-menu-item index="3-3">销售订单</el-menu-item>
-						<el-menu-item index="3-4">退货单</el-menu-item>
+						<el-menu-item index="3-1">
+							<router-link to="/salefunnel">销售机会</router-link>
+						</el-menu-item>
+						<el-menu-item index="3-2">
+							<router-link to="/quotations">报价单</router-link>
+						</el-menu-item>
+						<el-menu-item index="3-3">
+							<router-link to="/saleorder">销售订单</router-link>
+						</el-menu-item>
+						<el-menu-item index="3-4">
+							<router-link to="/refunds">退货单</router-link>
+						</el-menu-item>
 				      </el-submenu>
 					  <el-submenu index="4">
 					    <template #title>
