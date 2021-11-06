@@ -51,23 +51,10 @@
 				}
 			};
 			
-			var validatePass = (rule, value, callback) => {
-				if (value === '') {
-					callback(new Error('请输入验证码'));
-				} else {
-					if (this.ruleForm.code !== '') {
-						this.$refs.ruleForm.validateField('code');
-					}
-					callback();
-				}
-			};
 			return {
-				 identifyCodes: "1234567890",
-				 identifyCode: "",
 				 ruleForm: {
 					account: '',
-					pass: '',
-
+					pass: ''
 				},
 				rules: {
 					account: [{
@@ -88,14 +75,7 @@
 				
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
-						
-						
-							this.login();
-						
-							// ElMessage.error('请输入正确的验证码!')
-						
-						
-						
+							this.login();					
 					} else {
 						return false;
 					}
@@ -107,8 +87,14 @@
 					username: this.ruleForm.account,
 					password: this.ruleForm.pass
 				};
+		
 				let parms = qs.stringify(data);
-				this.$router.replace("/Home");
+				let users={
+					usersId:1
+				}
+				this.$store.commit('login',users);
+				this.$router.push('/home');
+				
 				// this.axios.post("user/login", parms).then(res => {
 					
 				// 	if (res.code == 1) {

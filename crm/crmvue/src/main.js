@@ -34,11 +34,10 @@ router.beforeEach((to, from, next) => {
 	}
 	//检查状态管理器中的对象值
 	let user=store.state.users.usersId;
-	
-	// if(user==undefined){
-	// 	next("/login");
-	// }
-	
+	if(user==undefined){
+		next("/login");
+	}
+	next();
 })
 
 
@@ -60,5 +59,4 @@ app.use(router)
 app.use(store)
 /* 最后、挂载元素 */
 app.mount('#app')
-app.component('QuillEditor', QuillEditor)
 

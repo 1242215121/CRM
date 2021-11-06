@@ -16,22 +16,14 @@ let routes = [{
 		},
 	},
 	{
-		path: '/Home',
+		path: '/home',
 		component: Home,
 		name: 'Home',
 		meta: {
 			title: "CRM后台管理系统"
 		},
 		children: [
-			{
-				path: '/404',
-				component: () => import('@/components/404.vue'),
-				name: '404',
-				meta: {
-					title: "404"
-				}
-			}
-
+			
 		 ]
 	}
 ]
