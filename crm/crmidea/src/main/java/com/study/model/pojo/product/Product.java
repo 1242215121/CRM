@@ -1,10 +1,15 @@
 package com.study.model.pojo.product;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class ProductEntity {
+/**
+ * 产品
+ */
+public class Product {
     private String proId;  //产品编号
     private String proName; //产品名称
     private Integer proTypeId; //产品类别
@@ -18,14 +23,15 @@ public class ProductEntity {
     private Integer proInventoryLock;   //锁定库存
     private String proModel;   //产品型号
     private String proDescribe; //产品描述
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Timestamp proDate;  //创建时间
     private String proBar;  //条形码
 
-    public ProductEntity() {
+    public Product() {
         super();
     }
 
-    public ProductEntity(String proId, String proName, Integer proTypeId, Integer proState, Integer proPerson, String proUnit, Double proPrice, Integer proInventoryState, Integer proInventoryAmount, Integer proInventoryUsable, Integer proInventoryLock, String proModel, String proDescribe, Timestamp proDate, String proBar) {
+    public Product(String proId, String proName, Integer proTypeId, Integer proState, Integer proPerson, String proUnit, Double proPrice, Integer proInventoryState, Integer proInventoryAmount, Integer proInventoryUsable, Integer proInventoryLock, String proModel, String proDescribe, Timestamp proDate, String proBar) {
         this.proId = proId;
         this.proName = proName;
         this.proTypeId = proTypeId;

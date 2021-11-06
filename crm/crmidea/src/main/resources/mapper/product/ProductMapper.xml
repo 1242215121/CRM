@@ -2,21 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.model.mapper.product.ProductMapper">
-    <resultMap id="ProMap" type="com.study.model.pojo.product.ProductEntity">
-        <id property="proId" column="proId"></id>
-        <result property="proName" column="proName"></result>
-        <result property="proTypeId" column="proTypeId"></result>
-        <result property="proState" column="proState"></result>
-        <result property="proPerson" column="proPerson"></result>
-        <result property="proUnit" column="proUnit"></result>
-        <result property="proPrice" column="proPrice"></result>
-        <result property="proInventoryState" column="proInventoryState"></result>
-        <result property="proInventoryAmount" column="proInventoryAmount"></result>
-        <result property="proInventoryUsable" column="proInventoryUsable"></result>
-        <result property="proInventoryLock" column="proInventoryLock"></result>
-        <result property="proModel" column="proModel"></result>
-        <result property="proDescribe" column="proDescribe"></result>
-        <result property="proDate" column="proDate"></result>
-        <result property="proBar" column="proBar"></result>
+    <resultMap id="ProMap" type="com.study.model.pojo.product.Product">
+        <id property="proId" column="pro_id"></id>
+        <result property="proName" column="pro_name"></result>
+        <result property="proTypeId" column="pro_type_id"></result>
+        <result property="proState" column="pro_state"></result>
+        <result property="proPerson" column="pro_person"></result>
+        <result property="proUnit" column="pro_unit"></result>
+        <result property="proPrice" column="pro_price"></result>
+        <result property="proInventoryState" column="pro_inventory_state"></result>
+        <result property="proInventoryAmount" column="pro_inventory_amount"></result>
+        <result property="proInventoryUsable" column="pro_inventory_usable"></result>
+        <result property="proInventoryLock" column="pro_inventory_lock"></result>
+        <result property="proModel" column="pro_model"></result>
+        <result property="proDescribe" column="pro_describe"></result>
+        <result property="proDate" column="pro_date"></result>
+        <result property="proBar" column="pro_bar"></result>
     </resultMap>
+
+    <!--查询所有产品-->
+    <select id="selPro" resultMap="ProMap">
+        select * from product
+<!--        <where>-->
+<!--            <if test="proTypeId != '' and proTypeId != null ">-->
+<!--                and pro_type_id = #{proTypeId}-->
+<!--            </if>-->
+<!--            -->
+<!--        </where>-->
+    </select>
+
+
 </mapper>

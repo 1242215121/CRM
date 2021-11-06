@@ -3,16 +3,19 @@ package com.study.model.pojo.product;
 import javax.persistence.*;
 import java.util.Objects;
 
-public class TypeEntity {
+/**
+ * 产品类别
+ */
+public class Type {
     private int typeId; //类别编号
     private String typeName; //类别名称
     private Integer parentId; //父级类别
 
-    public TypeEntity() {
+    public Type() {
         super();
     }
 
-    public TypeEntity(int typeId, String typeName, Integer parentId) {
+    public Type(int typeId, String typeName, Integer parentId) {
         this.typeId = typeId;
         this.typeName = typeName;
         this.parentId = parentId;
