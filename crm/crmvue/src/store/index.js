@@ -11,7 +11,11 @@ let store = createStore({
 	},
 	/* 同步函数：修改状态中的变量 */
 	mutations:{
-		
+		login(state,users){
+				//添加用户信息到状态管理器中
+			    state.users = users;
+				
+		 },
 	},
 	/* 异步函数 */
 	actions:{
