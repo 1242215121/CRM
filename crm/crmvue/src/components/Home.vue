@@ -101,7 +101,9 @@
 					  			产品
 					  		</span>
 					  	</template>
-					  		<el-menu-item index="5-1">产品库</el-menu-item>
+					  		<el-menu-item index="5-1">
+								<router-link to="/Product">产品库</router-link>
+							</el-menu-item>
 					  		<el-menu-item index="5-2">出入库办理</el-menu-item>
 					  		<el-menu-item index="5-3">出入库单</el-menu-item>
 					  		<el-menu-item index="5-4">出入库流水</el-menu-item>
