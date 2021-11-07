@@ -16,29 +16,48 @@
         <result property="usersPhone" column="users_phone"/>
         <result property="usersEmail" column="users_email"/>
         <result property="usersImgs" column="users_imgs"/>
-<!--        <association property="ajob" column=""-->
-<!--                     select=""-->
-<!--                     javaType="">-->
+        <association property="ajob" column="ajob_id"
+                     select="com.study.model.mapper.power.AjobMapper.selectByAjobIdNoUsers"
+                     javaType="com.study.model.pojo.power.Ajob">
 
-<!--        </association>-->
-<!--        <association property="dept" column=""-->
-<!--                     select=""-->
-<!--                     javaType="">-->
+        </association>
+        <association property="dept" column="dept_id"
+                     select="com.study.model.mapper.power.DeptMapper.selectByDeptIdNoUsers"
+                     javaType="com.study.model.pojo.power.Dept">
 
-<!--        </association>-->
-<!--        <collection property="usersRole" column=""-->
-<!--                    select=""-->
-<!--                    ofType="">-->
+        </association>
+<!--        <collection property="usersRole" column="users_id"-->
+<!--                    select="com.study.model.mapper.power.UsersRoleMapper.selectByUsersId"-->
+<!--                    ofType="com.study.model.pojo.power.UsersRole">-->
 
 <!--        </collection>-->
     </resultMap>
-    <select id="selectAll" resultMap="usersResult">
 
+    <select id="selectAll" resultMap="usersResult" parameterType="com.study.model.vojo.power.UsersVo">
+        select * from users
+        <where>
+            <if test="name!=null and name!=''">
+                and users_fullname=#{name}
+            </if>
+            <if test="dpetid!=null and deptid>0">
+                and dept_id=#{deptid}
+            </if>
+            <if test="ajobid!=null and ajobid>0">
+                and ajob_id=#{ajob_id}
+            </if>
+        </where>
+        order by users_id desc
     </select>
+
     <select id="selectByUsersName" resultMap="usersResult">
-
+        select * from users where users_name=#{name}
     </select>
+
     <select id="selectByAjobId" resultMap="usersResult">
         select * from users where ajob_id=#{ajobid} order by users_id desc
+    </select>
+
+    <select id="selectByDeptId" resultType="com.study.model.pojo.power.Users">
+        select * from users where dept_id=#{deptid} order by users_id desc
     </select>
 </mapper>
