@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.insale.QuotationsMapper">
+
+    <resultMap id="baseMap" type="com.study.model.pojo.insale.Quotations">
+        <id column="q_id" property="qId"/>
+        <result column="q_name" property="qName"/>
+        <result column="q_money" property="qMoney"/>
+        <result column="q_date" property="qDate"/>
+        <result column="q_stage" property="qStage"/>
+        <result column="q_time" property="qTime"/>
+        <!-- private Salefunnel salefunnelBySfId-->
+        <association property="salefunnelBySfId" javaType="com.study.model.pojo.insale.Salefunnel">
+            <id column="sf_id" property="sfId"/>
+            <result column="sf_name" property="sfName"/>
+            <association property="user" javaType="com.study.model.pojo.power.Users">
+                <id column="users_id" property="usersId"/>
+                <result column="users_name" property="usersName"/>
+            </association>
+        </association>
+        <!--  private List<Quotapro> quotapros;//多条报价单产品信息-->
+        <collection property="quotapros" select="com.study.model.mapper.insale.QuotaproMapper.selectByQid" column="q_id"/>
+    </resultMap>
+
+    <!-- public List<Quotations> selectAll();
+     关联销售机会查询所有报价单-->
+    <select id="selectAll" resultMap="baseMap">
+        select q_id, q_name, q_money, q_date, q_stage, q_time,s.sf_id,s.sf_name,u.users_id,u.users_name from quotations
+        left join salefunnel s on quotations.sf_id = s.sf_id
+        left join users u on u.users_id = s.sf_change
+        order by q_id desc
+    </select>
+
+    <!--   public List<Quotations> selectMany(@Param("id") Integer id,@Param("name") String name);
+    多条件查询-->
+    <select id="selectMany" resultMap="baseMap">
+        select q_id, q_name, q_money, q_date, q_stage, q_time,s.sf_id,s.sf_name,u.users_id,u.users_name from quotations
+        left join salefunnel s on quotations.sf_id = s.sf_id
+        left join users u on u.users_id = s.sf_change
+        <where>
+            <if test="id != null and id != '' ">
+                and q_id like concat('%',#{id},'%')
+            </if>
+            <if test="name != null and name != '' ">
+                and q_name like concat('%',#{name},'%')
+            </if>
+        </where>
+        order by q_id desc
+    </select>
+
+    <!--public Integer updateStage(Integer qid);
+    根据报价单编号修改状态-->
+    <update id="updateStage" parameterType="java.lang.Integer">
+        update quotations set q_stage = '确认' where q_id = #{qid}
+    </update>
+
+    <!--public Integer insert(Quotations quotations);
+    新增报价单-->
+    <insert id="insert" parameterType="com.study.model.pojo.insale.Quotations">
+        insert into quotations(q_id, sf_id, q_name, q_money, q_date, q_stage, q_time)
+        values (#{q_id},#{sf_id},#{q_name},#{q_money},#{q_date},#{q_stage},#{q_time})
+    </insert>
+
+</mapper>

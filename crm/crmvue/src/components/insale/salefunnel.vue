@@ -32,10 +32,16 @@
 					<el-table-column prop="contacts.contactsName" label="联系人"></el-table-column>
 					<el-table-column label="关联产品" width="200px">
 						<template #default="scope">
-							<span v-if="scope.row.salepros != null" 
-							v-for="s in scope.row.salepros">
-							{{s.product.proName}} ,
-							</span>
+							<p v-if="scope.row.salepros != null">
+								<span v-for="s in scope.row.salepros">
+								{{s.product.proName}} ,
+								</span>
+							</p>
+						</template>
+					</el-table-column>
+					<el-table-column label="操作">
+						<template #default="scope">
+							<el-button type="primary" size="mini" @click="look(scope.row)" plain>查看产品</el-button>
 						</template>
 					</el-table-column>
 				</el-table>
@@ -95,6 +101,15 @@
 						</el-form>
 					</div>
 				</el-drawer>
+				<el-dialog title="产品明细" v-model="dialogVisible" width="42%" :before-close="handleClose">
+					<!-- 查看产品 -->
+					<el-table :data="product" style="width: 100%">
+						<el-table-column prop="product.proId" label="产品编号"></el-table-column>
+						<el-table-column prop="product.proName" label="产品名称"></el-table-column>
+						<el-table-column prop="product.proPrice" label="产品价格"></el-table-column>
+						<el-table-column prop="proNum" label="产品数量"></el-table-column>
+					</el-table>
+				</el-dialog>
 			</el-main>
 		</el-container>
 	</div>
@@ -112,12 +127,14 @@
 				eeid: null,
 				sale: {},
 				sales: [],
+				product:[],
 				total: 0, //总页数
 				pageSize: 3, //每页的条数
 				pageNo: 1, //第几页
 				index: 0,
+				dialogVisible:false,//产品产看状态
 				starttime:null,
-				drawer: false, //面板状态
+				drawer: false, //面板状态新增
 				formInline:{},
 				rules:{
 					name:[
@@ -225,6 +242,21 @@
 			
 				return year + "-" + month + "-" + day;
 			},
+			//查看产品详情
+			look(row) {
+				let $this = this;
+				$this.dialogVisible = true;
+				this.axios.get("/salepro", {
+					params: {
+						sfid: row.sfId,
+					}
+				}).then(res => {
+					console.log("产品组成：", res);
+					$this.product = res.data;
+			
+				})
+				
+			},
 			//多条件查询
 			onSubmit() {
 				let $this = this;
@@ -236,7 +268,7 @@
 					id:$this.sale.id,
 					name:$this.sale.name,
 				}).then(res=>{
-					console.log("销售机会多条件查询", res);
+					// console.log("销售机会多条件查询", res);
 					this.common(res);
 					$this.index = 1;
 				})
@@ -249,7 +281,7 @@
 						size: $this.pageSize
 					}
 				}).then(res => {
-					console.log("销售机会:",res);
+					// console.log("销售机会:",res);
 					$this.common(res);
 				})
 			},
