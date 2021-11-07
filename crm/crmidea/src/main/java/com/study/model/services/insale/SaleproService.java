@@ -1,7 +1,9 @@
 package com.study.model.services.insale;
 
 import com.study.model.mapper.insale.SaleproMapper;
+import com.study.model.pojo.insale.Salefunnel;
 import com.study.model.pojo.insale.Salepro;
+import com.study.model.pojo.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,18 @@ public class SaleproService {
      */
     public List<Salepro> selectBySfid(Integer sfid){
         return mapper.selectBySfid(sfid);
+    }
+
+
+    /**
+     *
+     * @param num
+     * @param salefunnel
+     * @param product
+     * @return
+     */
+    public Integer insert(Integer num,Integer salefunnel,String product){
+        return mapper.insert(num,salefunnel,product);
     }
 
 

@@ -25,6 +25,7 @@ public class ActivityController {
     public MyResult seAct(){
         return  MyResult.SUCCESS_DATA(activityService.seAct());
     }
+
     public MyResult inActivity(Activity activity){
         Integer a = activityService.inActivity(activity);
         if(a>0){

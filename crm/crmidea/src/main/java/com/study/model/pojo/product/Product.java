@@ -3,6 +3,7 @@ package com.study.model.pojo.product;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.study.model.pojo.insale.Quotapro;
 import com.study.model.pojo.insale.Salepro;
+import com.study.model.pojo.insale.Sorderpro;
 import com.study.model.pojo.power.Users;
 
 import javax.persistence.*;
@@ -33,6 +34,7 @@ public class Product {
 
     private List<Salepro> salepros; // 销售机会和产品中间表
     private List<Quotapro> quotapros;//报价单和产品的中间表
+    private List<Sorderpro> sorderpros;//销售订单和产品中间表
 
     private Type type;//产品类别
 
@@ -222,6 +224,14 @@ public class Product {
 
     public void setQuotapros(List<Quotapro> quotapros) {
         this.quotapros = quotapros;
+    }
+
+    public List<Sorderpro> getSorderpros() {
+        return sorderpros;
+    }
+
+    public void setSorderpros(List<Sorderpro> sorderpros) {
+        this.sorderpros = sorderpros;
     }
 
     @Override

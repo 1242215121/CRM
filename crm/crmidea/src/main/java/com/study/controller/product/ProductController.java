@@ -6,6 +6,7 @@ import com.study.model.services.product.ProductService;
 import com.study.utils.MyResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +29,12 @@ public class ProductController {
 
         return  MyResult.SUCCESS_DATA(productService.selPro(product1));
 
+    }
+
+    @GetMapping
+    public MyResult selectAll(){
+        System.out.println("查询所有产品");
+        return MyResult.SUCCESS_DATA(productService.selectAll());
     }
 
     /**

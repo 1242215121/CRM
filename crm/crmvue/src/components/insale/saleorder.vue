@@ -22,33 +22,24 @@
 					</el-form>
 				</div>
 				<el-table :data="orders" style="width: 100%">
-					<el-table-column prop="sfId" label="销售订单编号"></el-table-column>
+					<el-table-column prop="soId" label="订单编号"></el-table-column>
 					<el-table-column prop="user.usersName" label="负责人"></el-table-column>
-					<el-table-column prop="sfName" label="订单名称"></el-table-column>
-					<el-table-column prop="sfMoney" label="订单金额"></el-table-column>
-					<el-table-column prop="sfDate" label=" 回款金额"></el-table-column>
-					<el-table-column prop="sfDate" label=" 欠款金额"></el-table-column>
-					<el-table-column prop="sfDate" label=" 退货单金额"></el-table-column>
-					<el-table-column prop="sfDate" label=" 回款状态"></el-table-column>
-					<el-table-column prop="sfDate" label=" 开票状态"></el-table-column>
-					<el-table-column prop="sfDate" label=" 开票金额"></el-table-column>
-					<el-table-column prop="sfDate" label=" 成交日期"></el-table-column>
-					<el-table-column prop="sfDate" label=" 产品数量"></el-table-column>
-					<el-table-column prop="sfDate" label=" 已出库数量"></el-table-column>
-					<el-table-column prop="sfDate" label=" 未出库数量"></el-table-column>
-					<el-table-column prop="sfDate" label=" 出库状态"></el-table-column>
+					<el-table-column prop="soName" label="订单名称"></el-table-column>
+					<el-table-column prop="soMoney" label="订单金额"></el-table-column>
+					<el-table-column prop="soOrderstatu" label="订单状态"></el-table-column>
+					<el-table-column prop="soBack" label=" 回款金额"></el-table-column>
+					<el-table-column prop="soPay" label=" 欠款金额"></el-table-column>
+					<el-table-column prop="soReturn" label=" 退货单金额"></el-table-column>
+					<el-table-column prop="soBackstatu" label=" 回款状态"></el-table-column>
+					<el-table-column prop="soInvoicing" label=" 开票状态"></el-table-column>
+					<el-table-column prop="soInvostatu" label=" 开票金额"></el-table-column>
+					<el-table-column prop="soDate" label="成交日期" width="100px"></el-table-column>
+					<el-table-column prop="soNum" label="产品数量"></el-table-column>
+					<el-table-column prop="soWynum" label=" 已出库数量"></el-table-column>
+					<el-table-column prop="soNonum" label=" 未出库数量"></el-table-column>
+					<el-table-column prop="soWarestatu" label=" 出库状态"></el-table-column>
 					<el-table-column prop="client.clientName" label="所属客户"></el-table-column>
-					<el-table-column prop="activity.activityName" label="关联机会"></el-table-column>
-					<el-table-column prop="contacts.contactsName" label="联系人"></el-table-column>
-					<el-table-column label="关联产品" width="200px">
-						<template #default="scope">
-							<p v-if="scope.row.salepros != null">
-								<span v-for="s in scope.row.salepros">
-								{{s.product.proName}} ,
-								</span>
-							</p>
-						</template>
-					</el-table-column>
+					<el-table-column prop="salefunnelBySfId.sfName" label="关联机会"></el-table-column>
 					<el-table-column label="操作">
 						<template #default="scope">
 							<el-button type="primary" size="mini" @click="look(scope.row)" plain>查看产品</el-button>
@@ -69,14 +60,14 @@
 								<el-input v-model="formInline.money" placeholder="请输入机会金额"></el-input>
 							</el-form-item>
 							<el-form-item label="负责人员:" class="ttsalary" prop="emp">
-								<el-select v-model="formInline.emp" placeholder="请输入负责人员">
-									<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
-										:label="o.oadeptName" :value="o.oadeptId">
+								<el-select v-model="formInline.emp" placeholder="请选择负责人员">
+									<el-option v-if="users!=null" v-for="u in users" :key="u.usersId"
+										:label="u.usersName" :value="u.usersId">
 									</el-option>
 								</el-select>
 							</el-form-item>
 							<el-form-item label="所属客户:" class="ttsalary" prop="custom">
-								<el-select v-model="formInline.custom" placeholder="请输入所属客户">
+								<el-select v-model="formInline.custom" placeholder="请选择所属客户">
 									<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
 										:label="o.oadeptName" :value="o.oadeptId">
 									</el-option>
@@ -90,7 +81,7 @@
 								</el-select>
 							</el-form-item>
 							<el-form-item label="关联活动:" class="ttsalary" prop="activity">
-								<el-select v-model="formInline.activity" placeholder="请输入关联活动">
+								<el-select v-model="formInline.activity" placeholder="请选择关联活动">
 									<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
 										:label="o.oadeptName" :value="o.oadeptId">
 									</el-option>
@@ -135,6 +126,7 @@
 		data() {
 			return {
 				eeid: null,
+				users:[],
 				order: {},
 				orders: [],
 				product:[],
@@ -255,10 +247,11 @@
 			//查看产品详情
 			look(row) {
 				let $this = this;
+				console.log("订单编号：",row.soId)
 				$this.dialogVisible = true;
-				this.axios.get("/salepro", {
+				this.axios.get("/sorderpro", {
 					params: {
-						sfid: row.sfId,
+						soid: row.soId,
 					}
 				}).then(res => {
 					console.log("产品组成：", res);
@@ -272,26 +265,26 @@
 				let $this = this;
 				console.log("机会编号---------" + $this.order.id);
 				console.log("机会名称---------" + $this.order.name);
-				this.axios.post("/salefunnel/many",{
+				this.axios.post("/saleorder/many",{
 					no: $this.pageNo,
 					size: $this.pageSize,
 					id:$this.order.id,
 					name:$this.order.name,
 				}).then(res=>{
-					// console.log("销售机会多条件查询", res);
+					// console.log("销售订单多条件查询", res);
 					this.common(res);
 					$this.index = 1;
 				})
 			},
 			loadData() {
 				let $this = this;
-				this.axios.get("/salefunnel", {
+				this.axios.get("/saleorder", {
 					params: {
 						no: $this.pageNo,
 						size: $this.pageSize
 					}
 				}).then(res => {
-					// console.log("销售机会:",res);
+					// console.log("销售订单:",res);
 					$this.common(res);
 				})
 			},
@@ -304,9 +297,18 @@
 				}
 
 			},
+			// 负责人查询
+			loadUser(){
+				let $this = this;
+				this.axios.get("/users").then(res => {
+					console.log("负责人:",res);
+					$this.users = res.data;
+				})
+			},
 		},
 		created() {
 			this.loadData();
+			this.loadUser();
 		}
 	}
 </script>

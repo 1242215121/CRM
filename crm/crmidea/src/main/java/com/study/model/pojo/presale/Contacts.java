@@ -2,6 +2,7 @@ package com.study.model.pojo.presale;
 
 
 import com.study.model.pojo.insale.Salefunnel;
+import com.study.model.pojo.insale.Saleorder;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Contacts {
     private Integer contactsCutostomer;//客户外键
 
     private List<Salefunnel> salefunnels;//销售机会
+    private List<Saleorder> saleorders;//销售订单
 
 
     public Integer getContactsId() {
@@ -85,6 +87,14 @@ public class Contacts {
 
     public void setSalefunnels(List<Salefunnel> salefunnels) {
         this.salefunnels = salefunnels;
+    }
+
+    public List<Saleorder> getSaleorders() {
+        return saleorders;
+    }
+
+    public void setSaleorders(List<Saleorder> saleorders) {
+        this.saleorders = saleorders;
     }
 
     public Contacts() {

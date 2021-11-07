@@ -1,6 +1,7 @@
 package com.study.controller.insale;
 
 import com.study.model.services.insale.SalefunnelService;
+import com.study.model.vojo.insale.SalefunnelNewVo;
 import com.study.model.vojo.insale.SalefunnelVo;
 import com.study.utils.MyResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,20 @@ public class SalefunnelController {
         return MyResult.SUCCESS_Object(service.selectMany(
                 salefunnelVo.getNo(),salefunnelVo.getSize(),
                 salefunnelVo.getId(),salefunnelVo.getName()));
+    }
+
+    @PostMapping("/insert")
+    public MyResult insert(@RequestBody SalefunnelNewVo salefunnelNewVo){
+        System.out.println("新增销售机会方法：机会名称："+salefunnelNewVo.getName()+",机会金额："+salefunnelNewVo.getMoney()
+                +",负责人员："+salefunnelNewVo.getEmp()+",所属客户："+salefunnelNewVo.getCustom()
+                +",联系人员："+salefunnelNewVo.getPerson()+",关联活动："+salefunnelNewVo.getActivity()
+                +",预计成交日："+salefunnelNewVo.getStarttime()+",添加产品："+salefunnelNewVo.getProduct());
+        Integer s = service.insert(salefunnelNewVo);
+        if(s>0){
+            myResult.setCode(1);
+        }else {
+            myResult.setCode(-1);
+        }
+        return myResult;
     }
 }

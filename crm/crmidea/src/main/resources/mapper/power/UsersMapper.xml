@@ -50,6 +50,11 @@
         order by users_id desc
     </select>
 
+    <!--  public List<Users> selectAlls();-->
+    <select id="selectAlls" resultType="com.study.model.pojo.power.Users">
+        select * from users
+    </select>
+
     <select id="selectByUsersName" resultMap="usersResult">
         select * from users where users_name=#{name}
     </select>

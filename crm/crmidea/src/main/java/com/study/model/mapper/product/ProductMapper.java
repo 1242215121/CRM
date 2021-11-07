@@ -16,6 +16,12 @@ public interface ProductMapper {
     public List<Product> selPro(Product product);
 
     /**
+     * 查询所有产品
+     * @return
+     */
+    public List<Product> selectAll();
+
+    /**
      *
      * 新增产品
      */
