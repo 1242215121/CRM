@@ -1,6 +1,10 @@
 package com.study.model.pojo.presale;
 
 
+import com.study.model.pojo.insale.Salefunnel;
+
+import java.util.List;
+
 /**
  * 客户
  **/
@@ -17,7 +21,7 @@ public class Client {
     private String clientLinkman;//联系人
     private String clientScale;//客户规模
 
-
+    private List<Salefunnel> salefunnels;//销售机会
 
     public Integer getClientId() {
         return clientId;
@@ -117,6 +121,13 @@ public class Client {
         this.clientScale = clientScale;
     }
 
+    public List<Salefunnel> getSalefunnels() {
+        return salefunnels;
+    }
+
+    public void setSalefunnels(List<Salefunnel> salefunnels) {
+        this.salefunnels = salefunnels;
+    }
 
     public Client() {
     }

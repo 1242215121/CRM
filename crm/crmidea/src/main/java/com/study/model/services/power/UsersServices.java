@@ -39,4 +39,13 @@ public class UsersServices {
     public List<Users> selectByAjobId(Integer jobid){
         return mapper.selectByAjobId(jobid);
     }
+
+    /**
+     * 根据部门编号查询用户
+     * @param deptid
+     * @return
+     */
+    public List<Users> selectByDeptId(Integer deptid){
+        return mapper.selectByDeptId(deptid);
+    }
 }

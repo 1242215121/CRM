@@ -19,12 +19,16 @@ public class AttachmentService {
     public Map<String,Object> fjzlcx(String nr){
         Map<String,Object> map=new HashMap<>();
         map.put("fjzl",attachmentMapper.fjzlcx(nr));
-        List<Attachment> fjzlcx = attachmentMapper.fjzlcx(nr);
-        for (Attachment attachment : fjzlcx) {
-            System.out.println(attachment);
-        }
-
         return map;
 
+    }
+
+    public String fjzlxz(Attachment attachment){
+        try{
+            attachmentMapper.fjzlxz(attachment);
+            return "ok";
+        }catch (Exception e){
+            return "no";
+        }
     }
 }

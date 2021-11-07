@@ -20,6 +20,10 @@
         select * from ajob order by ajob_id desc
     </select>
     <select id="selectByAjobId" resultMap="ajobResult">
-        select * from ajob where ajob_id=#{ajobid} order by ajob_id desc
+        select * from ajob where ajob_id=#{ajobid}
+    </select>
+
+    <select id="selectByAjobIdNoUsers" resultType="com.study.model.pojo.power.Ajob">
+        select * from ajob where ajob_id=#{ajobid}
     </select>
 </mapper>

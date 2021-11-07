@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.product.TypeMapper">
+    <resultMap id="TypeMap" type="com.study.model.pojo.product.Type">
+        <id property="typeId" column="type_id"></id>
+        <result property="typeName" column="type_name"></result>
+        <result property="parentId" column="parent_id"></result>
+    </resultMap>
+
+    <!--查询所有类别-->
+    <select id="selType" resultMap="TypeMap">
+        select t1.type_id as type_ids ,t1.type_name as type_names,t.* from type t inner join type t1 on t.type_id = t1.parent_id
+    </select>
+
+</mapper>

@@ -14,6 +14,23 @@
             <id column="users_id" property="usersId"/>
             <result column="users_name" property="usersName"/>
         </association>
+        <!--private Client client;//一个销售机会只有一个客户
+         private Activity activity; // 一个销售机会关联一个活动
+         private Contacts contacts;//一个销售机会关联一个联系人-->
+        <association property="client" javaType="com.study.model.pojo.presale.Client">
+            <id column="client_id" property="clientId"/>
+            <result column="client_name" property="clientName"/>
+        </association>
+        <association property="activity" javaType="com.study.model.pojo.presale.Activity">
+            <id column="activity_id" property="activityId"/>
+            <result column="activity_name" property="activityName"/>
+        </association>
+        <association property="contacts" javaType="com.study.model.pojo.presale.Contacts">
+            <id column="contacts_id" property="contactsId"/>
+            <result column="contacts_name" property="contactsName"/>
+        </association>
+        <!--  private List<Salepro> salepros;// 销售机会和产品中间表-->
+        <collection property="salepros" select="com.study.model.mapper.insale.SaleproMapper.selectBySfid" column="sf_id"/>
     </resultMap>
 
     <!--连接客户表，员工表，市场活动表，联系人表，查询销售机会
@@ -25,6 +42,26 @@
         LEFT JOIN contacts co ON co.contacts_id = salefunnel.sf_contact
         LEFT JOIN users u ON u.users_id = salefunnel.sf_change
         LEFT JOIN activity a ON a.activity_id = salefunnel.sf_activity
+        ORDER BY sf_id DESC
+    </select>
+
+    <!--根据机会编号和机会名称查询所有
+     public List<Salefunnel> selectMany(@Param("id") Integer id,@Param("name") String name);-->
+    <select id="selectMany" resultMap="baseMap">
+         SELECT sf_id, sf_name, sf_money, sf_date,u.users_id,u.users_name,
+         c.client_id,c.client_name,a.activity_id,a.activity_name,co.contacts_id,co.contacts_name FROM salefunnel
+        LEFT JOIN client c ON c.client_id = salefunnel.sf_customer
+        LEFT JOIN contacts co ON co.contacts_id = salefunnel.sf_contact
+        LEFT JOIN users u ON u.users_id = salefunnel.sf_change
+        LEFT JOIN activity a ON a.activity_id = salefunnel.sf_activity
+        <where>
+            <if test="id != null and id != '' ">
+                and sf_id like concat('%',#{id},'%')
+            </if>
+            <if test="name != null and name != '' ">
+                and sf_name like concat('%',#{name},'%')
+            </if>
+        </where>
         ORDER BY sf_id DESC
     </select>
 

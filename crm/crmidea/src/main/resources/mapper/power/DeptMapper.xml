@@ -6,5 +6,26 @@
 <!--根标签是mapper
         属性namespace 用来关联指定Mapper接口的全类名-->
 <mapper namespace="com.study.model.mapper.power.DeptMapper">
+    <resultMap id="deptResult" type="com.study.model.pojo.power.Dept">
+        <id property="deptId" column="dept_id"/>
+        <result property="deptName" column="dept_name"/>
+        <result property="deptDesc" column="dept_desc"/>
+        <collection property="users" column="dept_id"
+                    select="com.study.model.mapper.power.UsersMapper.selectByDeptId"
+                    ofType="com.study.model.pojo.power.Users">
 
+        </collection>
+    </resultMap>
+
+    <select id="selectByDeptId" resultMap="deptResult">
+        select * from dept where dept_id=#{deptid} order by dept_id desc
+    </select>
+
+    <select id="selectByDeptIdNoUsers" resultType="com.study.model.pojo.power.Dept">
+        select * from dept where dept_id=#{deptid}
+    </select>
+
+    <select id="selectAll" resultMap="deptResult">
+        select * from dept order by dept_id desc
+    </select>
 </mapper>

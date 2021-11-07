@@ -1,10 +1,15 @@
 package com.study.model.pojo.presale;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+<<<<<<< HEAD
 import com.study.model.pojo.power.Dept;
+=======
+import com.study.model.pojo.insale.Salefunnel;
+>>>>>>> b1337081edd0dcfc7768905417a54101d6d7a3f3
 import com.study.model.pojo.power.Users;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  * 活动
@@ -26,6 +31,7 @@ public class Activity {
     private Users users;
     private Dept depts;
 
+<<<<<<< HEAD
     public Dept getDepts() {
         return depts;
     }
@@ -33,6 +39,9 @@ public class Activity {
     public void setDepts(Dept depts) {
         this.depts = depts;
     }
+=======
+    private List<Salefunnel> salefunnels;//销售机会
+>>>>>>> b1337081edd0dcfc7768905417a54101d6d7a3f3
 
     public Users getUsers() {
         return users;
@@ -144,6 +153,14 @@ public class Activity {
 
     public void setActivityRealityIncome(Integer activityRealityIncome) {
         this.activityRealityIncome = activityRealityIncome;
+    }
+
+    public List<Salefunnel> getSalefunnels() {
+        return salefunnels;
+    }
+
+    public void setSalefunnels(List<Salefunnel> salefunnels) {
+        this.salefunnels = salefunnels;
     }
 
     public Activity() {

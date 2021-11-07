@@ -29,10 +29,15 @@
                       left join users us on ai.activity_user=us.users_id
                       left join dept dt on dt.dept_id=ai.activity_dept
                       order by ai.activity_id desc
-        <where>
-            
-        </where>
 
+    </select>
+    <select id="seAct">
+        select * from activity
+        <where>
+            <if test="activity_name != null and activity_name != ''">
+                and
+            </if>
+        </where>
     </select>
 
 </mapper>

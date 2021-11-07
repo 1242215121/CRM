@@ -84,30 +84,22 @@
 			},
 			login() {
 				let data = {
-					username: this.ruleForm.account,
-					password: this.ruleForm.pass
+					usersName: this.ruleForm.account,
+					usersPwd: this.ruleForm.pass
 				};
-		
 				let parms = qs.stringify(data);
-				let users={
-					usersId:1
-				}
-				this.$store.commit('login',users);
-				this.$router.push('/home');
-				
-				// this.axios.post("user/login", parms).then(res => {
-					
-				// 	if (res.code == 1) {
-						
-				// 		//用户信息存入store中。调用./src/store/index.js的方法login，参数就是data.obj(当前登录的用户信息)
-				// 		this.$store.commit('login',res.data[0]);
-				// 		this.$store.commit('emp',res.data[1]);
-				// 		this.$router.replace("/news");
-				// 		this.$store.commit('bindMes');//获取总经理的信息
-				// 	} else {
-				// 		// this.$message.error("登陆失败！");
-				// 	}
-				// })
+			
+				this.axios.post("users/login", parms).then(res => {
+					console.log("后台返回的数据是：",res);
+					if (res.code == 1) {
+						//用户信息存入store中。调用./src/store/index.js的方法login，参数就是data.obj(当前登录的用户信息)
+						this.$store.commit('login',res.obj);
+						this.$router.push('/home');
+						 this.$message.success("登录成功！");
+					} else {
+						// this.$message.error(res.msg);
+					}
+				})
 			}
 		},
 		created() {

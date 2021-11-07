@@ -1,6 +1,10 @@
 package com.study.model.pojo.aftersale;
 
 
+import com.study.model.pojo.insale.Saleorder;
+import com.study.model.pojo.power.Users;
+import com.study.model.pojo.presale.Client;
+
 /**
  * 开票记录表
  */
@@ -9,21 +13,21 @@ public class Invoice {
   private long invoiceId;//开票编号
   private Papertype invoicePjid;//票据类型
   private String invoiceName;//票据名称
-  private long invoiceDdid;//关联订单
-  private long invoiceQcid;//期次
+  private Saleorder invoiceDdid;//关联订单
+  private Periodoftime invoiceQcid;//期次
   private double invoicePrice;//开票金额
-  private long invoiceJbr;//经办人
+  private Users invoiceJbr;//经办人
   private String invoicePjtt;//票据抬头
   private String invoiceNssbh;//纳税识别号
-  private long invoicePjyjzt;//票价邮件是否需要邮件的状态 0代表不需要 1代表需要
+  private long invoicePjyjzt;//票价邮件是否需要邮件的状态 1代表不需要 2代表需要
   private String invoiceSjr;//收件人
   private String invoicePhone;//联系电话
   private String invoiceBz;//备注说明
-  private long invoiceZt;//开票状态 0代表待办理，1代表已办理，2代表审批中，3代表被驳回
+  private long invoiceZt;//开票状态 1为已审核 2为已驳回 3为未审核
   private String invoiceKhyh;//开户银行
   private String invoiceKhzh;//开户账户
   private String invoiceKhdz;//开户地址
-  private long invoiceKhid;//关联客户
+  private Client invoiceKhid;//关联客户
 
 
   public long getInvoiceId() {
@@ -52,20 +56,20 @@ public class Invoice {
   }
 
 
-  public long getInvoiceDdid() {
+  public Saleorder getInvoiceDdid() {
     return invoiceDdid;
   }
 
-  public void setInvoiceDdid(long invoiceDdid) {
+  public void setInvoiceDdid(Saleorder invoiceDdid) {
     this.invoiceDdid = invoiceDdid;
   }
 
 
-  public long getInvoiceQcid() {
+  public Periodoftime getInvoiceQcid() {
     return invoiceQcid;
   }
 
-  public void setInvoiceQcid(long invoiceQcid) {
+  public void setInvoiceQcid(Periodoftime invoiceQcid) {
     this.invoiceQcid = invoiceQcid;
   }
 
@@ -79,11 +83,11 @@ public class Invoice {
   }
 
 
-  public long getInvoiceJbr() {
+  public Users getInvoiceJbr() {
     return invoiceJbr;
   }
 
-  public void setInvoiceJbr(long invoiceJbr) {
+  public void setInvoiceJbr(Users invoiceJbr) {
     this.invoiceJbr = invoiceJbr;
   }
 
@@ -178,11 +182,11 @@ public class Invoice {
   }
 
 
-  public long getInvoiceKhid() {
+  public Client getInvoiceKhid() {
     return invoiceKhid;
   }
 
-  public void setInvoiceKhid(long invoiceKhid) {
+  public void setInvoiceKhid(Client invoiceKhid) {
     this.invoiceKhid = invoiceKhid;
   }
 

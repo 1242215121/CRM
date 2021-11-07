@@ -2,6 +2,7 @@ package com.study.model.mapper.insale;
 
 import com.study.model.pojo.insale.Salefunnel;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,6 +19,14 @@ public interface SalefunnelMapper {
      * @return
      */
     public List<Salefunnel> selectAll();
+
+    /**
+     * 根据机会编号和机会名称查询所有
+     * @param id
+     * @param name
+     * @return
+     */
+    public List<Salefunnel> selectMany(@Param("id") Integer id,@Param("name") String name);
 
     /**
      * 新增 销售机会
