@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface AttachmentMapper {
     public List<Attachment> fjzlcx(String nr);
+    public void fjzlxz(Attachment attachment);
 }

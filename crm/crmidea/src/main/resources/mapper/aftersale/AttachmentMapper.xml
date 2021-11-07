@@ -11,4 +11,8 @@
                 </if>
             </where>
         </select>
+
+        <insert id="fjzlxz" parameterType="com.study.model.pojo.aftersale.Attachment">
+            insert into attachment values(null,${attachmentSrc},${attachmentHkid})
+        </insert>
 </mapper>
