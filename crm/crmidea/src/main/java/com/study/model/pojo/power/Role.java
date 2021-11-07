@@ -4,11 +4,14 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * 角色
+ */
 public class Role {
-    private Integer roleId;
-    private String roleName;
-    private String roleDesc;
-    private Integer roleStatus;
+    private Integer roleId;//编号
+    private String roleName;//角色名称
+    private String roleDesc;//角色描述
+    private Integer roleStatus;//角色状态
     private List<UsersRole> usersRole;
     private List<RoleModule> roleModule;
 

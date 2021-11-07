@@ -3,10 +3,13 @@ package com.study.model.pojo.power;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * 角色模块
+ */
 public class RoleModule {
     private Integer id;
-    private Role role;
-    private Module module;
+    private Role role;//角色
+    private Module module;//模块
 
     public Integer getId() {
         return id;

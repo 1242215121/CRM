@@ -27,11 +27,7 @@
                      javaType="com.study.model.pojo.power.Dept">
 
         </association>
-<!--        <collection property="usersRole" column="users_id"-->
-<!--                    select="com.study.model.mapper.power.UsersRoleMapper.selectByUsersId"-->
-<!--                    ofType="com.study.model.pojo.power.UsersRole">-->
 
-<!--        </collection>-->
     </resultMap>
 
     <select id="selectAll" resultMap="usersResult" parameterType="com.study.model.vojo.power.UsersVo">

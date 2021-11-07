@@ -20,5 +20,5 @@ public interface UsersRoleMapper {
      * @param roleid
      * @return
      */
-    public List<UsersRole> selectByRoleId(Integer roleid);
+    public List<UsersRole> ByRoleId(Integer roleid);
 }

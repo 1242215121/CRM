@@ -6,5 +6,15 @@
 <!--根标签是mapper
         属性namespace 用来关联指定Mapper接口的全类名-->
 <mapper namespace="com.study.model.mapper.power.RoleModuleMapper">
+    <resultMap id="roleModuleResult" type="com.study.model.pojo.power.RoleModule">
+        <id property="id" column="id"/>
+        <association property="module" column="module_id"
+                     select="com.study.model.mapper.power.ModuleMapeer.selectByModuleId"
+                     javaType="com.study.model.pojo.power.Module">
 
+        </association>
+    </resultMap>
+    <select id="selectByRoleId" resultMap="roleModuleResult">
+        select * from role_module where role_id=#{roleid}
+    </select>
 </mapper>
