@@ -26,6 +26,15 @@ public class SalefunnelService {
     @Autowired private SaleproService saleproService;
 
     /**
+     * 单表查询销售机会
+     * @return
+     */
+    public List<Salefunnel> select(){
+        return mapper.select();
+    }
+
+
+    /**
      * 连接客户表，员工表，市场活动表，联系人表，查询销售机会
      * @return
      */

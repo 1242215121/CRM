@@ -19,6 +19,16 @@ public class SalefunnelController {
     MyResult myResult = new MyResult();
 
     /**
+     * 单表查询销售机会
+     * @return
+     */
+    @GetMapping("/select")
+    public MyResult select(){
+        System.out.println("单表查询所有销售机会");
+        return MyResult.SUCCESS_DATA(service.select());
+    }
+
+    /**
      * 连接客户表，员工表，市场活动表，联系人表，查询销售机会
      * @return
      */

@@ -2,6 +2,7 @@ package com.study.controller.insale;
 
 import com.study.model.services.insale.QuotationsService;
 import com.study.model.vojo.insale.QuotationVo;
+import com.study.model.vojo.insale.QuotationsNewVo;
 import com.study.utils.MyResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +40,20 @@ public class QuotationsController {
         if(a>0){
             myResult.setCode(1);
             System.out.println("修改成功");
+        }else {
+            myResult.setCode(-1);
+        }
+        return myResult;
+    }
+
+    @PostMapping("/insert")
+    public MyResult insert(@RequestBody QuotationsNewVo quotationsNewVo){
+        System.out.println("新增报价单方法：报价单名称："+quotationsNewVo.getName()
+                        +",报价单金额："+quotationsNewVo.getMoney()
+                +",关联机会："+quotationsNewVo.getActivity() +",添加产品："+quotationsNewVo.getProduct());
+        Integer q = service.insert(quotationsNewVo);
+        if(q>0){
+            myResult.setCode(1);
         }else {
             myResult.setCode(-1);
         }
