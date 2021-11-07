@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.insale.SaleproMapper">
+
+    <resultMap id="baseMap" type="com.study.model.pojo.insale.Salepro">
+        <id column="salepro_id" property="saleproId"/>
+        <result column="pro_num" property="proNum"/>
+        <!--private Product product;//产品-->
+        <association property="product" javaType="com.study.model.pojo.product.Product">
+            <id property="proId" column="pro_id"/>
+            <result property="proName" column="pro_name"/>
+        </association>
+    </resultMap>
+    
+    <!-- 根据销售机会编号查询产品信息
+      public List<Salepro> selectBySfid(Integer sfid);-->
+    <select id="selectBySfid" resultMap="baseMap" parameterType="java.lang.Integer">
+        select salepro_id, sf_id,p.pro_id,p.pro_name, pro_num from salepro
+        left join product p on p.pro_id = salepro.pro_id
+        where sf_id = #{sfid}
+    </select>
+
+</mapper>

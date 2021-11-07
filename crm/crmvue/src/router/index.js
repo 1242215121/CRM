@@ -121,6 +121,7 @@ let routes = [
 						title: "退货单"
 					},
 				},
+				{
 					path: '/kpbl',
 					component:() => import('@/components/aftersale/Kpbl.vue'),
 					name: 'kpbl',

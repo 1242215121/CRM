@@ -1,5 +1,7 @@
 package com.study.model.pojo.insale;
 
+import com.study.model.pojo.product.Product;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -9,17 +11,16 @@ import java.util.Objects;
 public class Salepro {
     private Integer saleproId;
     private Integer proNum; // 产品数量
-    private Integer sfId; // 销售机会编号
-    private String proId; // 产品编号
+
+    private Product product;//产品
+    private Salefunnel salefunnel;//销售机会
 
     public Salepro() {
     }
 
-    public Salepro(Integer saleproId, Integer proNum, Integer sfId, String proId) {
+    public Salepro(Integer saleproId, Integer proNum) {
         this.saleproId = saleproId;
         this.proNum = proNum;
-        this.sfId = sfId;
-        this.proId = proId;
     }
 
     @Id
@@ -40,20 +41,20 @@ public class Salepro {
         this.proNum = proNum;
     }
 
-    public Integer getSfId() {
-        return sfId;
+    public Salefunnel getSalefunnel() {
+        return salefunnel;
     }
 
-    public void setSfId(Integer sfId) {
-        this.sfId = sfId;
+    public void setSalefunnel(Salefunnel salefunnel) {
+        this.salefunnel = salefunnel;
     }
 
-    public String getProId() {
-        return proId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProId(String proId) {
-        this.proId = proId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
@@ -61,8 +62,6 @@ public class Salepro {
         return "Salepro{" +
                 "saleproId=" + saleproId +
                 ", proNum=" + proNum +
-                ", sfId=" + sfId +
-                ", proId='" + proId + '\'' +
                 '}';
     }
 }

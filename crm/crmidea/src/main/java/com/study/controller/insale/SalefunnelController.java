@@ -1,12 +1,10 @@
 package com.study.controller.insale;
 
 import com.study.model.services.insale.SalefunnelService;
+import com.study.model.vojo.insale.SalefunnelVo;
 import com.study.utils.MyResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 销售机会
@@ -28,5 +26,13 @@ public class SalefunnelController {
                               @RequestParam(value = "size",defaultValue = "1")Integer size){
         System.out.println("查询所有销售机会");
         return MyResult.SUCCESS_Object(service.selectAll(no, size));
+    }
+
+    @PostMapping("/many")
+    public MyResult selectMany(@RequestBody SalefunnelVo salefunnelVo){
+        System.out.println("销售机会多条件查询：编号--"+salefunnelVo.getId()+",机会名称："+salefunnelVo.getName());
+        return MyResult.SUCCESS_Object(service.selectMany(
+                salefunnelVo.getNo(),salefunnelVo.getSize(),
+                salefunnelVo.getId(),salefunnelVo.getName()));
     }
 }
