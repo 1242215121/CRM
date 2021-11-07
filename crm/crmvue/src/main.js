@@ -17,7 +17,7 @@ import router from '@/router/index.js'
 // 引入vuex的store对象
 import store from '@/store/index.js'
 //初始化菜单
-
+import {initModule} from '@/router/power.js'
 //富文本编辑器
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
@@ -37,6 +37,7 @@ router.beforeEach((to, from, next) => {
 	if(user==undefined){
 		next("/login");
 	}
+	initModule(router,store,next,to);
 	next();
 })
 

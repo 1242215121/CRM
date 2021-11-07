@@ -7,15 +7,20 @@ import qs from 'qs'
 let store = createStore({
 	/* 状态管理 */
 	state:{
-		users:{}
+		users:{},
+		routers:[]
 	},
 	/* 同步函数：修改状态中的变量 */
 	mutations:{
 		login(state,users){
-				//添加用户信息到状态管理器中
-			    state.users = users;
-				
-		 },
+			//添加用户信息到状态管理器中
+			state.users = users;	
+		},
+		initModule(state,module){
+			//添加模块信息到状态管理器中
+		 	state.routers = module;
+		 		
+		},
 	},
 	/* 异步函数 */
 	actions:{

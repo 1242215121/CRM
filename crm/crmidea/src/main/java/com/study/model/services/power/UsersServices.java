@@ -48,4 +48,14 @@ public class UsersServices {
     public List<Users> selectByDeptId(Integer deptid){
         return mapper.selectByDeptId(deptid);
     }
+
+
+    /**
+     * 根据用户编号查询
+     * @param uid
+     * @return
+     */
+    public Users selectByUsersId(Integer uid){
+        return mapper.selectByUsersId(uid);
+    }
 }
