@@ -13,4 +13,7 @@
         <result column="clue_time" property="clueTime"/>
         <result column="clue_phone" property="cluePhone"/>
     </resultMap>
+    <select id="seClue" resultType="com.study.model.pojo.presale.Clue">
+        select * from clue;
+    </select>
 </mapper>

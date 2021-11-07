@@ -1,6 +1,7 @@
 package com.study.model.pojo.presale;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.study.model.pojo.power.Dept;
+
 import com.study.model.pojo.insale.Salefunnel;
 import com.study.model.pojo.power.Users;
 
@@ -12,6 +13,7 @@ import java.util.List;
  **/
 public class Activity {
     private Integer activityId;//活动id
+    private Integer activityDept;
     private String activityName;//活动名称
     private Integer activityUser;//所属团队
     private Date activityStart;//开始时间
@@ -25,7 +27,41 @@ public class Activity {
     private Integer activityPlanIncome;//实际收入
     private Integer activityRealityIncome;//活动计划
     private Users users;
+    private Dept depts;
+    private Integer pageNo;
+    private Integer size;
 
+    public Integer getActivityDept() {
+        return activityDept;
+    }
+
+    public void setActivityDept(Integer activityDept) {
+        this.activityDept = activityDept;
+    }
+
+    public Integer getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(Integer pageNo) {
+        this.pageNo = pageNo;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    public Dept getDepts() {
+        return depts;
+    }
+
+    public void setDepts(Dept depts) {
+        this.depts = depts;
+    }
     private List<Salefunnel> salefunnels;//销售机会
 
     public Users getUsers() {
@@ -151,7 +187,7 @@ public class Activity {
     public Activity() {
     }
 
-    public Activity(Integer activityId, String activityName, Date activityStart, Date activityOver, String activityAddress, String activityType, String activityState, Integer activityPlanCost, Integer activityRealityCost, String activityPlan, Integer activityPlanIncome, Integer activityRealityIncome) {
+    public Activity(Integer activityId, String activityName, Date activityStart, Date activityOver, String activityAddress, String activityType, String activityState, Integer activityPlanCost, Integer activityRealityCost, String activityPlan, Integer activityPlanIncome, Integer activityRealityIncome, Users users, Dept depts, Integer pageNo, Integer size, List<Salefunnel> salefunnels) {
         this.activityId = activityId;
         this.activityName = activityName;
         this.activityStart = activityStart;
@@ -164,12 +200,18 @@ public class Activity {
         this.activityPlan = activityPlan;
         this.activityPlanIncome = activityPlanIncome;
         this.activityRealityIncome = activityRealityIncome;
+        this.users = users;
+        this.depts = depts;
+        this.pageNo = pageNo;
+        this.size = size;
+        this.salefunnels = salefunnels;
     }
 
     @Override
     public String toString() {
         return "Activity{" +
                 "activityId=" + activityId +
+                ", activityDept=" + activityDept +
                 ", activityName='" + activityName + '\'' +
                 ", activityUser=" + activityUser +
                 ", activityStart=" + activityStart +
@@ -182,6 +224,11 @@ public class Activity {
                 ", activityPlan='" + activityPlan + '\'' +
                 ", activityPlanIncome=" + activityPlanIncome +
                 ", activityRealityIncome=" + activityRealityIncome +
+                ", users=" + users +
+                ", depts=" + depts +
+                ", pageNo=" + pageNo +
+                ", size=" + size +
+                ", salefunnels=" + salefunnels +
                 '}';
     }
 }

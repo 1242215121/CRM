@@ -10,4 +10,7 @@
         <result column="contacts_role" property="contactsRole"/>
         <result column="contacts_case" property="contactsCase"/>
     </resultMap>
+    <select id="seContacts" resultType="com.study.model.pojo.presale.Contacts">
+        select * from contacts;
+    </select>
 </mapper>
