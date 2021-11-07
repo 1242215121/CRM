@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.insale.SaleorderMapper">
+
+    <resultMap id="baseMap" type="com.study.model.pojo.insale.Saleorder">
+        <id column="so_id" property="soId"/>
+        <result column="so_name" property="soName"/>
+        <result column="so_money" property="soMoney"/>
+        <result column="so_orderstatu" property="soOrderstatu"/>
+        <result column="so_back" property="soBack"/>
+        <result column="so_pay" property="soPay"/>
+        <result column="so_return" property="soReturn"/>
+        <result column="so_backstatu" property="soBackstatu"/>
+        <result column="so_invoicing" property="soInvoicing"/>
+        <result column="so_invostatu" property="soInvostatu"/>
+        <result column="so_date" property="soDate"/>
+        <result column="so_num" property="soNum"/>
+        <result column="so_wynum" property="soWynum"/>
+        <result column="so_nonum" property="soNonum"/>
+        <result column="so_warestatu" property="soWarestatu"/>
+        <!--private Salefunnel salefunnelBySfId; // 一个销售订单源于一个销售机会-->
+        <association property="salefunnelBySfId" javaType="com.study.model.pojo.insale.Salefunnel">
+            <id column="sf_id" property="sfId"/>
+            <result column="sf_name" property="sfName"/>
+        </association>
+        <!-- private Users user;//负责人-->
+        <association property="user" javaType="com.study.model.pojo.power.Users">
+            <id column="users_id" property="usersId"/>
+            <result column="users_name" property="usersName"/>
+        </association>
+        <!--  private Client client;//客户-->
+        <association property="client" javaType="com.study.model.pojo.presale.Client">
+            <id column="client_id" property="clientId"/>
+            <result column="client_name" property="clientName"/>
+        </association>
+    </resultMap>
+
+    <!-- public List<Saleorder> selectAll();
+    查询所有销售订单-->
+    <select id="selectAll" resultMap="baseMap">
+        select so_id,so_name, so_money, so_orderstatu,
+        so_back, so_pay, so_return, so_backstatu, so_invoicing, so_invostatu,
+        so_date, so_num, so_wynum, so_nonum, so_warestatu,
+        u.users_id,u.users_name,cc.client_id,cc.client_name,s.sf_id,s.sf_name from saleorder
+        left join users u on u.users_id = saleorder.so_charge
+        left join client cc on cc.client_id = saleorder.so_customer
+        left join salefunnel s on s.sf_id = saleorder.sf_id
+        order by so_id desc
+    </select>
+
+    <!-- public List<Saleorder> selectMany(@Param("id") Integer id, @Param("name") String name);
+    多条件查询-->
+    <select id="selectMany" resultMap="baseMap">
+        select so_id,so_name, so_money, so_orderstatu,
+        so_back, so_pay, so_return, so_backstatu, so_invoicing, so_invostatu,
+        so_date, so_num, so_wynum, so_nonum, so_warestatu,
+        u.users_id,u.users_name,cc.client_id,cc.client_name,s.sf_id,s.sf_name  from saleorder
+        left join users u on u.users_id = saleorder.so_charge
+        left join client cc on cc.client_id = saleorder.so_customer
+        left join salefunnel s on s.sf_id = saleorder.sf_id
+        <where>
+            <if test="id != null and id != '' ">
+                and so_id like concat('%',#{id},'%')
+            </if>
+            <if test="name != null and name != '' ">
+                and so_name like concat('%',#{name},'%')
+            </if>
+        </where>
+        order by so_id desc
+    </select>
+
+    <!-- public Integer insert(Saleorder saleorder);
+    新增销售订单-->
+    <insert id="insert" parameterType="com.study.model.pojo.insale.Saleorder" useGeneratedKeys="true" keyProperty="soId">
+        insert into saleorder(so_id, sf_id, so_name, so_money, so_orderstatu,
+        so_back, so_pay, so_return, so_backstatu, so_invoicing, so_invostatu,
+        so_date, so_num, so_wynum, so_nonum, so_warestatu,so_charge, so_customer)
+        VALUES (#{so_id},#{salefunnelBySfId.sf_id},#{so_name},#{so_money},#{so_orderstatu},
+        #{so_back},#{so_pay},#{so_return},#{so_backstatu},#{so_invoicing},#{so_invostatu},
+        #{so_date},#{so_num},#{so_wynum},#{so_nonum},#{so_warestatu},#{user.so_charge},#{client.so_customer})
+    </insert>
+
+</mapper>

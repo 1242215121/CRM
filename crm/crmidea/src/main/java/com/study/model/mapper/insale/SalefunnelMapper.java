@@ -33,4 +33,6 @@ public interface SalefunnelMapper {
      * @return
      */
     public Integer insert(Salefunnel salefunnel);
+
+    //获取新增
 }

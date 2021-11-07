@@ -2,6 +2,7 @@ package com.study.model.mapper.insale;
 
 import com.study.model.pojo.insale.Salepro;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,4 +20,13 @@ public interface SaleproMapper {
      * @return
      */
     public List<Salepro> selectBySfid(Integer sfid);
+
+    /**
+     * 新增中间表
+     * @param num
+     * @param salefunnel
+     * @param product
+     * @return
+     */
+    public Integer insert(@Param("num") Integer num,@Param("salefunnel") Integer salefunnel, @Param("product") String product);
 }

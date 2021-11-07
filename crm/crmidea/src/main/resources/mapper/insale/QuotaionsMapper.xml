@@ -58,9 +58,9 @@
 
     <!--public Integer insert(Quotations quotations);
     新增报价单-->
-    <insert id="insert" parameterType="com.study.model.pojo.insale.Quotations">
+    <insert id="insert" parameterType="com.study.model.pojo.insale.Quotations" keyProperty="qId" useGeneratedKeys="true">
         insert into quotations(q_id, sf_id, q_name, q_money, q_date, q_stage, q_time)
-        values (#{q_id},#{sf_id},#{q_name},#{q_money},#{q_date},#{q_stage},#{q_time})
+        values (#{qId},#{salefunnelBySfId.sfId},#{qName},#{qMoney},#{qDate},#{qStage},#{qTime})
     </insert>
 
 </mapper>

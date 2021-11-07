@@ -15,6 +15,12 @@ public interface UsersMapper {
     public List<Users> selectAll();
 
     /**
+     * 查询所有用户
+     * @return
+     */
+    public List<Users> selectAlls();
+
+    /**
      * 根据用户名查询用户
      * @param name  用户名
      * @return

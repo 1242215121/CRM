@@ -1,8 +1,10 @@
 package com.study.model.pojo.aftersale;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.study.model.pojo.insale.Saleorder;
 import com.study.model.pojo.power.Users;
+import com.study.model.pojo.presale.Client;
 
 import java.sql.Timestamp;
 
@@ -16,9 +18,13 @@ public class Periodoftime {
   private String periodoftimeName;//期次名称
   private Users periodoftimeFzr;//负责人
   private double periodoftimePrice;//计划回款金额
+  @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
   private Timestamp periodoftimeDate;//计划回款日期
   private String periodoftimeBz;//备注
-
+  private Client periodoftimeKhid;//关联客户
+  private double periodoftimeSjprice;//实际回款金额
+  private int periodoftimeQczt;//期次状态  1为已还款，2为部分还款，3为未还款
+  private double periodoftimeKpprice;//开票金额
 
   public long getPeriodoftimeId() {
     return periodoftimeId;
@@ -65,11 +71,11 @@ public class Periodoftime {
   }
 
 
-  public java.sql.Timestamp getPeriodoftimeDate() {
+  public Timestamp getPeriodoftimeDate() {
     return periodoftimeDate;
   }
 
-  public void setPeriodoftimeDate(java.sql.Timestamp periodoftimeDate) {
+  public void setPeriodoftimeDate(Timestamp periodoftimeDate) {
     this.periodoftimeDate = periodoftimeDate;
   }
 
@@ -82,4 +88,35 @@ public class Periodoftime {
     this.periodoftimeBz = periodoftimeBz;
   }
 
+  public Client getPeriodoftimeKhid() {
+    return periodoftimeKhid;
+  }
+
+  public void setPeriodoftimeKhid(Client periodoftimeKhid) {
+    this.periodoftimeKhid = periodoftimeKhid;
+  }
+
+  public double getPeriodoftimeSjprice() {
+    return periodoftimeSjprice;
+  }
+
+  public void setPeriodoftimeSjprice(double periodoftimeSjprice) {
+    this.periodoftimeSjprice = periodoftimeSjprice;
+  }
+
+  public int getPeriodoftimeQczt() {
+    return periodoftimeQczt;
+  }
+
+  public void setPeriodoftimeQczt(int periodoftimeQczt) {
+    this.periodoftimeQczt = periodoftimeQczt;
+  }
+
+  public double getPeriodoftimeKpprice() {
+    return periodoftimeKpprice;
+  }
+
+  public void setPeriodoftimeKpprice(double periodoftimeKpprice) {
+    this.periodoftimeKpprice = periodoftimeKpprice;
+  }
 }

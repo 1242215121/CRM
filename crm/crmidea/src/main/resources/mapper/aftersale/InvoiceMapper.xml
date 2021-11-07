@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.aftersale.InvoiceMapper">
+    <resultMap id="kp" type="com.study.model.pojo.aftersale.Invoice">
+        <id column="invoice_id" property="invoiceId"></id>
+        <result column="invoice_name" property="invoiceName"></result>
+        <result column="invoice_price" property="invoicePrice"></result>
+        <result column="invoice_pjtt" property="invoicePjtt"></result>
+        <result column="invoice_nssbh" property="invoiceNssbh"></result>
+        <result column="invoice_phone" property="invoicePhone"></result>
+        <result column="invoice_bz" property="invoiceBz"></result>
+        <result column="invoice_zt" property="invoiceZt"></result>
+        <result column="invoice_khyh" property="invoiceKhyh"></result>
+        <result column="invoice_khzh" property="invoiceKhzh"></result>
+        <result column="invoice_khdz" property="invoiceKhdz"></result>
+        <result column="invoice_date" property="invoiceDate"></result>
+        <result column="invoice_kphm" property="invoiceKphm"></result>
+        <association property="invoiceDdid" javaType="com.study.model.pojo.insale.Saleorder">
+            <id column="invoice_ddid" property="soId"></id>
+            <result column="ddname" property="soName"></result>
+        </association>
+        <association property="invoiceJbr" javaType="com.study.model.pojo.power.Users">
+            <id column="invoice_jbr" property="usersId"></id>
+            <result column="uname" property="usersFullname"></result>
+        </association>
+        <association property="invoiceQcid" javaType="com.study.model.pojo.aftersale.Periodoftime">
+            <id column="invoice_qcid" property="periodoftimeId"></id>
+            <result column="qcname" property="periodoftimeName"></result>
+        </association>
+        <association property="invoiceKhid" javaType="com.study.model.pojo.presale.Client">
+            <id column="invoice_khid" property="clientId"></id>
+            <result column="cname" property="clientName"></result>
+        </association>
+        <association property="invoiceShr" javaType="com.study.model.pojo.power.Users">
+            <id column="invoice_shr" property="usersId"></id>
+            <result column="shrname" property="usersFullname"></result>
+        </association>
+        <association property="invoicePjid" javaType="com.study.model.pojo.aftersale.Papertype">
+            <id column="invoice_pjid" property="papertypeId"></id>
+            <result column="pname" property="papertypeName"></result>
+        </association>
+    </resultMap>
+    <select id="kpcx" resultMap="kp">
+        SELECT r.*,s.so_name ddname,u.users_fullname uname,pt.periodoftime_name qcname,
+               c.client_name cname,us.users_fullname shrname,p.papertype_name pname FROM invoice r
+               LEFT JOIN saleorder s on r.invoice_ddid=s.so_id
+               LEFT JOIN users u on r.invoice_jbr=u.users_id
+               LEFT JOIN periodoftime pt on r.invoice_qcid=pt.periodoftime_id
+               LEFT JOIN client c on r.invoice_khid=c.client_id
+               LEFT JOIN users us on r.invoice_shr=us.users_id
+               LEFT JOIN papertype p on r.invoice_pjid=p.papertype_id
+        <where>
+            <if test="nr !=null and nr !=''">
+                and s.so_name like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -10,45 +10,37 @@
 			<el-input v-model="input" style="width:200px;" placeholder="请输入内容" >
 			</el-input>
 			<el-button type="primary" icon="el-icon-search">搜索</el-button>
-			<el-table
-			    :data="tableData"
-			    border
-			    style="width: 100%;margin-top:10px;">
-			    <el-table-column
-			      prop="date"
-			      label="日期"
-			      width="180">
-			    </el-table-column>
-			    <el-table-column
-			      prop="name"
-			      label="姓名"
-			      width="180">
-			    </el-table-column>
-			    <el-table-column
-			      prop="address"
-			      label="地址">
-			    </el-table-column>
-				<el-table-column
-					fixed="right"
-				  	label="操作" 
-					width="300">
-				  	<template v-slot:default="s">
-						<el-button size="mini">处理</el-button>
-				  	</template>  				
+			<el-table :data="tableData" border @row-click="xq" style="width: 100%;margin-top:10px;">
+				<el-table-column prop="receivableId" label="回款编号" width="150">
 				</el-table-column>
-			 </el-table>
-			 <div class="block">
-			     <el-pagination
-				 style="position: absolute;right:10px"
-			       @size-change="hal"
-			       @current-change="hal"
-			       :page-sizes="[5, 10, 15]"
-				   :total="total"
-				   :page-size="size"
-				   :current-page="pageNo"
-			       layout="total, sizes, prev, pager, next, jumper">
-			     </el-pagination>
-			   </div>
+				<el-table-column prop="receivableDdid.soName" label="订单名称" width="150">
+				</el-table-column>
+				<el-table-column prop="receivableKhid.clientName" label="客户名称" width="150">
+				</el-table-column>
+				<el-table-column prop="receivableQcid.periodoftimeName" label="回款期次" width="150">
+				</el-table-column>
+				<el-table-column prop="receivableJbr.usersFullname" label="经办人" width="150">
+				</el-table-column>
+				<el-table-column prop="receivablePrice" label="回款金额" width="150">
+				</el-table-column>
+				<el-table-column prop="receivableDate" label="回款日期" width="210">
+				</el-table-column>
+				<el-table-column prop="receivableZt" label="状态" width="150" show-overflow-tooltip :formatter="ztxs">
+				</el-table-column>
+				<el-table-column prop="receivableHkfs" label="回款方式" width="150">
+				</el-table-column>
+				<el-table-column prop="receivableShr.usersFullname" label="审核人" width="150">
+				</el-table-column>
+				<el-table-column prop="receivableBz" label="备注" width="400">
+				</el-table-column>
+			
+			</el-table>
+			<div class="block">
+				<el-pagination style="position: absolute;right:10px" @size-change="hal1" @current-change="hal"
+					:page-sizes="[5, 10, 15]" :total="total" :page-size="size" :current-page="pageNo"
+					layout="total, sizes, prev, pager, next, jumper">
+				</el-pagination>
+			</div>
 		</div>
 	 
 </template>

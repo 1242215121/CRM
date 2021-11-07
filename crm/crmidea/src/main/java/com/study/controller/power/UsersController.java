@@ -49,4 +49,9 @@ public class UsersController {
     public MyResult selectUsersRoleByUserId(@RequestParam(value = "uid",defaultValue = "1") Integer uid){
         return MyResult.SUCCESS_DATA(usersRoleSevices.selectByUsersId(uid));
     }
+
+    @GetMapping
+    public MyResult selectAlls(){
+        return MyResult.SUCCESS_DATA(services.selectAlls());
+    }
 }

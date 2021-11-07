@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.insale.SorderproMapper">
+    <resultMap id="baseMap" type="com.study.model.pojo.insale.Sorderpro">
+        <id column="sorderpro_id" property="sorderproId"/>
+        <result column="pro_num" property="proNum"/>
+        <!--private Product product;//产品-->
+        <association property="product" javaType="com.study.model.pojo.product.Product">
+            <id property="proId" column="pro_id"/>
+            <result property="proName" column="pro_name"/>
+            <result property="proPrice" column="pro_price"/>
+        </association>
+    </resultMap>
+
+    <!-- public List<Sorderpro> selectBySoid(Integer soid);
+     根据销售订单查询产品信息-->
+    <select id="selectBySoid" resultMap="baseMap">
+         select sorderpro_id ,p.pro_id,p.pro_name,p.pro_price, pro_num from sorderpro
+        left join product p on p.pro_id = sorderpro.pro_id
+        where so_id = #{soid}
+        order by sorderpro_id desc
+    </select>
+
+</mapper>

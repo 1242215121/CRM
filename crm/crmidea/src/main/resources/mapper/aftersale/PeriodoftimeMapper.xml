@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.aftersale.PeriodoftimeMapper">
+    <resultMap id="qc" type="com.study.model.pojo.aftersale.Periodoftime">
+        <id column="periodoftime_id" property="periodoftimeId"></id>
+        <result column="periodoftime_name" property="periodoftimeName"></result>
+        <result column="periodoftime_price" property="periodoftimePrice"></result>
+        <result column="periodoftime_date" property="periodoftimeDate"></result>
+        <result column="periodoftime_bz" property="periodoftimeBz"></result>
+        <result column="periodoftime_sjprice" property="periodoftimeSjprice"></result>
+        <result column="periodoftime_qczt" property="periodoftimeQczt"></result>
+        <result column="periodoftime_kpprice" property="periodoftimeKpprice"></result>
+        <association property="periodoftimeDdid" javaType="com.study.model.pojo.insale.Saleorder">
+            <id column="periodoftime_ddid" property="soId"></id>
+            <result column="ddname" property="soName"></result>
+        </association>
+        <association property="periodoftimeFzr" javaType="com.study.model.pojo.power.Users">
+            <id column="periodoftime_fzr" property="usersId"></id>
+            <result column="uname" property="usersFullname"></result>
+        </association>
+        <association property="periodoftimeKhid" javaType="com.study.model.pojo.presale.Client">
+            <id column="periodoftime_khid" property="clientId"></id>
+            <result column="cname" property="clientName"></result>
+        </association>
+    </resultMap>
+
+    <select id="qccx" resultMap="qc">
+        SELECT r.*,s.so_name ddname,u.users_fullname uname,c.client_name cname FROM periodoftime r
+              LEFT JOIN saleorder s on r.periodoftime_ddid=s.so_id
+              LEFT JOIN users u on r.periodoftime_fzr=u.users_id
+               LEFT JOIN client c on r.periodoftime_khid=c.client_id
+            <where>
+                <if test="nr !=null and nr !=''">
+                    and s.so_name like concat(concat('%',#{nr}),'%')
+                </if>
+            </where>
+    </select>
+
+    <select id="qcddcx" resultMap="qc">
+        SELECT r.*,s.so_name ddname,u.users_fullname uname,c.client_name cname FROM periodoftime r
+            LEFT JOIN saleorder s on r.periodoftime_ddid=s.so_id
+            LEFT JOIN users u on r.periodoftime_fzr=u.users_id
+            LEFT JOIN client c on r.periodoftime_khid=c.client_id
+        where r.periodoftime_ddid=#{id}
+    </select>
+
+    <insert id="qcxz" parameterType="com.study.model.pojo.aftersale.Periodoftime">
+        insert into periodoftime values (null,${periodoftimeDdid.getSoId()},'${periodoftimeName}',${periodoftimeFzr.getUsersId()},${periodoftimePrice},${periodoftimeDate},'${periodoftimeBz}',${periodoftimeKhid.getClientId()},${periodoftimeSjprice},${periodoftimeQczt},${periodoftimeKpprice})
+    </insert>
+</mapper>

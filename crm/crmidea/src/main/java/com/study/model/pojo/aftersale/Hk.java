@@ -10,7 +10,7 @@ import com.study.model.pojo.product.Product;
 public class Hk {
 
   private long hkId;//回款详情编号
-  private Product hkCpid;//回款产品编号
+  private String hkCpid;//回款产品编号
   private String hkCpname;//回款产品名称
   private double hkHkprice;//回款金额
   private long hkSl;//销售数量
@@ -28,11 +28,11 @@ public class Hk {
     this.hkId = hkId;
   }
 
-  public Product getHkCpid() {
+  public String getHkCpid() {
     return hkCpid;
   }
 
-  public void setHkCpid(Product hkCpid) {
+  public void setHkCpid(String hkCpid) {
     this.hkCpid = hkCpid;
   }
 

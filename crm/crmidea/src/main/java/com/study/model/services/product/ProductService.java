@@ -18,8 +18,16 @@ public class ProductService {
      *
      * 查询所有产品
      */
-    public List<Product> selPro(){
-        return productMapper.selPro();
+    public List<Product> selPro(Product product){
+        return productMapper.selPro(product);
+    }
+
+    /**
+     * 查询所有产品
+     * @return
+     */
+    public List<Product> selectAll(){
+        return productMapper.selectAll();
     }
 
     /**
@@ -35,5 +43,27 @@ public class ProductService {
             return 0;
         }
     }
+
+    /**
+     * 修改产品
+     */
+    public Integer updatePro(Product product){
+        try{
+            productMapper.updatePro(product);
+            return 1;
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     *
+     * 根据类别id查产品
+     */
+    public List<Product> selTypeId(String typeId){
+        return productMapper.selTypeId(typeId);
+    }
+
 
 }

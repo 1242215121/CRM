@@ -36,12 +36,26 @@
     <select id="selPro" resultMap="ProMap">
         select * from product p left join type t on p.pro_type_id = t.type_id
         left join users u on p.pro_person = u.users_id
-<!--        <where>-->
-<!--            <if test="proTypeId != '' and proTypeId != null ">-->
-<!--                and pro_type_id = #{proTypeId}-->
-<!--            </if>-->
-<!--            -->
-<!--        </where>-->
+        <where>
+            <if test="proTypeId != '' and proTypeId != null ">
+                and p.pro_type_id = #{proTypeId}
+            </if>
+            <if test="proState != '' and proState != null ">
+                and p.pro_state = #{proState}
+            </if>
+            <if test="proInventoryState != '' and proInventoryState != null ">
+                and p.pro_inventory_state = #{proInventoryState}
+            </if>
+            <if test="content != '' and content != null ">
+                and  (p.pro_name like '%${content}%'  )
+            </if>
+
+        </where>
+    </select>
+
+    <!--  public List<Product> selectAll();-->
+    <select id="selectAll" resultType="com.study.model.pojo.product.Product">
+        select p.pro_id,p.pro_name,p.pro_price,p.pro_inventory_amount from product p
     </select>
 
     <!--新增产品-->
@@ -50,5 +64,17 @@
         #{proPrice},#{proInventoryState},#{proInventoryAmount},#{proInventoryUsable},#{proInventoryLock},
         #{proModel},#{proDescribe},current_timestamp ,#{proBar})
     </insert>
+    <!--修改产品-->
+    <update id="updatePro">
+        update product set pro_name=#{proName},pro_type_id=#{proTypeId},pro_state=#{proState},pro_person=#{proPerson},
+        pro_unit=#{proUnit},pro_price=#{proPrice},pro_model=#{proModel},pro_describe=#{proDescribe},pro_bar=#{proBar}
+        where pro_id = #{proId}
+    </update>
+
+    <!--根据类别id查产品-->
+    <select id="selTypeId" resultMap="ProMap">
+        select * from product p left join type t on p.pro_type_id = t.type_id
+        where t.type_id = #{typeId}
+    </select>
 
 </mapper>

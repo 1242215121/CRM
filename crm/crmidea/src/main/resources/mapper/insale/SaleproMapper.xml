@@ -24,4 +24,10 @@
         order by salepro_id desc
     </select>
 
+    <!-- public Integer insert(@Param("num") Integer num,@Param("salefunnel") Integer salefunnel, @Param("product") Integer product);;
+    新增中间表-->
+    <insert id="insert" keyColumn="salepro_id" useGeneratedKeys="true">
+        insert into salepro(salepro_id, sf_id, pro_id, pro_num) VALUES (null,#{salefunnel},#{product},#{num})
+    </insert>
+
 </mapper>
