@@ -4,14 +4,15 @@ import Home from '@/components/Home.vue'
 //初始化菜单
 export const initModule = (router, store,next,to) => {
 	//如果vuex的状态管理中存在路由信息，则不需要再次请求
-	if (store.state.routes.length > 0) {
-		next();
+	if (store.state.routers.length > 0) {
+		return;
+	}
+	if (!store.state.users) {
 		return;
 	}
 	
 	if (store.state.users) {
 		// //获取用户信息
-		// alert(store.state.users.usersId);
 		axios.get("users/usersRole", {
 			params: {
 				uid: store.state.users.usersId
@@ -38,18 +39,16 @@ export const initModule = (router, store,next,to) => {
 					if(rou.children!=null){
 						arr.push(rou);
 						rou.children.forEach(chi=>{
-							console.log(chi,'chi');
+						
 							router.addRoute("Home",chi);
 						})
 					}
-					
-					console.log(rou,'rou');
+			
 				})
 				console.log(router,'路由信息');
-				// store.commit('initModule',resultarr);//将路由结果存入状态管理器
+				store.commit('initModule',arr);//将路由结果存入状态管理器
 				
 				//动态刷新之后的解决办法
-				console.log("当前路由：",router.getRoutes())
 				next({...to,replace:true})
 			} else {
 				router.replace({
@@ -72,7 +71,7 @@ const modules = import.meta.glob('../**/**.vue')
 const formatRoutes = (routes) => {
 	let fmRoutes = [];
 	routes.forEach(router => {
-		console.log(router,'router');
+
 		let {
 			moduleUrl,
 			moduleComponent,
@@ -100,7 +99,7 @@ const formatRoutes = (routes) => {
 				children: children
 			}
 		}
-		console.log(fmRouter,'fmRouter');
+
 		fmRoutes.push(fmRouter);
 	});
 	

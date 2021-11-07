@@ -52,6 +52,6 @@ public class UsersController {
 
     @GetMapping
     public MyResult selectAlls(){
-        return MyResult.SUCCESS_DATA(services.selectAlls());
+        return MyResult.SUCCESS_DATA(usersServices.selectAlls());
     }
 }

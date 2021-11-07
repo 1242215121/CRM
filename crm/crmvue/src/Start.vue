@@ -22,6 +22,7 @@
 			//判断sessionStorage中键state有没有值
 			if(sessionStorage.getItem("state")){
 				let mystate = JSON.parse(sessionStorage.getItem("state"))
+				
 				this.$store.replaceState(
 					Object.assign(
 						{},
@@ -36,7 +37,7 @@
 		mounted(){
 			//在刷新页面之前把全部路由储存到routes数组里 在sessionStorage保存起来
 			let state = this.$store.state;
-			state.routes=[];
+			state.routers=[];
 			//注册beforeunload事件，让其在页面刷新前的一瞬间执行转存操作
 			window.addEventListener("beforeunload",function(){
 				let stateStr = JSON.stringify(state);

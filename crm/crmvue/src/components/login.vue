@@ -97,7 +97,12 @@
 						this.$router.push('/home');
 						 this.$message.success("登录成功！");
 					} else {
-						// this.$message.error(res.msg);
+						if(res.msg=="密码错误！！"){
+							this.ruleForm.pass='';
+						}else if(res.msg=="用户名错误！！"){
+							this.ruleForm.account='';
+							this.ruleForm.pass='';
+						}
 					}
 				})
 			}
