@@ -14,9 +14,9 @@ import java.util.List;
 public class ContactsService {
     @Autowired
     ContactsMapper contactsMapper;
-    @GetMapping
-    public List<Contacts> seContacts(){
-        return contactsMapper.seContacts();
+
+    public Object selectContactsByPage(Integer PageNo,Integer size,String contactsName){
+        return contactsMapper.selectContacts(contactsName);
     }
 
 

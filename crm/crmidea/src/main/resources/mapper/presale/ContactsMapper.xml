@@ -2,15 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.model.mapper.presale.ContactsMapper">
-    <resultMap id="ContactsMap" type="com.study.model.pojo.presale.Contacts">
+    <resultMap id="contactsMap" type="com.study.model.pojo.presale.Contacts">
         <id column="contacts_id" property="contactsId"/>
         <result column="contacts_name" property="contactsName"/>
         <result column="contacts_duty" property="contactsDuty"/>
         <result column="contacts_phone" property="contactsPhone"/>
         <result column="contacts_role" property="contactsRole"/>
         <result column="contacts_case" property="contactsCase"/>
+       <!-- <association property="users" javaType="com.study.model.pojo.power.Users">
+            <id column="users_id" property="usersId"/>
+            <result column="users_name" property="usersName"/>
+        </association>-->
     </resultMap>
-    <select id="seContacts" resultType="com.study.model.pojo.presale.Contacts">
-        select * from contacts;
+
+    <select id="selectContacts" resultType="com.study.model.pojo.presale.Contacts">
+        select * from contacts
+        <where>
+            <if test="contactsName != null and '' != contactsName" >
+                and contacts_name like concat('%',#{contactsName},'%')
+            </if>
+        </where>
+        order by contacts_id desc
     </select>
 </mapper>

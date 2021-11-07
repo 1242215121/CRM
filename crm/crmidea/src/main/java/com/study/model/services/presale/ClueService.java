@@ -16,4 +16,7 @@ public class ClueService {
     public List<Clue> seClue(){
         return clueMapper.seClue();
     }
+    public Object selectClueByPage(Integer pageNo,Integer size,String clueName){
+        return clueMapper.selectClue(clueName);
+    }
 }
