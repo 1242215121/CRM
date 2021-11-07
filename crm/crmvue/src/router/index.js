@@ -137,6 +137,14 @@ let routes = [
 						title: "回款确认"
 					},
 				},
+				{
+					path: '/hkjl',
+					component:() => import('@/components/aftersale/Hkjl.vue'),
+					name: 'hkjl',
+					meta: {
+						title: "回款记录"
+					},
+				}
 		 ],
 		 
 	}

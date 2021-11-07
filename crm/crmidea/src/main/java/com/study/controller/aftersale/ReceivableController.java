@@ -19,17 +19,14 @@ public class ReceivableController {
 
     //根据回款状态,回款编号，用户人查询回款记录
     @RequestMapping("hkcx")
-    public MyResult getHk(Integer pageNo,Integer size,Integer zt,String nr,Integer id){
-        System.out.println(zt);
-        return MyResult.SUCCESS_Object(receivableService.hkcx(pageNo,size,zt,nr,id));
+    public MyResult getHk(Integer pageNo,Integer size,Integer zt,String nr){
+        return MyResult.SUCCESS_Object(receivableService.hkcx(pageNo,size,zt,nr));
     }
 
 
     //回款确认
     @RequestMapping("hkqr")
     public void hkqr(@RequestBody Map<String,Object> map){
-        System.out.println("输出：");
-        System.out.println(map.get("hk"));
         receivableService.qrhk(map);
     }
 
