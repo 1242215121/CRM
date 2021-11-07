@@ -68,7 +68,10 @@
 
     <!-- 新增 销售机会
      public Integer insert(Salefunnel salefunnel);-->
-    <insert id="insert" parameterType="com.study.model.pojo.insale.Salefunnel">
+    <insert id="insert" parameterType="com.study.model.pojo.insale.Salefunnel" useGeneratedKeys="true">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="sfId">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         insert into salefunnel(sf_id, sf_name, sf_money, sf_date, sf_change, sf_customer, sf_activity, sf_contact)
         values (#{sfId}, #{sfName}, #{sfMoney}, #{sfDate}, #{user.usersId},#{client.clientId},#{activity.activityId},#{contacts.contactsId})
     </insert>

@@ -60,14 +60,14 @@
 								<el-input v-model="formInline.money" placeholder="请输入机会金额"></el-input>
 							</el-form-item>
 							<el-form-item label="负责人员:" class="ttsalary" prop="emp">
-								<el-select v-model="formInline.emp" placeholder="请输入负责人员">
-									<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
-										:label="o.oadeptName" :value="o.oadeptId">
+								<el-select v-model="formInline.emp" placeholder="请选择负责人员">
+									<el-option v-if="users!=null" v-for="u in users" :key="u.usersId"
+										:label="u.usersName" :value="u.usersId">
 									</el-option>
 								</el-select>
 							</el-form-item>
 							<el-form-item label="所属客户:" class="ttsalary" prop="custom">
-								<el-select v-model="formInline.custom" placeholder="请输入所属客户">
+								<el-select v-model="formInline.custom" placeholder="请选择所属客户">
 									<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
 										:label="o.oadeptName" :value="o.oadeptId">
 									</el-option>
@@ -81,7 +81,7 @@
 								</el-select>
 							</el-form-item>
 							<el-form-item label="关联活动:" class="ttsalary" prop="activity">
-								<el-select v-model="formInline.activity" placeholder="请输入关联活动">
+								<el-select v-model="formInline.activity" placeholder="请选择关联活动">
 									<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
 										:label="o.oadeptName" :value="o.oadeptId">
 									</el-option>
@@ -126,6 +126,7 @@
 		data() {
 			return {
 				eeid: null,
+				users:[],
 				order: {},
 				orders: [],
 				product:[],
@@ -296,9 +297,18 @@
 				}
 
 			},
+			// 负责人查询
+			loadUser(){
+				let $this = this;
+				this.axios.get("/users").then(res => {
+					console.log("负责人:",res);
+					$this.users = res.data;
+				})
+			},
 		},
 		created() {
 			this.loadData();
+			this.loadUser();
 		}
 	}
 </script>

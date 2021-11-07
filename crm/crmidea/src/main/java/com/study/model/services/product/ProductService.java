@@ -23,6 +23,14 @@ public class ProductService {
     }
 
     /**
+     * 查询所有产品
+     * @return
+     */
+    public List<Product> selectAll(){
+        return productMapper.selectAll();
+    }
+
+    /**
      *
      * 新增产品
      */

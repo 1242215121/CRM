@@ -54,8 +54,8 @@
 				<el-pagination hide-on-single-page background @current-change="handleCurrentChange" layout="prev, pager, next"
 					:page-size="pageSize" :total="total">
 				</el-pagination>
-				<el-drawer title="新增报价单" v-model="drawer" :with-header="false" size="50%">
-					<div class="big">
+				<el-drawer title="新增报价单" v-model="drawer" :with-header="false" size="55%">
+					<div class="big overflowAuto">
 						<el-form :model="formInline" ref="formInline" :rules="rules">
 							<el-form-item label="报价单名称:" class="ttsalary" prop="name">
 								<el-input v-model="formInline.name" placeholder="请输入报价单名称"></el-input>
@@ -63,20 +63,34 @@
 							<el-form-item label="报价单金额:" class="ttsalary" prop="money">
 								<el-input v-model="formInline.money" placeholder="请输入报价单金额"></el-input>
 							</el-form-item>
-							<el-form-item label="负责人员:" class="ttsalary" prop="emp">
-								<el-input v-model="formInline.emp" readonly="readonly"></el-input>
-							</el-form-item>
-							<el-form-item label="关联机会:" class="ttsalary" prop="activity">
+							<el-form-item label="关联的机会:" class="ttsalary" prop="activity">
 								<el-select v-model="formInline.activity" placeholder="请输入关联机会">
 									<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
 										:label="o.oadeptName" :value="o.oadeptId">
 									</el-option>
 								</el-select>
 							</el-form-item>
-							
+							<el-form-item label="&nbsp;&nbsp;添加产品:">
+								<el-button type="text" @click="add" icon="el-icon-circle-plus-outline">关联产品</el-button>
+							</el-form-item>
+							<div v-if="dpp=true"
+							style="margin-left: 2%;border: 1px solid gray;margin-bottom:5%;width: 80%;">
+								<el-table :data="oppro" style="margin: 20px;width: 95%;">
+									<el-table-column prop="proId" label="产品编号" width="100px"></el-table-column>
+									<el-table-column prop="proName" label="产品名称"></el-table-column>
+									<el-table-column prop="proPrice" label="产品价格"></el-table-column>
+									<el-table-column label="销售数量">
+										<template #default="scope">
+											<el-input-number v-model="scope.row.num" :min="1" size="mini">
+											</el-input-number>
+										</template>
+									</el-table-column>
+								</el-table>
+							</div>
 							<el-form-item class="button">
 								<el-button type="primary" @click="submitForm('formInline')">提交</el-button>
 								<el-button @click="resetForm()">重置</el-button>
+								<el-button @click="cancel()">取消</el-button>
 							</el-form-item>
 						</el-form>
 					</div>
@@ -89,6 +103,17 @@
 						<el-table-column prop="product.proPrice" label="产品价格"></el-table-column>
 						<el-table-column prop="proNum" label="产品数量"></el-table-column>
 					</el-table>
+				</el-dialog>
+				<el-dialog title="产品信息" v-model="Visible" width="50%" :before-close="handleClose">
+					<!-- 查看产品 -->
+					<el-table :data="fabric" style="width: 100%" @selection-change="handleSelectionChange">
+						<el-table-column type="selection" width="55" />
+						<el-table-column prop="proId" label="产品编号" width="100px"></el-table-column>
+						<el-table-column prop="proName" label="产品名称"></el-table-column>
+						<el-table-column prop="proPrice" label="产品价格"></el-table-column>
+						<el-table-column prop="proInventoryAmount" label="库存数量"></el-table-column>
+					</el-table>
+					<el-button type="primary" @click="sure" size="mini">确定</el-button>
 				</el-dialog>
 			</el-main>
 		</el-container>
@@ -104,7 +129,10 @@
 	export default {
 		data() {
 			return {
-				eeid: null,
+				fabric: [], //所有产品信息
+				oppro: [], //选中的产品信息
+				dpp: false, //表单中的div是否显示
+				Visible: false, //关联产品
 				quotation: {},
 				quotations: [],
 				product:[],
@@ -118,29 +146,17 @@
 				formInline:{},
 				rules:{
 					name:[
-						{ required: true, message: '请输入机会名称',trigger: 'blur'},
-					],
-					emp:[
-						{ required: true, message: '请输入负责人员', trigger: 'blur' },
-					],
-					custom:[
-						{ required: true, message: '请输入所属客户', trigger: 'blur' },
-					],
-					person:[
-						{ required: true, message: '请输入联系人员', trigger: 'blur' },
+						{ required: true, message: '请输入报价单名称',trigger: 'blur'},
 					],
 					activity:[
-						{ required: true, message: '请输入关联活动', trigger: 'blur' },
+						{ required: true, message: '请输入关联机会', trigger: 'blur' },
 					],
 					money:[
-						{ required: true, message: '请输入机会金额', trigger: 'blur' },
+						{ required: true, message: '请输入报价单金额', trigger: 'blur' },
 						{pattern: /^[0-9]*$/, message: '请输入数字'},
-						{pattern: /^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$/, message: '机会金额需要大于0'},
-						
+						{pattern: /^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$/, message: '报价单金额需要大于0'},	
 					],
-					value2:[
-						{ required: true, message: '请选择时间',trigger: 'blur'},
-					],
+					
 				},
 			};
 		},
@@ -154,9 +170,36 @@
 				$this.pageSize = res.obj.pageSize
 				$this.pageNo = res.obj.pageNum
 			},
+			//查询所有产品的信息
+			add() {
+				let $this = this;
+				$this.Visible = true;
+			},
+			sure() {
+				//关闭产品信息弹框
+				let $this = this;
+				$this.Visible = false;
+			},
+			//选中的产品信息
+			handleSelectionChange(val) {
+				this.oppro = val;
+				if (this.oppro.length > 0) {
+					this.dpp = true;
+				}
+				console.log("选中的产品：", this.oppro);
+			},
 			//重置
-			resetForm(){
+			resetForm() {
 				this.formInline = {};
+				this.oppro = [];
+			},
+			//取消
+			cancel() {
+				//关闭窗口，并重置
+				console.log("取消")
+				this.resetForm();
+				this.drawer = false;
+				console.log("取消2")
 			},
 			//提交
 			submitForm(formName) { //销售机会新增
@@ -203,21 +246,6 @@
 						return false;
 					}
 				});
-			},
-			//转化成年月日
-			formatDate: function(value) {
-				var date = new Date(value);
-				var year = date.getFullYear();
-				var month = date.getMonth() + 1;
-				var day = date.getDate();
-				if (month < 10) {
-					month = "0" + month;
-				}
-				if (day < 10) {
-					day = "0" + day;
-				}
-			
-				return year + "-" + month + "-" + day;
 			},
 			//修改报价单状态
 			update(row){
@@ -290,11 +318,19 @@
 				}else {
 					this.loadData();
 				}
-
+			},
+			loadProduct() {
+				var $this = this;
+				//查询所有产品
+				this.axios.get("/hzc").then(res => {
+					// console.log("产品信息:",res);
+					$this.fabric = res.data;
+				})
 			},
 		},
 		created() {
 			this.loadData();
+			this.loadProduct();
 		}
 	}
 </script>
@@ -339,6 +375,22 @@
 		margin-left: 13%;
 		width: 80%;
 		/* box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1); */
+	}
+	
+	.overflowAuto {
+		overflow-y: auto;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.overflowAuto::-webkit-scrollbar {
+		height: 6px;
+		width: 6px;
+	}
+	
+	.overflowAuto::-webkit-scrollbar-thumb {
+		background: rgb(224, 214, 235);
 	}
 	
 	.ttsalary {

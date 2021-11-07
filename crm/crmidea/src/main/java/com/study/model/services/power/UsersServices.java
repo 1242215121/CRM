@@ -27,9 +27,18 @@ public class UsersServices {
      * 查询所有用户
      * @return
      */
+    public List<Users> selectAlls(){
+        return mapper.selectAlls();
+    }
+
+    /**
+     * 查询所有用户
+     * @return
+     */
     public List<Users> selectAll(){
         return mapper.selectAll();
     }
+
 
     /**
      * 根据职位编号查询用户

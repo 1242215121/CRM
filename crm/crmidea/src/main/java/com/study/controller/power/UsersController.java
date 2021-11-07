@@ -36,4 +36,9 @@ public class UsersController {
     public MyResult selectByAjobId(@RequestParam(value = "ajobid",defaultValue = "3") Integer ajobid){
         return MyResult.SUCCESS_DATA(services.selectByAjobId(ajobid));
     }
+
+    @GetMapping
+    public MyResult selectAlls(){
+        return MyResult.SUCCESS_DATA(services.selectAlls());
+    }
 }

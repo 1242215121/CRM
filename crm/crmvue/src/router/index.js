@@ -83,7 +83,7 @@ let routes = [
 				},
 				{
 					path: '/salefunnel',
-					component:() => import('@/components/insale/salefunnel.vue'),
+					component:() => import('@/components/insale/Salefunnel.vue'),
 					name: 'salefunnel',
 					meta: {
 						title: "销售机会"
@@ -91,7 +91,7 @@ let routes = [
 				},
 				{
 					path: '/salefunnelAdd',
-					component:() => import('@/components/insale/salefunnelAdd.vue'),
+					component:() => import('@/components/insale/SalefunnelAdd.vue'),
 					name: 'salefunnelAdd',
 					meta: {
 						title: "新增销售机会"
@@ -99,7 +99,7 @@ let routes = [
 				},
 				{
 					path: '/quotations',
-					component:() => import('@/components/insale/quotations.vue'),
+					component:() => import('@/components/insale/Quotations.vue'),
 					name: 'quotations',
 					meta: {
 						title: "报价单"
@@ -107,7 +107,7 @@ let routes = [
 				},
 				{
 					path: '/saleorder',
-					component:() => import('@/components/insale/saleorder.vue'),
+					component:() => import('@/components/insale/Saleorder.vue'),
 					name: 'saleorder',
 					meta: {
 						title: "销售订单"
@@ -115,7 +115,7 @@ let routes = [
 				},
 				{
 					path: '/refunds',
-					component:() => import('@/components/insale/refunds.vue'),
+					component:() => import('@/components/insale/Refunds.vue'),
 					name: 'refunds',
 					meta: {
 						title: "退货单"
