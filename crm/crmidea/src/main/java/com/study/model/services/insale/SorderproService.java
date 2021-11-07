@@ -22,4 +22,16 @@ public class SorderproService {
     public List<Sorderpro> selectBySoid(Integer soid){
         return mapper.selectBySoid(soid);
     }
+
+    /**
+     *
+     * @param num
+     * @param saleorder
+     * @param product
+     * @return
+     */
+    public Integer insert(Integer num,Integer saleorder,String product){
+        return mapper.insert(num,saleorder,product);
+    }
+
 }

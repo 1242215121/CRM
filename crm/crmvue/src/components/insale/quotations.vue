@@ -192,6 +192,7 @@
 			},
 			//重置
 			resetForm() {
+				this.dpp = false;
 				this.formInline = {};
 				this.oppro = [];
 			},

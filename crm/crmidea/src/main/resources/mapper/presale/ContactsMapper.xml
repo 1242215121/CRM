@@ -15,6 +15,11 @@
         </association>-->
     </resultMap>
 
+    <select id="seContacts" resultType="com.study.model.pojo.presale.Contacts">
+        select * from contacts
+    </select>
+
+
     <select id="selectContacts" resultType="com.study.model.pojo.presale.Contacts">
         select * from contacts
         <where>

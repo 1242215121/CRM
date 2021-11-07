@@ -254,6 +254,7 @@
 			},
 			//重置
 			resetForm() {
+				this.dpp = false;
 				this.formInline = {};
 				this.oppro = [];
 			},
@@ -409,7 +410,7 @@
 			},
 			loadActivity() {
 				let $this = this;
-				this.axios.get("/activity").then(res => {
+				this.axios.get("/activity/select").then(res => {
 					// console.log("市场活动:",res);
 					$this.activitys = res.data;
 				})
