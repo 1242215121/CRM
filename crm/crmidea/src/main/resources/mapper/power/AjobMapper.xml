@@ -31,6 +31,10 @@
         select * from ajob where ajbo_name=#{ajobname}
     </select>
 
+    <select id="selectByDeptId" resultType="com.study.model.pojo.power.Ajob">
+        select * from ajob where dept_id=#{deptid}
+    </select>
+
     <insert id="insertAjob">
         insert into ajob values (null,#{ajobName},#{ajobDesc})
     </insert>

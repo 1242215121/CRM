@@ -48,9 +48,13 @@
 					       
 					          <template #title>
 								   <i class="el-icon-setting"></i>
-					  			 <router-link to="/FormAttribute">系统设置</router-link>
+									<span>
+									系统设置
+									</span>
 					  		</template>
-							<el-menu-item index="1-1">部门管理</el-menu-item>
+							<el-menu-item index="1-1">
+								<router-link to="/dept">部门管理</router-link>
+								</el-menu-item>
 							<el-menu-item index="1-2">用户管理</el-menu-item>
 							<el-menu-item index="1-3">权限管理</el-menu-item>
 					  </el-submenu>
