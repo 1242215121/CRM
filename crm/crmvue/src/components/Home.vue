@@ -173,7 +173,7 @@
 			},
 		},
 		created() {
-			console.log(this.$store.state);
+			console.log('当前登录用户',this.$store.state.users);
 		},
 		computed: {
 			routes() {

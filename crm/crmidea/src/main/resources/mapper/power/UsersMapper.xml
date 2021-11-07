@@ -16,6 +16,7 @@
         <result property="usersPhone" column="users_phone"/>
         <result property="usersEmail" column="users_email"/>
         <result property="usersImgs" column="users_imgs"/>
+        <result property="state" column="state"/>
         <association property="ajob" column="ajob_id"
                      select="com.study.model.mapper.power.AjobMapper.selectByAjobIdNoUsers"
                      javaType="com.study.model.pojo.power.Ajob">
@@ -51,6 +52,10 @@
 
     <select id="selectByUsersName" resultMap="usersResult">
         select * from users where users_name=#{name}
+    </select>
+
+    <select id="selectByUsersId" resultMap="usersResult">
+        select * from users where users_id=#{id}
     </select>
 
     <select id="selectByAjobId" resultMap="usersResult">

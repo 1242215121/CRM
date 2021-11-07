@@ -1,8 +1,6 @@
 package com.study.model.pojo.power;
 
-import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 public class Module {
     private Integer moduleId;
@@ -11,7 +9,7 @@ public class Module {
     private String moduleIcon;
     private String moduleComponent;
     private List<RoleModule> roleModule;
-    private List<Module> modules;
+    private List<Module> children;
     private Module module;
 
     public Integer getModuleId() {
@@ -67,12 +65,12 @@ public class Module {
     }
 
 
-    public List<Module> getModules() {
-        return modules;
+    public List<Module> getChildren() {
+        return children;
     }
 
-    public void setModules(List<Module> modules) {
-        this.modules = modules;
+    public void setChildren(List<Module> children) {
+        this.children = children;
     }
 
     public Module getModule() {

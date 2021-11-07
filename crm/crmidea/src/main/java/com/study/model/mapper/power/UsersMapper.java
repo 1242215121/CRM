@@ -35,4 +35,10 @@ public interface UsersMapper {
      */
     public List<Users> selectByDeptId(Integer deptid);
 
+    /**
+     * 根据用户编号查询
+     * @param uid
+     * @return
+     */
+    public Users selectByUsersId(Integer uid);
 }
