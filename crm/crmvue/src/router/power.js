@@ -10,7 +10,7 @@ export const initModule = (router, store,next,to) => {
 	
 	if (store.state.users) {
 		// //获取用户信息
-		alert(store.state.users.usersId);
+		// alert(store.state.users.usersId);
 		// axios.get("jurisdiction/res", {
 		// 	params: {
 		// 		id: uid

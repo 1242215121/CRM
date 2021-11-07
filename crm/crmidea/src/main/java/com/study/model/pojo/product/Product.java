@@ -53,6 +53,16 @@ public class Product {
     public void setUsers(Users users) {
         this.users = users;
     }
+    //模糊查询
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     //无参
     public Product() {

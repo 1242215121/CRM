@@ -1,5 +1,7 @@
 package com.study.controller.product;
 
+import com.alibaba.fastjson.JSONObject;
+import com.study.model.pojo.product.Product;
 import com.study.model.pojo.product.Type;
 import com.study.model.services.product.TypeService;
 import com.study.utils.MyResult;
@@ -23,5 +25,59 @@ public class TypeController {
     @RequestMapping("/selType")
     public MyResult selType(){
         return MyResult.SUCCESS_DATA(typeService.selType());
+    }
+
+    /**
+     * 查询所有类别
+     */
+    @RequestMapping("/selAll")
+    public MyResult selAll(){
+        return MyResult.SUCCESS_DATA(typeService.selAll());
+    }
+
+    /**
+     * 新增类别
+     */
+    @RequestMapping("/insertType")
+    public MyResult insertType(String type){
+        try {
+            Type type1 = JSONObject.parseObject(type, Type.class);
+            typeService.insertType(type1);
+            return MyResult.SUCCESS;
+        }catch (Exception e){
+            return MyResult.FAILURE("新增出错");
+        }
+    }
+
+    /**
+     * 修改类别
+     */
+    @RequestMapping("/updateType")
+    public MyResult updateType(String type){
+        try {
+            Type type1 = JSONObject.parseObject(type, Type.class);
+            typeService.updateType(type1);
+            return MyResult.SUCCESS;
+        }catch (Exception e){
+            return MyResult.FAILURE("修改出错");
+        }
+    }
+
+
+    /**
+     * 删除类别
+     */
+    @RequestMapping("/deleteType")
+    public MyResult deleteType(String typeId){
+        System.out.println("类别id");
+        System.out.println(typeId);
+
+        Integer integer = typeService.deleteType(typeId);
+
+        if(integer==0){
+            return MyResult.FAILURE("该类别关联了产品，不能删除！");
+        }
+        return MyResult.SUCCESS;
+
     }
 }

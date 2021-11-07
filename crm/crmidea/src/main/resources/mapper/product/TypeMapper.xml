@@ -24,4 +24,28 @@
         select * from type where parent_id=#{parentId}
     </select>
 
+    <resultMap id="all" type="com.study.model.pojo.product.Type">
+        <id property="typeId" column="type_id"></id>
+        <result property="typeName" column="type_name"></result>
+        <result property="parentId" column="parent_id"></result>
+    </resultMap>
+    <!--查询所有类别-->
+    <select id="selAll" resultMap="all">
+        select * from type
+    </select>
+
+    <!--新增类别-->
+    <insert id="insertType">
+        insert into type values (0,#{typeName},#{parentId})
+    </insert>
+
+    <!--修改类别-->
+    <update id="updateType">
+        update type set type_name=#{typeName},parent_id=#{parentId} where type_id = #{typeId}
+    </update>
+
+    <!--删除类别-->
+    <delete id="deleteType">
+        delete from type where type_id = #{typeId}
+    </delete>
 </mapper>
