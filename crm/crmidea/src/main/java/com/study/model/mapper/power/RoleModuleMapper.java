@@ -15,4 +15,18 @@ public interface RoleModuleMapper {
      */
     public List<RoleModule> selectByRoleId(Integer roleid);
 
+    /**
+     * 角色模块关联
+     * @param roleModule
+     * @return
+     */
+    public Integer insertRoleModule(RoleModule roleModule);
+
+    /**
+     * 删除角色下的模块
+     * @param roleid
+     * @return
+     */
+    public Integer deleteByRoleId(Integer roleid);
+
 }

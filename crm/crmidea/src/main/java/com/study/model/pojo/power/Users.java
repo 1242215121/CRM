@@ -17,6 +17,9 @@ public class Users {
     private String usersEmail;//邮箱
     private String usersImgs;//头像地址
     private Integer state;//用户状态
+    private Ajob ajob;//职位
+    private Dept dept;//部门
+    private List<UsersRole> usersRole;//角色
 
     public Integer getState() {
         return state;
@@ -26,9 +29,7 @@ public class Users {
         this.state = state;
     }
 
-    private Ajob ajob;//职位
-    private Dept dept;//部门
-    private List<UsersRole> usersRole;//角色
+
 
     public Integer getUsersId() {
         return usersId;

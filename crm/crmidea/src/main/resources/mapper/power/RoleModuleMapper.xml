@@ -14,7 +14,16 @@
 
         </association>
     </resultMap>
+
     <select id="selectByRoleId" resultMap="roleModuleResult">
         select * from role_module where role_id=#{roleid}
     </select>
+
+    <insert id="insertRoleModule">
+        insert into role_module values (null,#{role.roleId},#{module.moduleId})
+    </insert>
+
+    <delete id="deleteByRoleId">
+        delete from role_module where role_id=#{roleid}
+    </delete>
 </mapper>

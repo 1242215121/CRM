@@ -19,6 +19,14 @@ public interface DeptMapper {
      * @return
      */
     public Dept selectByDeptIdNoUsers(Integer deptid);
+
+
+    /**
+     * 根据部门名称查询 用于修改验证
+     * @param deptname
+     * @return
+     */
+    public Dept selectByDeptName(String deptname);
     /**
      * 查询所有部门
      * @return
@@ -31,4 +39,18 @@ public interface DeptMapper {
      * @return
      */
     public Integer insertDept(Dept dept);
+
+    /**
+     * 修改部门
+     * @param dept
+     * @return
+     */
+    public Integer updateDept(Dept dept);
+
+    /**
+     * 根据部门主键删除
+     * @param deptid
+     * @return
+     */
+    public Integer deleteDept(Integer deptid);
 }

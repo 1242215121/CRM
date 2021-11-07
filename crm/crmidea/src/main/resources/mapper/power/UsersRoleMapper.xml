@@ -14,10 +14,20 @@
 
         </association>
     </resultMap>
+
     <select id="selectByUsersId" resultMap="usersRoleResult">
         select * from users_role where users_id=#{usersid}
     </select>
+
     <select id="ByRoleId" resultMap="usersRoleResult">
         select * from users_role where role_id=#{roleid}
     </select>
+
+    <insert id="insertUsersRole">
+        insert into users_role values (null,#{users.usersId},#{role.roleId})
+    </insert>
+
+    <delete id="deleteByUsersId">
+        delete from users_role where users_id=#{usersid}
+    </delete>
 </mapper>

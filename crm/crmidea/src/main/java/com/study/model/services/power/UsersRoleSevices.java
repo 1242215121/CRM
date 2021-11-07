@@ -31,4 +31,33 @@ public class UsersRoleSevices {
     public List<UsersRole> selectByRoleId(Integer roleid){
         return mapper.ByRoleId(roleid);
     }
+
+    /**
+     * 用户角色关联
+     * @param usersRole
+     */
+    public Integer insertUsersRole(UsersRole usersRole){
+        try {
+            mapper.insertUsersRole(usersRole);
+            return 1;
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
+     * 删除用户下的角色
+     * @param usersid
+     * @return
+     */
+    public Integer deleteByUsersId(Integer usersid){
+        try {
+            mapper.deleteByUsersId(usersid);
+            return 1;
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+    }
 }
