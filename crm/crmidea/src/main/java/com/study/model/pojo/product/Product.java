@@ -2,6 +2,7 @@ package com.study.model.pojo.product;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.study.model.pojo.insale.Salepro;
+import com.study.model.pojo.power.Users;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -25,12 +26,33 @@ public class Product {
     private Integer proInventoryLock;   //锁定库存
     private String proModel;   //产品型号
     private String proDescribe; //产品描述
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd ", timezone = "GMT+8")
     private Timestamp proDate;  //创建时间
     private String proBar;  //条形码
 
     private List<Salepro> salepros; // 销售机会和产品中间表
 
+    private Type type;//产品类别
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Users users;//负责人
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+
+    //无参
     public Product() {
         super();
     }

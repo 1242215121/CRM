@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ProductService {
     @Autowired
     ProductMapper productMapper;
@@ -20,6 +20,20 @@ public class ProductService {
      */
     public List<Product> selPro(){
         return productMapper.selPro();
+    }
+
+    /**
+     *
+     * 新增产品
+     */
+    public Integer insertPro(Product product){
+        try{
+            productMapper.insertPro(product);
+            return 1;
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
     }
 
 }

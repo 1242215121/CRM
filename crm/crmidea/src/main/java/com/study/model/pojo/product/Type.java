@@ -1,6 +1,7 @@
 package com.study.model.pojo.product;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -10,6 +11,16 @@ public class Type {
     private int typeId; //类别编号
     private String typeName; //类别名称
     private Integer parentId; //父级类别
+
+    private List<Type> types;
+
+    public List<Type> getTypes() {
+        return types;
+    }
+
+    public void setTypes(List<Type> types) {
+        this.types = types;
+    }
 
     public Type() {
         super();

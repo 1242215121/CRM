@@ -11,4 +11,9 @@ public interface TypeMapper {
      * 查询所有类别
      */
     public List<Type> selType();
+
+    /**
+     * 查询父级类别
+     */
+    public List<Type> selPar(String parentId);
 }

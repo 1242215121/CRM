@@ -18,11 +18,24 @@
         <result property="proDescribe" column="pro_describe"></result>
         <result property="proDate" column="pro_date"></result>
         <result property="proBar" column="pro_bar"></result>
+
+        <association property="type" javaType="com.study.model.pojo.product.Type">
+            <id property="typeId" column="type_id"></id>
+            <result property="typeName" column="type_name"></result>
+            <result property="parentId" column="parent_id"></result>
+        </association>
+        <association property="users" javaType="com.study.model.pojo.power.Users">
+            <id property="usersId" column="users_id"/>
+            <result property="usersName" column="users_name"/>
+            <result property="usersFullname" column="users_fullname"/>
+        </association>
+
     </resultMap>
 
     <!--查询所有产品-->
     <select id="selPro" resultMap="ProMap">
-        select * from product
+        select * from product p left join type t on p.pro_type_id = t.type_id
+        left join users u on p.pro_person = u.users_id
 <!--        <where>-->
 <!--            <if test="proTypeId != '' and proTypeId != null ">-->
 <!--                and pro_type_id = #{proTypeId}-->
@@ -31,5 +44,11 @@
 <!--        </where>-->
     </select>
 
+    <!--新增产品-->
+    <insert id="insertPro">
+        insert into product values (#{proId},#{proName},#{proTypeId},#{proState},#{proPerson},#{proUnit},
+        #{proPrice},#{proInventoryState},#{proInventoryAmount},#{proInventoryUsable},#{proInventoryLock},
+        #{proModel},#{proDescribe},current_timestamp ,#{proBar})
+    </insert>
 
 </mapper>

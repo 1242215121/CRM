@@ -13,4 +13,10 @@ public interface ProductMapper {
      * 查询所有产品
      */
     public List<Product> selPro();
+
+    /**
+     *
+     * 新增产品
+     */
+    public Integer insertPro(Product product);
 }

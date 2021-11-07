@@ -1,5 +1,6 @@
 package com.study.controller.product;
 
+import com.alibaba.fastjson.JSONObject;
 import com.study.model.pojo.product.Product;
 import com.study.model.services.product.ProductService;
 import com.study.utils.MyResult;
@@ -26,4 +27,20 @@ public class ProductController {
         return  MyResult.SUCCESS_DATA(productService.selPro());
 
     }
+
+    /**
+     *
+     * 新增产品
+     */
+    @RequestMapping("/insertPro")
+    public MyResult insertPro(String product){
+        try {
+            Product product1 = JSONObject.parseObject(product, Product.class);
+             productService.insertPro(product1);
+            return MyResult.SUCCESS;
+        }catch (Exception e){
+            return MyResult.FAILURE("新增出错");
+        }
+    }
+
 }

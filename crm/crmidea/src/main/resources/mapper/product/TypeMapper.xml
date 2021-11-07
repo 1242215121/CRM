@@ -6,11 +6,22 @@
         <id property="typeId" column="type_id"></id>
         <result property="typeName" column="type_name"></result>
         <result property="parentId" column="parent_id"></result>
+
+        <collection property="types" ofType="com.study.model.pojo.product.Type"
+                    select="com.study.model.mapper.product.TypeMapper.selPar" column="type_id">
+
+        </collection>
     </resultMap>
+
+
 
     <!--查询所有类别-->
     <select id="selType" resultMap="TypeMap">
-        select t1.type_id as type_ids ,t1.type_name as type_names,t.* from type t inner join type t1 on t.type_id = t1.parent_id
+        select * from type where parent_id =0
+    </select>
+    <!--查询所有类别-->
+    <select id="selPar" resultMap="TypeMap">
+        select * from type where parent_id=#{parentId}
     </select>
 
 </mapper>
