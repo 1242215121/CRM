@@ -1,6 +1,10 @@
 package com.study.model.pojo.presale;
 
 
+import com.study.model.pojo.insale.Salefunnel;
+
+import java.util.List;
+
 /**
  * 联系人
  **/
@@ -13,7 +17,7 @@ public class Contacts {
     private String contactsCase;//在职情况
     private Integer contactsCutostomer;//客户外键
 
-
+    private List<Salefunnel> salefunnels;//销售机会
 
 
     public Integer getContactsId() {
@@ -73,6 +77,14 @@ public class Contacts {
 
     public void setContactsCutostomer(Integer contactsCutostomer) {
         this.contactsCutostomer = contactsCutostomer;
+    }
+
+    public List<Salefunnel> getSalefunnels() {
+        return salefunnels;
+    }
+
+    public void setSalefunnels(List<Salefunnel> salefunnels) {
+        this.salefunnels = salefunnels;
     }
 
     public Contacts() {

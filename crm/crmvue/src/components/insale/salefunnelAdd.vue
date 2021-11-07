@@ -85,53 +85,54 @@
 			//提交
 			submitForm(formName) { //出差申请
 				this.$refs[formName].validate((valid) => {
-					if (valid) {
-						//数据不为空，
-						let $this = this;
-						if ($this.formInline.value2 != '' && $this.formInline.value2 != null) {
+					// if (valid) {
+					// 	//数据不为空，
+					// 	let $this = this;
+					// 	if ($this.formInline.value2 != '' && $this.formInline.value2 != null) {
 							
-							$this.starttime = this.formatDate($this.formInline.value2[0]);
-							$this.endtime = this.formatDate($this.formInline.value2[1]);
-						} else {
-							$this.starttime = null;
-							$this.endtime = null;
-						}
-						console.log("开始时间：", $this.starttime);
-						console.log("结束时间：", $this.endtime)
-						console.log("出差原因：",$this.formInline.reason);
-						console.log("出差地点：",$this.formInline.address);
-						$this.eeid = this.$store.state.user.name.obj.emp.eeid;
-						this.axios.post("/bussiness/insert",Qs.stringify({
-							starttime:$this.starttime,
-							endtime:$this.endtime,
-							reason:$this.formInline.reason,
-							address:$this.formInline.address,
-							eeid:$this.eeid,
-						})).then(res=>{
-							// console.log("调薪申请：",res.code);
-							if (res.code == 1) {
-								ElMessage({
-									message: "出差申请新增成功!",
-									type: 'success'
-								});
-								// 跳转页面 回到申请页面
-								this.$router.replace("/application");
+					// 		$this.starttime = this.formatDate($this.formInline.value2[0]);
+					// 		$this.endtime = this.formatDate($this.formInline.value2[1]);
+					// 	} else {
+					// 		$this.starttime = null;
+					// 		$this.endtime = null;
+					// 	}
+					// 	console.log("开始时间：", $this.starttime);
+					// 	console.log("结束时间：", $this.endtime)
+					// 	console.log("出差原因：",$this.formInline.reason);
+					// 	console.log("出差地点：",$this.formInline.address);
+					// 	$this.eeid = this.$store.state.user.name.obj.emp.eeid;
+					// 	this.axios.post("/bussiness/insert",Qs.stringify({
+					// 		starttime:$this.starttime,
+					// 		endtime:$this.endtime,
+					// 		reason:$this.formInline.reason,
+					// 		address:$this.formInline.address,
+					// 		eeid:$this.eeid,
+					// 	})).then(res=>{
+					// 		// console.log("调薪申请：",res.code);
+					// 		if (res.code == 1) {
+					// 			ElMessage({
+					// 				message: "出差申请新增成功!",
+					// 				type: 'success'
+					// 			});
+					// 			// 跳转页面 回到申请页面
+					// 			this.$router.replace("/application");
 								
-							}else{
-								ElMessage({
-									message: res.msg,
-									type: 'erro'
-								});
-							}
-						})
+					// 		}else{
+					// 			ElMessage({
+					// 				message: res.msg,
+					// 				type: 'erro'
+					// 			});
+					// 		}
+					// 	})
 						
-					} else {
-						ElMessage({
-							message: "请完整填写信息",
-							type: 'erro'
-						});
-						return false;
-					}
+					// } else {
+					// 	ElMessage({
+					// 		message: "请完整填写信息",
+					// 		type: 'erro'
+					// 	});
+					// 	return false;
+					// }
+					this.$router.replace("/salefunnel");
 				});
 			},
 			//基本信息

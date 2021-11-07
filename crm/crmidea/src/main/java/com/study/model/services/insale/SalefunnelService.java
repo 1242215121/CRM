@@ -27,6 +27,19 @@ public class SalefunnelService {
     }
 
     /**
+     * 根据机会编号和机会名称查询所有
+     * @param id
+     * @param name
+     * @return
+     */
+    public PageInfo<Salefunnel> selectMany(Integer no,Integer size,Integer id, String name){
+        PageHelper.startPage(no,size);
+        List<Salefunnel> list = mapper.selectMany(id, name);
+        return PageInfo.of(list);
+    }
+
+
+    /**
      * 新增 销售机会
      * @param salefunnel
      * @return

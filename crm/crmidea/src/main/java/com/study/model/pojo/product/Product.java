@@ -1,9 +1,11 @@
 package com.study.model.pojo.product;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.study.model.pojo.insale.Salepro;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -26,6 +28,8 @@ public class Product {
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Timestamp proDate;  //创建时间
     private String proBar;  //条形码
+
+    private List<Salepro> salepros; // 销售机会和产品中间表
 
     public Product() {
         super();
@@ -168,6 +172,14 @@ public class Product {
 
     public void setProBar(String proBar) {
         this.proBar = proBar;
+    }
+
+    public List<Salepro> getSalepros() {
+        return salepros;
+    }
+
+    public void setSalepros(List<Salepro> salepros) {
+        this.salepros = salepros;
     }
 
     @Override
