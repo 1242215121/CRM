@@ -25,7 +25,23 @@
         select * from dept where dept_id=#{deptid}
     </select>
 
+    <select id="selectByDeptName" resultType="com.study.model.pojo.power.Dept">
+        select * from dept where dept_name=#{deptname}
+    </select>
+
     <select id="selectAll" resultMap="deptResult">
         select * from dept order by dept_id desc
     </select>
+
+    <insert id="insertDept">
+        insert into dept values (null,#{deptName},#{deptDesc})
+    </insert>
+
+    <update id="updateDept">
+        update dept set dept_name=#{deptName},dept_desc=#{deptDesc} where dept_id=#{deptId}
+    </update>
+
+    <delete id="deleteDept">
+        delete from dept where dept_id=#{deptid}
+    </delete>
 </mapper>

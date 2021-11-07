@@ -9,10 +9,10 @@ import java.util.Objects;
  * 部门
  */
 public class Dept {
-    private List<Users> users;//
-    private Integer deptId;
-    private String deptName;
-    private String deptDesc;
+    private List<Users> users;//员工
+    private Integer deptId;//部门编号
+    private String deptName;//部门名称
+    private String deptDesc;//部门描述
 
     public List<Users> getUsers() {
         return users;

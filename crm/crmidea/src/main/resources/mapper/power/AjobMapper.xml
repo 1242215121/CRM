@@ -26,4 +26,20 @@
     <select id="selectByAjobIdNoUsers" resultType="com.study.model.pojo.power.Ajob">
         select * from ajob where ajob_id=#{ajobid}
     </select>
+
+    <select id="selectByAjobName" resultType="com.study.model.pojo.power.Ajob">
+        select * from ajob where ajbo_name=#{ajobname}
+    </select>
+
+    <insert id="insertAjob">
+        insert into ajob values (null,#{ajobName},#{ajobDesc})
+    </insert>
+
+    <update id="updateAjob">
+        update ajob set ajob_name=#{ajobName},ajob_desc=#{ajobDesc} where ajob_id=#{ajobId}
+    </update>
+
+    <delete id="deleteByAjobId">
+        delete from ajob where ajob_id=#{ajobid}
+    </delete>
 </mapper>

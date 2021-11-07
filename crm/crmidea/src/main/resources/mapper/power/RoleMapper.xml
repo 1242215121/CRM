@@ -6,5 +6,29 @@
 <!--根标签是mapper
         属性namespace 用来关联指定Mapper接口的全类名-->
 <mapper namespace="com.study.model.mapper.power.RoleMapper">
+    <resultMap id="morenResult" type="com.study.model.pojo.power.Role">
+        <id column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+        <result column="role_desc" property="roleDesc"/>
+        <result column="role_status" property="roleStatus"/>
+    </resultMap>
+    <select id="selectByRoleIdNogx" resultMap="morenResult">
+        select * from `role` where role_id=#{roleid}
+    </select>
 
+
+    <resultMap id="roleResult" type="com.study.model.pojo.power.Role">
+        <id column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+        <result column="role_desc" property="roleDesc"/>
+        <result column="role_status" property="roleStatus"/>
+        <collection property="roleModule" select="com.study.model.mapper.power.RoleModuleMapper.selectByRoleId"
+                    column="role_id"
+                    ofType="com.study.model.pojo.power.RoleModule">
+
+        </collection>
+    </resultMap>
+    <select id="selectByRoleId" resultMap="roleResult">
+        select * from `role` where role_id=#{roleid}
+    </select>
 </mapper>

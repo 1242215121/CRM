@@ -47,4 +47,18 @@ public interface UsersMapper {
      * @return
      */
     public Users selectByUsersId(Integer uid);
+
+    /**
+     * 新增用户
+     * @param users
+     * @return
+     */
+    public Integer insertUsers(Users users);
+
+    /**
+     * 修改用户
+     * @param users
+     * @return
+     */
+    public Integer updateUsers(Users users);
 }

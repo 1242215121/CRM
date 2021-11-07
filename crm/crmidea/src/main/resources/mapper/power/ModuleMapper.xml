@@ -6,5 +6,22 @@
 <!--根标签是mapper
         属性namespace 用来关联指定Mapper接口的全类名-->
 <mapper namespace="com.study.model.mapper.power.ModuleMapeer">
+    <resultMap id="moduleResult" type="com.study.model.pojo.power.Module">
+        <id column="module_id" property="moduleId"/>
+        <result column="module_name" property="moduleName"/>
+        <result column="module_url" property="moduleUrl"/>
+        <result column="module_icon" property="moduleIcon"/>
+        <result column="module_component" property="moduleComponent"/>
+        <collection property="children" column="module_id"
+                    select="com.study.model.mapper.power.ModuleMapeer.selectByModulePid"
+                    ofType="com.study.model.pojo.power.Module">
 
+        </collection>
+    </resultMap>
+    <select id="selectByModuleId" resultMap="moduleResult">
+        select * from `module` where module_id=#{id}
+    </select>
+    <select id="selectByModulePid" resultType="com.study.model.pojo.power.Module">
+        select * from `module` where  module_pid=#{pid}
+    </select>
 </mapper>

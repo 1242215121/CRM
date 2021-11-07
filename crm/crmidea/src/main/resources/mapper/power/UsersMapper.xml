@@ -27,11 +27,7 @@
                      javaType="com.study.model.pojo.power.Dept">
 
         </association>
-<!--        <collection property="usersRole" column="users_id"-->
-<!--                    select="com.study.model.mapper.power.UsersRoleMapper.selectByUsersId"-->
-<!--                    ofType="com.study.model.pojo.power.UsersRole">-->
 
-<!--        </collection>-->
     </resultMap>
 
     <select id="selectAll" resultMap="usersResult" parameterType="com.study.model.vojo.power.UsersVo">
@@ -70,4 +66,36 @@
     <select id="selectByDeptId" resultType="com.study.model.pojo.power.Users">
         select * from users where dept_id=#{deptid} order by users_id desc
     </select>
+
+    <insert id="insertUsers">
+        insert into users values (null,
+                                  #{usersName},
+                                  #{usersPwd},
+                                  #{usersPwd},
+                                  #{usersFullname},
+                                  #{usersSex},
+                                  #{usersBrith},
+                                  #{usersPhone},
+                                  #{usersEmail},
+                                  #{usersImgs},
+                                  #{state},
+                                  #{ajob.ajobId},
+                                  #{dept.deptId}
+                                  )
+    </insert>
+
+    <update id="updateUsers">
+        update users set users_name=#{usersName},
+                         users_pwd=#{usersPwd},
+                         users_fullname=#{usersFullname},
+                         users_sex=#{usersSex},
+                         users_brith=#{usersBrith},
+                         users_phone=#{usersPhone},
+                         users_email=#{usersEmail},
+                         users_imgs=#{usersImgs},
+                         `state`=#{state},
+                         ajob_id=#{ajob.ajobId},
+                         dept_id=#{dept.deptId}
+        where users_id=#{usersId}
+    </update>
 </mapper>

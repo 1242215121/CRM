@@ -20,5 +20,18 @@ public interface UsersRoleMapper {
      * @param roleid
      * @return
      */
-    public List<UsersRole> selectByRoleId(Integer roleid);
+    public List<UsersRole> ByRoleId(Integer roleid);
+
+    /**
+     * 用户角色关联
+     * @param usersRole
+     */
+    public Integer insertUsersRole(UsersRole usersRole);
+
+    /**
+     * 删除用户下的角色
+     * @param usersid
+     * @return
+     */
+    public Integer deleteByUsersId(Integer usersid);
 }

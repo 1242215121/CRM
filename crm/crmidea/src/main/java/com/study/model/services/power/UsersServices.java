@@ -67,4 +67,34 @@ public class UsersServices {
     public Users selectByUsersId(Integer uid){
         return mapper.selectByUsersId(uid);
     }
+
+    /**
+     * 新增用户
+     * @param users
+     * @return
+     */
+    public Integer insertUsers(Users users){
+        try{
+            mapper.insertUsers(users);
+            return 1;
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
+     * 修改用户
+     * @param users
+     * @return
+     */
+    public Integer updateUsers(Users users){
+        try{
+            mapper.updateUsers(users);
+            return 1;
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+    }
 }

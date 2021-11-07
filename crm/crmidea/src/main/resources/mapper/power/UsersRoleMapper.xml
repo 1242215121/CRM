@@ -6,5 +6,28 @@
 <!--根标签是mapper
         属性namespace 用来关联指定Mapper接口的全类名-->
 <mapper namespace="com.study.model.mapper.power.UsersRoleMapper">
+    <resultMap id="usersRoleResult" type="com.study.model.pojo.power.UsersRole">
+        <id column="id" property="id"/>
+        <association property="role" column="role_id"
+                     javaType="com.study.model.pojo.power.Role"
+                     select="com.study.model.mapper.power.RoleMapper.selectByRoleId">
 
+        </association>
+    </resultMap>
+
+    <select id="selectByUsersId" resultMap="usersRoleResult">
+        select * from users_role where users_id=#{usersid}
+    </select>
+
+    <select id="ByRoleId" resultMap="usersRoleResult">
+        select * from users_role where role_id=#{roleid}
+    </select>
+
+    <insert id="insertUsersRole">
+        insert into users_role values (null,#{users.usersId},#{role.roleId})
+    </insert>
+
+    <delete id="deleteByUsersId">
+        delete from users_role where users_id=#{usersid}
+    </delete>
 </mapper>

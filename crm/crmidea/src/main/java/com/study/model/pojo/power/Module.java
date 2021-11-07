@@ -2,15 +2,18 @@ package com.study.model.pojo.power;
 
 import java.util.List;
 
+/**
+ * 模块表
+ */
 public class Module {
-    private Integer moduleId;
-    private String moduleName;
-    private String moduleUrl;
-    private String moduleIcon;
-    private String moduleComponent;
-    private List<RoleModule> roleModule;
-    private List<Module> children;
-    private Module module;
+    private Integer moduleId;//编号
+    private String moduleName;//模块名
+    private String moduleUrl;//地址
+    private String moduleIcon;//图标
+    private String moduleComponent;//组件名
+    private List<RoleModule> roleModule;//角色模块关联
+    private List<Module> children;//子模块
+    private Module module;//父模块
 
     public Integer getModuleId() {
         return moduleId;

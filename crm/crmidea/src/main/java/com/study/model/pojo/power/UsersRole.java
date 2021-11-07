@@ -1,12 +1,13 @@
 package com.study.model.pojo.power;
 
-import javax.persistence.*;
-import java.util.Objects;
-
+import com.study.model.pojo.power.Role;
+/**
+ * 用户角色
+ */
 public class UsersRole {
     private Integer id;
-    private Users users;
-    private Role rloe;
+    private Users users;//用户
+    private Role role;//角色
 
     public Integer getId() {
         return id;
@@ -24,11 +25,11 @@ public class UsersRole {
         this.users = users;
     }
 
-    public Role getRloe() {
-        return rloe;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRloe(Role rloe) {
-        this.rloe = rloe;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
