@@ -13,7 +13,7 @@ import java.util.List;
 public class ActivityService {
     @Autowired
     ActivityMapper activityMapper;
-    public List<Activity> seActivity(){
+    public Object seActivityByPage(Integer pageNo,Integer size){
         return activityMapper.seActivity();
     }
 

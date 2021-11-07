@@ -1,6 +1,7 @@
 package com.study.model.pojo.presale;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.study.model.pojo.power.Dept;
 import com.study.model.pojo.power.Users;
 
 import java.sql.Date;
@@ -23,7 +24,15 @@ public class Activity {
     private Integer activityPlanIncome;//实际收入
     private Integer activityRealityIncome;//活动计划
     private Users users;
+    private Dept depts;
 
+    public Dept getDepts() {
+        return depts;
+    }
+
+    public void setDepts(Dept depts) {
+        this.depts = depts;
+    }
 
     public Users getUsers() {
         return users;

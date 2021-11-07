@@ -18,16 +18,21 @@
         <association property="users" javaType="com.study.model.pojo.power.Users">
             <id column="users_id" property="usersId"/>
             <result column="users_name" property="usersName"/>
-          <!--  <association property="depts" javaType="com.study.model.pojo.power.Dept">
-                <id column="dept_id" property="deptId"/>
-                <result column="dept_name" property="deptName"/>
-            </association>-->
         </association>
-
+        <association property="depts" javaType="com.study.model.pojo.power.Dept">
+            <id column="dept_id" property="deptId"/>
+            <result column="dept_name" property="deptName"/>
+        </association>
     </resultMap>
     <select id="seActivity" resultMap="ActivityMap">
         select * from activity ai
                       left join users us on ai.activity_user=us.users_id
+                      left join dept dt on dt.dept_id=ai.activity_dept
+                      order by ai.activity_id desc
+        <where>
+            
+        </where>
 
     </select>
+
 </mapper>
