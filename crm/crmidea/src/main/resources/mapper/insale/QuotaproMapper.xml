@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.insale.QuotaproMapper">
+
+    <resultMap id="baseMap" type="com.study.model.pojo.insale.Quotapro">
+        <id column="quotapro_id" property="quotaproId"/>
+        <result column="pro_num" property="proNum"/>
+        <!-- private Product product;//产品-->
+        <association property="product" javaType="com.study.model.pojo.product.Product">
+            <id property="proId" column="pro_id"/>
+            <result property="proName" column="pro_name"/>
+            <result property="proPrice" column="pro_price"/>
+        </association>
+    </resultMap>
+    <!--  public List<Quotapro> selectByQid(Integer qid);
+     根据报价单编号获取产品信息-->
+    <select id="selectByQid" resultMap="baseMap">
+        select quotapro_id,pro_num,p.pro_id,p.pro_price,p.pro_name,q_id from quotapro
+        left join product p on p.pro_id = quotapro.pro_id
+        where q_id = #{qid}
+        order by quotapro_id desc
+    </select>
+
+</mapper>

@@ -1,9 +1,12 @@
 package com.study.model.pojo.insale;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -15,9 +18,11 @@ public class Quotations {
     private BigDecimal qMoney; //报价金额
     private Date qDate;//报价日期
     private String qStage;//报价阶段
+    @JsonFormat(pattern = "yyyy-MM-dd HH:ss:mm")
     private Timestamp qTime; //最后更新时间
 
     private Salefunnel salefunnelBySfId;//销售机会  一个报价单是由一个销售机会生成
+    private List<Quotapro> quotapros;//多条报价单产品信息
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,6 +81,14 @@ public class Quotations {
 
     public void setSalefunnelBySfId(Salefunnel salefunnelBySfId) {
         this.salefunnelBySfId = salefunnelBySfId;
+    }
+
+    public List<Quotapro> getQuotapros() {
+        return quotapros;
+    }
+
+    public void setQuotapros(List<Quotapro> quotapros) {
+        this.quotapros = quotapros;
     }
 
     public Quotations() {

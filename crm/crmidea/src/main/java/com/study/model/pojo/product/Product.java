@@ -1,6 +1,7 @@
 package com.study.model.pojo.product;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.study.model.pojo.insale.Quotapro;
 import com.study.model.pojo.insale.Salepro;
 
 import javax.persistence.*;
@@ -30,6 +31,7 @@ public class Product {
     private String proBar;  //条形码
 
     private List<Salepro> salepros; // 销售机会和产品中间表
+    private List<Quotapro> quotapros;//报价单和产品的中间表
 
     public Product() {
         super();
@@ -180,6 +182,14 @@ public class Product {
 
     public void setSalepros(List<Salepro> salepros) {
         this.salepros = salepros;
+    }
+
+    public List<Quotapro> getQuotapros() {
+        return quotapros;
+    }
+
+    public void setQuotapros(List<Quotapro> quotapros) {
+        this.quotapros = quotapros;
     }
 
     @Override

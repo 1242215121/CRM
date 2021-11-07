@@ -1,5 +1,7 @@
 package com.study.model.pojo.insale;
 
+import com.study.model.pojo.product.Product;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -9,18 +11,16 @@ import java.util.Objects;
 public class Quotapro {
     private Integer quotaproId;
     private Integer proNum; //产品数量
-    private Integer qId; // 报价单编号
-    private String proId; // 产品编号
 
+    private Quotations quotations;// 报价单
+    private Product product;//产品
 
     public Quotapro() {
     }
 
-    public Quotapro(Integer quotaproId, Integer proNum, Integer qId, String proId) {
+    public Quotapro(Integer quotaproId, Integer proNum) {
         this.quotaproId = quotaproId;
         this.proNum = proNum;
-        this.qId = qId;
-        this.proId = proId;
     }
 
     @Id
@@ -41,20 +41,20 @@ public class Quotapro {
         this.proNum = proNum;
     }
 
-    public Integer getqId() {
-        return qId;
+    public Quotations getQuotations() {
+        return quotations;
     }
 
-    public void setqId(Integer qId) {
-        this.qId = qId;
+    public void setQuotations(Quotations quotations) {
+        this.quotations = quotations;
     }
 
-    public String getProId() {
-        return proId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProId(String proId) {
-        this.proId = proId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
@@ -62,8 +62,6 @@ public class Quotapro {
         return "Quotapro{" +
                 "quotaproId=" + quotaproId +
                 ", proNum=" + proNum +
-                ", qId=" + qId +
-                ", proId='" + proId + '\'' +
                 '}';
     }
 }
