@@ -25,6 +25,7 @@ public class Receivable {
   private long receivableZt;//审核状态 1为已审核 2为已驳回 3为未审核
   private Periodoftime receivableQcid;//期次
   private Client receivableKhid;//关联客户
+  private Users receivableShr;//审核人
 
   public String getReceivableId() {
     return receivableId;
@@ -112,5 +113,13 @@ public class Receivable {
 
   public void setReceivableKhid(Client receivableKhid) {
     this.receivableKhid = receivableKhid;
+  }
+
+  public Users getReceivableShr() {
+    return receivableShr;
+  }
+
+  public void setReceivableShr(Users receivableShr) {
+    this.receivableShr = receivableShr;
   }
 }

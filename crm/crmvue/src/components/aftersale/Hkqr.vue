@@ -7,12 +7,12 @@
 			</el-tabs>
 		</div>
 		<div style="margin-top:20px;margin-left:20px">
-			<el-input v-model="nr" style="width:200px;" placeholder="请输入内容" >
+			<el-input v-model="nr" style="width:200px;" placeholder="请输入回款编号" >
 			</el-input>
 			<el-button type="primary" icon="el-icon-search">搜索</el-button>
 			<div style="display: inline-block;position: absolute;right:10px;">
-				<el-button type="primary" @click="qd()">确认</el-button>
-				<el-button type="danger"  @click="bh()">驳回</el-button>
+				<el-button type="primary" @click="qd()" v-if="anxs">确认</el-button>
+				<el-button type="danger"  @click="bh()" v-if="anxs">驳回</el-button>
 			</div>
 			
 			<el-table
@@ -45,6 +45,11 @@
 				  width="150">
 				</el-table-column>
 				<el-table-column
+				  prop="receivableJbr.usersFullname"
+				  label="经办人"
+				  width="150">
+				</el-table-column>
+				<el-table-column
 				  prop="receivablePrice"
 				  label="回款金额"
 				  width="150">
@@ -66,7 +71,11 @@
 				  label="回款方式"
 				  width="150">
 				</el-table-column>
-				
+				<el-table-column
+				  prop="receivableShr.usersFullname"
+				  label="审核人"
+				  width="150">
+				</el-table-column>
 				<el-table-column
 				  prop="receivableBz"
 				  label="备注"
@@ -102,19 +111,21 @@
 			zt:3,
 			hk:[],
 			nr:'',
-			emp:{
-				usersId:1
-			}
+			emp:{},
+			anxs:true
 	      };
 	    },
 	    methods: {
 	      handleClick(tab, event) {
 	        console.log(this.activeName);
 			if(this.activeName=='first'){
+				this.anxs=true;
 				this.zt=3;
 			}else if(this.activeName=='second'){
+				this.anxs=false;
 				this.zt=1;
 			}else if(this.activeName=='third'){
+				this.anxs=false;
 				this.zt=2;
 			}
 			this.getData();
@@ -125,7 +136,7 @@
 			  }
 			  this.axios({
 			  	url:'http://localhost:8086/llw/hkcx',
-			  	params:{pageNo:no,size:this.size,'zt':this.zt,'id':this.emp.usersId}
+			  	params:{pageNo:no,size:this.size,'zt':this.zt,'nr':this.nr}
 			  }).then(res=>{
 				console.log(res)
 				this.tableData = res.obj.hkcx;
@@ -149,7 +160,7 @@
 		  },qd(){
 			  console.log(this.hk)
 			  this.axios.post("http://localhost:8086/llw/hkqr",
-			  {'hk':this.hk})
+			  {'hk':this.hk,'emp':this.emp})
 			  .then((v)=>{
 			  	this.getData();
 			  }).catch((v)=>{
@@ -158,7 +169,7 @@
 		  },
 		  bh(){
 				this.axios.post("http://localhost:8086/llw/hkbh",
-				{'hk':this.hk})
+				{'hk':this.hk,'emp':this.emp})
 				.then((v)=>{
 					this.getData();
 				}).catch((v)=>{
@@ -175,6 +186,7 @@
 				}
 			}
 	    },created(){
+			this.emp=this.$store.state.users;
 			this.getData();
 		}
 	  };

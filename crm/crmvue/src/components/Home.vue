@@ -111,7 +111,9 @@
 							</el-menu-item>
 					  		<el-menu-item index="4-3">按订单汇总</el-menu-item>
 					  		<el-menu-item index="4-4">开票记录</el-menu-item>
-							<el-menu-item index="4-5">回款记录</el-menu-item>
+							<el-menu-item index="4-5">
+								<router-link to="/hkjl">回款记录</router-link>
+							</el-menu-item>
 							<el-menu-item index="4-6">回款期次</el-menu-item>
 					  </el-submenu>
 					  <el-submenu index="5">
