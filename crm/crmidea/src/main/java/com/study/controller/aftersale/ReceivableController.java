@@ -23,6 +23,14 @@ public class ReceivableController {
         return MyResult.SUCCESS_Object(receivableService.hkcx(pageNo,size,zt,nr));
     }
 
+    //根据订单名称查询回款记录
+    @RequestMapping("hkjlcx")
+    public MyResult getHkjl(Integer pageNo,Integer size,String nr){
+        System.out.println("emm");
+        System.out.println(pageNo);
+        return MyResult.SUCCESS_Object(receivableService.hkjlcx(pageNo,size,nr));
+    }
+
 
     //回款确认
     @RequestMapping("hkqr")

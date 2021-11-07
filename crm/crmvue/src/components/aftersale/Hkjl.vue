@@ -2,7 +2,7 @@
 	<div style="margin-top:20px;margin-left:20px">
 		<el-input v-model="nr" style="width:200px;" placeholder="请输入回款编号">
 		</el-input>
-		<el-button type="primary" icon="el-icon-search">搜索</el-button>
+		<el-button type="primary" icon="el-icon-search" @click="getData()">搜索</el-button>
 
 		<el-table :data="tableData" border @row-click="xq" style="width: 100%;margin-top:10px;">
 			<el-table-column prop="receivableId" label="回款编号" width="150">
@@ -37,7 +37,7 @@
 		</div>
 
 
-		<el-drawer :title="btxs" v-model="drawer" :direction="direction" size='50%' :before-close="handleClose">
+		<el-drawer :title="btxs" v-model="drawer" :direction="direction" size='50%' :before-close="qk">
 			<div style="margin-left:20px;">
 				<div style="width: 150px;display: inline-block;">
 					<p>经办人：{{hkjl.receivableJbr.usersFullname}}</p>
@@ -62,7 +62,7 @@
 						</div>
 						<div style="margin-top:20px;">
 							<span>关联产品：</span>
-							<el-table :data="hkxq" border style="width: 100%;margin-top: 10px;">
+							<el-table :data="hkjlxq" border style="width: 100%;margin-top: 10px;">
 								<el-table-column prop="hkCpid" label="产品编号" width="150">
 								</el-table-column>
 								<el-table-column prop="hkCpname" label="产品名称" width="150">
@@ -110,16 +110,11 @@
 					no = this.pageNo
 				}
 				this.axios({
-					url: 'http://localhost:8086/llw/hkcx',
-					params: {
-						pageNo: no,
-						size: this.size,
-						'zt': '',
-						'nr': this.nr
-					}
+					url: 'http://localhost:8086/llw/hkjlcx',
+					params:{pageNo:no,size:this.size,'nr':this.nr}
 				}).then(res => {
 					console.log(res)
-					this.tableData = res.obj.hkcx;
+					this.tableData = res.obj.hkjlcx;
 					this.total = res.obj.total;
 				}).catch(function() {
 
@@ -167,13 +162,20 @@
 			},
 			hkxqgetData() {
 				this.axios({
-					url: 'http://localhost:8086/llw/hkxqcx'
+					url: 'http://localhost:8086/llw/hkxqcx',
+					params: {
+						'id':this.hkjl.receivableId
+					}
 				}).then(res => {
 					console.log(res)
 					this.hkjlxq = res.obj.hkxqcx;
 				}).catch(function() {
 			
 				})
+			},
+			qk(){
+				this.activeName='first';
+				this.drawer=false;
 			}
 		},
 		created() {

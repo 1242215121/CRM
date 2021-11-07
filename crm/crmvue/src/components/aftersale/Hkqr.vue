@@ -9,91 +9,42 @@
 		<div style="margin-top:20px;margin-left:20px">
 			<el-input v-model="nr" style="width:200px;" placeholder="请输入回款编号" >
 			</el-input>
-			<el-button type="primary" icon="el-icon-search">搜索</el-button>
+			<el-button type="primary" icon="el-icon-search" @click="getData()">搜索</el-button>
 			<div style="display: inline-block;position: absolute;right:10px;">
 				<el-button type="primary" @click="qd()" v-if="anxs">确认</el-button>
 				<el-button type="danger"  @click="bh()" v-if="anxs">驳回</el-button>
 			</div>
 			
-			<el-table
-			    :data="tableData"
-				@selection-change="selectionLineChangeHandle"
-			    border
-			    style="width: 100%;margin-top:10px;">
-				<el-table-column
-				  type="selection"
-				  width="55">
+			<el-table :data="tableData" border @row-click="xq" style="width: 100%;margin-top:10px;">
+				<el-table-column prop="invoiceDdid.soName" label="订单名称" width="150">
 				</el-table-column>
-			    <el-table-column
-			      prop="receivableId"
-			      label="回款编号"
-			      width="150">
-			    </el-table-column>
-			    <el-table-column
-			      prop="receivableDdid.soName"
-			      label="订单名称"
-			      width="150">
-			    </el-table-column>
-			    <el-table-column
-			      prop="receivableKhid.clientName"
-			      label="客户名称"
-				  width="150">
-			    </el-table-column>
-				<el-table-column
-				  prop="receivableQcid.periodoftimeName"
-				  label="回款期次"
-				  width="150">
+				<el-table-column prop="invoiceKhid.clientName" label="客户名称" width="150">
 				</el-table-column>
-				<el-table-column
-				  prop="receivableJbr.usersFullname"
-				  label="经办人"
-				  width="150">
+				<el-table-column prop="invoiceQcid.periodoftimeName" label="回款期次" width="150">
 				</el-table-column>
-				<el-table-column
-				  prop="receivablePrice"
-				  label="回款金额"
-				  width="150">
+				<el-table-column prop="invoiceJbr.usersFullname" label="经办人" width="150">
 				</el-table-column>
-				<el-table-column
-				  prop="receivableDate"
-				  label="回款日期"
-				  width="210">
+				<el-table-column prop="invoicePrice" label="开票金额" width="150">
 				</el-table-column>
-				<el-table-column
-				  prop="receivableZt"
-				  label="状态"
-				  width="150"
-				  show-overflow-tooltip
-				  :formatter="ztxs">
+				<el-table-column prop="invoiceDate" label="开票日期" width="210">
 				</el-table-column>
-				<el-table-column
-				  prop="receivableHkfs"
-				  label="回款方式"
-				  width="150">
+				<el-table-column prop="invoicePjid.papertypeName" label="开票类型" width="150" show-overflow-tooltip :formatter="ztxs">
 				</el-table-column>
-				<el-table-column
-				  prop="receivableShr.usersFullname"
-				  label="审核人"
-				  width="150">
+				<el-table-column prop="invoiceKphm" label="开票号码" width="150">
 				</el-table-column>
-				<el-table-column
-				  prop="receivableBz"
-				  label="备注"
-				  width="400">
+				<el-table-column prop="invoiceShr.usersFullname" label="办理人" width="150">
 				</el-table-column>
-			 </el-table>
-			 <div class="block">
-			     <el-pagination
-				 style="position: absolute;right:10px"
-			       @size-change="hal1"
-			       @current-change="hal"
-			       :page-sizes="[5, 10, 15]"
-				   :total="total"
-				   :page-size="size"
-				   :current-page="pageNo"
-			       layout="total, sizes, prev, pager, next, jumper">
-			     </el-pagination>
-			   </div>
+				<el-table-column prop="invoiceZt" label="开票状态" width="150" show-overflow-tooltip :formatter="ztxs">
+				</el-table-column>
+				<el-table-column prop="invoiceBz" label="备注" width="400">
+				</el-table-column>
+			</el-table>
+			<div class="block">
+				<el-pagination style="position: absolute;right:10px" @size-change="hal1" @current-change="hal"
+					:page-sizes="[5, 10, 15]" :total="total" :page-size="size" :current-page="pageNo"
+					layout="total, sizes, prev, pager, next, jumper">
+				</el-pagination>
+			</div>
 		</div>
 	 
 </template>
@@ -157,24 +108,6 @@
 		  },
 		  selectionLineChangeHandle (val) {
 		       this.hk = val
-		  },qd(){
-			  console.log(this.hk)
-			  this.axios.post("http://localhost:8086/llw/hkqr",
-			  {'hk':this.hk,'emp':this.emp})
-			  .then((v)=>{
-			  	this.getData();
-			  }).catch((v)=>{
-			  	console.log(v)
-			  })
-		  },
-		  bh(){
-				this.axios.post("http://localhost:8086/llw/hkbh",
-				{'hk':this.hk,'emp':this.emp})
-				.then((v)=>{
-					this.getData();
-				}).catch((v)=>{
-					console.log(v)
-				})
 		  },
 		  ztxs(row, column, cellValue){
 				if (cellValue == '1'){

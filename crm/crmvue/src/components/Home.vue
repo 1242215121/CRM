@@ -109,12 +109,18 @@
 					  		<el-menu-item index="4-2">
 								<router-link to="/hkqr">回款确认</router-link>
 							</el-menu-item>
-					  		<el-menu-item index="4-3">按订单汇总</el-menu-item>
-					  		<el-menu-item index="4-4">开票记录</el-menu-item>
+					  		<el-menu-item index="4-3">
+								<router-link to="/ddhz">按订单汇总</router-link>
+							</el-menu-item>
+					  		<el-menu-item index="4-4">
+								<router-link to="/kpjl">开票记录</router-link>
+							</el-menu-item>
 							<el-menu-item index="4-5">
 								<router-link to="/hkjl">回款记录</router-link>
 							</el-menu-item>
-							<el-menu-item index="4-6">回款期次</el-menu-item>
+							<el-menu-item index="4-6">
+								<router-link to="/qcjl">回款期次</router-link>
+							</el-menu-item>
 					  </el-submenu>
 					  <el-submenu index="5">
 					    <template #title>
