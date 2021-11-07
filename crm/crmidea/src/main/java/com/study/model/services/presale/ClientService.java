@@ -14,6 +14,9 @@ import java.util.List;
 public class ClientService {
     @Autowired
     ClientMapper clientMapper;
+    public Object selectClientByPage(Integer pageNo,Integer size,String clientRule,String clientName){
+        return clientMapper.selectClient(clientRule,clientName);
+    }
     public List<Client> seClient(){
         return clientMapper.seClient();
     }

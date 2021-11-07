@@ -2,7 +2,7 @@ package com.study.model.pojo.presale;
 
 
 import com.study.model.pojo.insale.Salefunnel;
-import com.study.model.pojo.insale.Saleorder;
+import com.study.model.pojo.power.Users;
 
 import java.util.List;
 
@@ -21,9 +21,35 @@ public class Client {
     private String clientRank;//客户级别
     private String clientLinkman;//联系人
     private String clientScale;//客户规模
+    private Users users;
+    private Integer pageNo;
+    private Integer size;
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+
+    public Integer getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(Integer pageNo) {
+        this.pageNo = pageNo;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
 
     private List<Salefunnel> salefunnels;//销售机会
-    private List<Saleorder> saleorders;//销售订单
 
     public Integer getClientId() {
         return clientId;
@@ -129,14 +155,6 @@ public class Client {
 
     public void setSalefunnels(List<Salefunnel> salefunnels) {
         this.salefunnels = salefunnels;
-    }
-
-    public List<Saleorder> getSaleorders() {
-        return saleorders;
-    }
-
-    public void setSaleorders(List<Saleorder> saleorders) {
-        this.saleorders = saleorders;
     }
 
     public Client() {

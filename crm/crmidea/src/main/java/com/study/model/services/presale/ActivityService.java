@@ -14,12 +14,15 @@ import java.util.List;
 public class ActivityService {
     @Autowired
     ActivityMapper activityMapper;
+//    联表 分页 模糊查询
     public Object seActivityByPage(Integer pageNo,Integer size,String activityName, String activityAddress){
         return activityMapper.seActivity(activityName, activityAddress);
     }
+//    查询所有
     public List<Activity> seAct(){
         return activityMapper.seAct();
     }
+//    新增
     public Integer inActivity(Activity activity){
         return activityMapper.inActivity(activity);
     }

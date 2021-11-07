@@ -1,6 +1,9 @@
 package com.study.model.pojo.presale;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.study.model.pojo.power.Users;
+
 import java.sql.Timestamp;
 
 /**
@@ -16,8 +19,36 @@ public class Clue {
     private String clueGoState;//跟进状态
     private String clueDuty;//职务
     private String clueState;//线索状态
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Timestamp clueTime;//更新时间
     private String cluePhone;//联系电话
+    private Integer pageNo;
+    private Integer size;
+    private Users users;
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+
+    public Integer getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(Integer pageNo) {
+        this.pageNo = pageNo;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
 
     public Integer getClueId() {
         return clueId;
@@ -136,6 +167,8 @@ public class Clue {
                 ", clueState='" + clueState + '\'' +
                 ", clueTime=" + clueTime +
                 ", cluePhone='" + cluePhone + '\'' +
+                ", pageNo=" + pageNo +
+                ", size=" + size +
                 '}';
     }
 }

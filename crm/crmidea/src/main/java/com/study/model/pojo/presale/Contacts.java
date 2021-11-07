@@ -2,7 +2,7 @@ package com.study.model.pojo.presale;
 
 
 import com.study.model.pojo.insale.Salefunnel;
-import com.study.model.pojo.insale.Saleorder;
+import com.study.model.pojo.power.Users;
 
 import java.util.List;
 
@@ -11,15 +11,49 @@ import java.util.List;
  **/
 public class Contacts {
     private Integer contactsId;//联系人id
-    private Integer contactsName;//姓名
+    private String contactsName;//姓名
     private String contactsDuty;//职务
     private String contactsPhone;//联系人电话
     private String contactsRole;//角色
     private String contactsCase;//在职情况
     private Integer contactsCutostomer;//客户外键
+    private Integer pageNo;
+    private Integer size;
+    private Users users;
+
+    public String getContactsName() {
+        return contactsName;
+    }
+
+    public void setContactsName(String contactsName) {
+        this.contactsName = contactsName;
+    }
+
+    public Integer getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(Integer pageNo) {
+        this.pageNo = pageNo;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
 
     private List<Salefunnel> salefunnels;//销售机会
-    private List<Saleorder> saleorders;//销售订单
 
 
     public Integer getContactsId() {
@@ -30,13 +64,6 @@ public class Contacts {
         this.contactsId = contactsId;
     }
 
-    public Integer getContactsName() {
-        return contactsName;
-    }
-
-    public void setContactsName(Integer contactsName) {
-        this.contactsName = contactsName;
-    }
 
 
     public String getContactsDuty() {
@@ -89,18 +116,10 @@ public class Contacts {
         this.salefunnels = salefunnels;
     }
 
-    public List<Saleorder> getSaleorders() {
-        return saleorders;
-    }
-
-    public void setSaleorders(List<Saleorder> saleorders) {
-        this.saleorders = saleorders;
-    }
-
     public Contacts() {
     }
 
-    public Contacts(Integer contactsId, Integer contactsName, String contactsDuty, String contactsPhone, String contactsRole, String contactsCase, Integer contactsCutostomer) {
+    public Contacts(Integer contactsId, String contactsName, String contactsDuty, String contactsPhone, String contactsRole, String contactsCase, Integer contactsCutostomer) {
         this.contactsId = contactsId;
         this.contactsName = contactsName;
         this.contactsDuty = contactsDuty;
