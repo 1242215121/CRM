@@ -121,12 +121,8 @@ let routes = [
 						title: "退货单"
 					},
 				},
-<<<<<<< HEAD
-				{	path: '/kpbl',
-=======
 				{
 					path: '/kpbl',
->>>>>>> b1337081edd0dcfc7768905417a54101d6d7a3f3
 					component:() => import('@/components/aftersale/Kpbl.vue'),
 					name: 'kpbl',
 					meta: {
