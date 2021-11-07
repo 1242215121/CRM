@@ -1,5 +1,9 @@
 package com.study.model.pojo.insale;
 
+import com.study.model.pojo.power.Users;
+import com.study.model.pojo.presale.Client;
+import com.study.model.pojo.presale.Contacts;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -20,8 +24,8 @@ public class Saleorder {
     private BigDecimal soPay;    // 欠款金额
     private BigDecimal soReturn; // 退货单金额
     private String soBackstatu; // 回款状态
-    private String soInvoicing; // 开票金额
-    private BigDecimal soInvostatu; // 开票状态
+    private String soInvoicing; // 开票状态
+    private BigDecimal soInvostatu;  // 开票金额
     private Date soDate; //  成交日期
     private Integer soNum;  // 产品数量
     private Integer soWynum; // 已出库数量
@@ -30,6 +34,10 @@ public class Saleorder {
 
     private List<Refunds> refundsBySoId; // 一个订单可以生成多个退货单
     private Salefunnel salefunnelBySfId; // 一个销售订单源于一个销售机会
+    private Users user;//负责人
+    private Client client;//客户
+    private List<Sorderpro> sorderpros;//销售订单和产品中间表
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -167,6 +175,30 @@ public class Saleorder {
 
     public void setSalefunnelBySfId(Salefunnel salefunnelBySfId) {
         this.salefunnelBySfId = salefunnelBySfId;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public List<Sorderpro> getSorderpros() {
+        return sorderpros;
+    }
+
+    public void setSorderpros(List<Sorderpro> sorderpros) {
+        this.sorderpros = sorderpros;
     }
 
     public Saleorder() {

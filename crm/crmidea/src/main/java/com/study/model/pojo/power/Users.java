@@ -1,5 +1,8 @@
 package com.study.model.pojo.power;
 
+import com.study.model.pojo.insale.Salefunnel;
+import com.study.model.pojo.insale.Saleorder;
+
 import java.sql.Date;
 import java.util.List;
 
@@ -29,6 +32,8 @@ public class Users {
     private Ajob ajob;//职位
     private Dept dept;//部门
     private List<UsersRole> usersRole;//角色
+    private List<Salefunnel> salefunnels;//销售机会
+    private List<Saleorder> saleorders;//销售订单
 
     public Integer getUsersId() {
         return usersId;
@@ -124,5 +129,21 @@ public class Users {
 
     public void setUsersRole(List<UsersRole> usersRole) {
         this.usersRole = usersRole;
+    }
+
+    public List<Salefunnel> getSalefunnels() {
+        return salefunnels;
+    }
+
+    public void setSalefunnels(List<Salefunnel> salefunnels) {
+        this.salefunnels = salefunnels;
+    }
+
+    public List<Saleorder> getSaleorders() {
+        return saleorders;
+    }
+
+    public void setSaleorders(List<Saleorder> saleorders) {
+        this.saleorders = saleorders;
     }
 }

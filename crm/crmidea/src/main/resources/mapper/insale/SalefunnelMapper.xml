@@ -18,9 +18,9 @@
          private Activity activity; // 一个销售机会关联一个活动
          private Contacts contacts;//一个销售机会关联一个联系人-->
         <association property="client" javaType="com.study.model.pojo.presale.Client">
-            <id column="client_id" property="clientId"/>
-            <result column="client_name" property="clientName"/>
-        </association>
+        <id column="client_id" property="clientId"/>
+        <result column="client_name" property="clientName"/>
+    </association>
         <association property="activity" javaType="com.study.model.pojo.presale.Activity">
             <id column="activity_id" property="activityId"/>
             <result column="activity_name" property="activityName"/>
@@ -70,7 +70,7 @@
      public Integer insert(Salefunnel salefunnel);-->
     <insert id="insert" parameterType="com.study.model.pojo.insale.Salefunnel">
         insert into salefunnel(sf_id, sf_name, sf_money, sf_date, sf_change, sf_customer, sf_activity, sf_contact)
-        values (#{sfId}, #{sfName}, #{sfMoney}, #{sfDate}, #{user.usersId},#{clientId},#{activityId},#{contactsId})
+        values (#{sfId}, #{sfName}, #{sfMoney}, #{sfDate}, #{user.usersId},#{client.clientId},#{activity.activityId},#{contacts.contactsId})
     </insert>
 
 </mapper>
