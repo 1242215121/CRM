@@ -1,6 +1,12 @@
 package com.study.model.pojo.aftersale;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.study.model.pojo.insale.Saleorder;
+import com.study.model.pojo.power.Users;
+import com.study.model.pojo.presale.Client;
+import com.study.model.pojo.product.Product;
+
 import java.sql.Timestamp;
 
 /**
@@ -9,16 +15,16 @@ import java.sql.Timestamp;
 public class Receivable {
 
   private String receivableId;//回款编号
-  private long receivableDdid;//关联订单
-  private long receivableJbr;//经办人
+  private Saleorder receivableDdid;//关联订单
+  private Users receivableJbr;//经办人
   private double receivablePrice;//回款金额
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="Asia/Shanghai")
   private Timestamp receivableDate;//回款日期
   private String receivableHkfs;//回款方式
   private String receivableBz;//备注
-  private long receivableZt;//审核状态
-  private String receivableCpid;//产品编号
-  private long receivableQcid;//期次
-
+  private long receivableZt;//审核状态 1为已审核 2为已驳回 3为未审核
+  private Periodoftime receivableQcid;//期次
+  private Client receivableKhid;//关联客户
 
   public String getReceivableId() {
     return receivableId;
@@ -29,20 +35,20 @@ public class Receivable {
   }
 
 
-  public long getReceivableDdid() {
+  public Saleorder getReceivableDdid() {
     return receivableDdid;
   }
 
-  public void setReceivableDdid(long receivableDdid) {
+  public void setReceivableDdid(Saleorder receivableDdid) {
     this.receivableDdid = receivableDdid;
   }
 
 
-  public long getReceivableJbr() {
+  public Users getReceivableJbr() {
     return receivableJbr;
   }
 
-  public void setReceivableJbr(long receivableJbr) {
+  public void setReceivableJbr(Users receivableJbr) {
     this.receivableJbr = receivableJbr;
   }
 
@@ -92,21 +98,19 @@ public class Receivable {
   }
 
 
-  public String getReceivableCpid() {
-    return receivableCpid;
-  }
-
-  public void setReceivableCpid(String receivableCpid) {
-    this.receivableCpid = receivableCpid;
-  }
-
-
-  public long getReceivableQcid() {
+  public Periodoftime getReceivableQcid() {
     return receivableQcid;
   }
 
-  public void setReceivableQcid(long receivableQcid) {
+  public void setReceivableQcid(Periodoftime receivableQcid) {
     this.receivableQcid = receivableQcid;
   }
 
+  public Client getReceivableKhid() {
+    return receivableKhid;
+  }
+
+  public void setReceivableKhid(Client receivableKhid) {
+    this.receivableKhid = receivableKhid;
+  }
 }

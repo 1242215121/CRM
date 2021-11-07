@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.aftersale.ReceivableMapper">
+    <!--    映射回款类-->
+    <resultMap id="rec" type="com.study.model.pojo.aftersale.Receivable">
+        <id column="receivable_id" property="receivableId"></id>
+        <result column="receivable_price" property="receivablePrice"></result>
+        <result column="receivable_date" property="receivableDate"></result>
+        <result column="receivable_hkfs" property="receivableHkfs"></result>
+        <result column="receivable_bz" property="receivableBz"></result>
+        <result column="receivable_zt" property="receivableZt"></result>
+        <association property="receivableDdid" javaType="com.study.model.pojo.insale.Saleorder">
+            <id column="receivable_ddid" property="soId"></id>
+            <result column="ddname" property="soName"></result>
+        </association>
+        <association property="receivableJbr" javaType="com.study.model.pojo.power.Users">
+            <id column="receivable_jbr" property="usersId"></id>
+            <result column="uname" property="usersName"></result>
+        </association>
+        <association property="receivableQcid" javaType="com.study.model.pojo.aftersale.Periodoftime">
+            <id column="receivable_qcid" property="periodoftimeId"></id>
+            <result column="qcname" property="periodoftimeName"></result>
+        </association>
+        <association property="receivableKhid" javaType="com.study.model.pojo.presale.Client">
+            <id column="receivable_khid" property="clientId"></id>
+            <result column="cname" property="clientName"></result>
+        </association>
+    </resultMap>
+<!--    根据回款状态,回款编号，用户人查询回款记录-->
+    <select id="receivablecx" resultMap="rec">
+        SELECT r.*,s.so_name ddname,u.users_fullname uname,pt.periodoftime_name qcname,c.client_name cname FROM receivable r LEFT JOIN saleorder s on r.receivable_ddid=s.so_id  LEFT JOIN users u on r.receivable_jbr=u.users_id LEFT JOIN periodoftime pt on r.receivable_qcid=pt.periodoftime_id LEFT JOIN client c on r.receivable_khid=c.client_id
+        <where>
+            r.receivable_jbr=#{id}
+            <if test="zt !=null and zt !=''">
+               and r.receivable_zt=#{zt}
+            </if>
+            <if test="nr !=null and nr !=''">
+                and r.receivable_id like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+<!--    修改状态-->
+    <update id="receivablexgzt">
+        update receivable set receivable_zt=#{zt} where receivable_id=#{id}
+    </update>
+</mapper>

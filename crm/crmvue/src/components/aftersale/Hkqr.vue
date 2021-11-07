@@ -7,12 +7,12 @@
 			</el-tabs>
 		</div>
 		<div style="margin-top:20px;margin-left:20px">
-			<el-input v-model="input" style="width:200px;" placeholder="请输入内容" >
+			<el-input v-model="nr" style="width:200px;" placeholder="请输入内容" >
 			</el-input>
 			<el-button type="primary" icon="el-icon-search">搜索</el-button>
 			<div style="display: inline-block;position: absolute;right:10px;">
-				<el-button type="primary">确认</el-button>
-				<el-button type="danger">驳回</el-button>
+				<el-button type="primary" @click="qd()">确认</el-button>
+				<el-button type="danger"  @click="bh()">驳回</el-button>
 			</div>
 			
 			<el-table
@@ -25,32 +25,58 @@
 				  width="55">
 				</el-table-column>
 			    <el-table-column
-			      prop="date"
-			      label="日期"
-			      width="180">
+			      prop="receivableId"
+			      label="回款编号"
+			      width="150">
 			    </el-table-column>
 			    <el-table-column
-			      prop="name"
-			      label="姓名"
-			      width="180">
+			      prop="receivableDdid.soName"
+			      label="订单名称"
+			      width="150">
 			    </el-table-column>
 			    <el-table-column
-			      prop="address"
-			      label="地址">
+			      prop="receivableKhid.clientName"
+			      label="客户名称"
+				  width="150">
 			    </el-table-column>
 				<el-table-column
-					fixed="right"
-				  	label="操作" 
-					width="300">
-				  	<template v-slot:default="s">
-						<el-button size="mini">处理</el-button>
-				  	</template>  				
+				  prop="receivableQcid.periodoftimeName"
+				  label="回款期次"
+				  width="150">
+				</el-table-column>
+				<el-table-column
+				  prop="receivablePrice"
+				  label="回款金额"
+				  width="150">
+				</el-table-column>
+				<el-table-column
+				  prop="receivableDate"
+				  label="回款日期"
+				  width="210">
+				</el-table-column>
+				<el-table-column
+				  prop="receivableZt"
+				  label="状态"
+				  width="150"
+				  show-overflow-tooltip
+				  :formatter="ztxs">
+				</el-table-column>
+				<el-table-column
+				  prop="receivableHkfs"
+				  label="回款方式"
+				  width="150">
+				</el-table-column>
+				
+				<el-table-column
+				  prop="receivableBz"
+				  label="备注"
+				  width="400">
 				</el-table-column>
 			 </el-table>
 			 <div class="block">
 			     <el-pagination
 				 style="position: absolute;right:10px"
-			       @size-change="hal"
+			       @size-change="hal1"
 			       @current-change="hal"
 			       :page-sizes="[5, 10, 15]"
 				   :total="total"
@@ -73,15 +99,19 @@
 			total:0,
 			pageNo:1,
 			size:5,
-			zt:0,
-			hk:[]
+			zt:3,
+			hk:[],
+			nr:'',
+			emp:{
+				usersId:1
+			}
 	      };
 	    },
 	    methods: {
 	      handleClick(tab, event) {
 	        console.log(this.activeName);
 			if(this.activeName=='first'){
-				this.zt=0;
+				this.zt=3;
 			}else if(this.activeName=='second'){
 				this.zt=1;
 			}else if(this.activeName=='third'){
@@ -89,18 +119,64 @@
 			}
 			this.getData();
 	      },
-		  getData(){
-			  console.log("1")
+		  getData(no){
+			  if(no == undefined){
+			  	no = this.pageNo
+			  }
+			  this.axios({
+			  	url:'http://localhost:8086/llw/hkcx',
+			  	params:{pageNo:no,size:this.size,'zt':this.zt,'id':this.emp.usersId}
+			  }).then(res=>{
+				console.log(res)
+				this.tableData = res.obj.hkcx;
+			  	this.total=res.obj.total;
+			  }).catch(function(){
+			  	
+			  })
 		  },
 		  hal(val){
 		  	console.log(val);
 		  	this.pageNo=val;
 		  	this.getData();
 		  },
+		  hal1(val){
+		  	console.log(val);
+		  	this.size=val;
+		  	this.getData();
+		  },
 		  selectionLineChangeHandle (val) {
 		       this.hk = val
-		  }
-	    }
+		  },qd(){
+			  console.log(this.hk)
+			  this.axios.post("http://localhost:8086/llw/hkqr",
+			  {'hk':this.hk})
+			  .then((v)=>{
+			  	this.getData();
+			  }).catch((v)=>{
+			  	console.log(v)
+			  })
+		  },
+		  bh(){
+				this.axios.post("http://localhost:8086/llw/hkbh",
+				{'hk':this.hk})
+				.then((v)=>{
+					this.getData();
+				}).catch((v)=>{
+					console.log(v)
+				})
+		  },
+		  ztxs(row, column, cellValue){
+				if (cellValue == '1'){
+				    return '已确认';
+				}else if (cellValue == '2'){
+				    return '被驳回';
+				}else if (cellValue == '3'){
+				    return '待确认';
+				}
+			}
+	    },created(){
+			this.getData();
+		}
 	  };
 </script>
 
