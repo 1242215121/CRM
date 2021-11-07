@@ -30,6 +30,7 @@
             <id column="receivable_shr" property="usersId"></id>
             <result column="shrname" property="usersFullname"></result>
         </association>
+
     </resultMap>
 <!--    根据回款状态,回款编号，用户人查询回款记录-->
     <select id="receivablecx" resultMap="rec">
@@ -46,6 +47,22 @@
             </if>
             <if test="nr !=null and nr !=''">
                 and r.receivable_id like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+    <!--    根据订单名称，查询回款记录-->
+    <select id="hkjlcx" resultMap="rec">
+        SELECT r.*,s.so_name ddname,u.users_fullname uname,pt.periodoftime_name qcname,
+        c.client_name cname,us.users_fullname shrname FROM receivable r
+        LEFT JOIN saleorder s on r.receivable_ddid=s.so_id
+        LEFT JOIN users u on r.receivable_jbr=u.users_id
+        LEFT JOIN periodoftime pt on r.receivable_qcid=pt.periodoftime_id
+        LEFT JOIN client c on r.receivable_khid=c.client_id
+        LEFT JOIN users us on r.receivable_shr=us.users_id
+        <where>
+            <if test="nr !=null and nr !=''">
+                and s.so_name like concat(concat('%',#{nr}),'%')
             </if>
         </where>
     </select>

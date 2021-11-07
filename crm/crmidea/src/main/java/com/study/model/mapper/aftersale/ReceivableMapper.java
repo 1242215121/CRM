@@ -12,4 +12,6 @@ public interface ReceivableMapper {
     public List<Receivable> receivablecx(@Param("zt") Integer zt,@Param("nr")  String nr);
     //修改状态
     public void receivablexgzt(@Param("zt") Integer zt,@Param("id") String id,@Param("usersId") Integer usersId);
+    //根据回款状态,回款编号，用户人查询回款记录
+    public List<Receivable> hkjlcx(@Param("nr")  String nr);
 }

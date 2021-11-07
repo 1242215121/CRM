@@ -32,6 +32,17 @@ public class ReceivableService {
         return map;
 
     }
+
+    //根据订单名称查询回款记录
+    public Map<String,Object> hkjlcx(Integer pageNo,Integer size,String nr){
+        Map<String,Object> map=new HashMap<>();
+        //分页查询
+        Page<Object> page= PageHelper.startPage(pageNo,size);
+        map.put("hkjlcx",receivableMapper.hkjlcx(nr));
+        map.put("total",page.getTotal());
+        return map;
+
+    }
     //回款确认
     public void qrhk(Map<String,Object> map){
         ObjectMapper mapper = new ObjectMapper();

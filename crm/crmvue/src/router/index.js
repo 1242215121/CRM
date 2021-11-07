@@ -144,6 +144,38 @@ let routes = [
 					meta: {
 						title: "回款记录"
 					},
+				},
+				{
+					path: '/xz',
+					component:() => import('@/components/aftersale/Xz.vue'),
+					name: 'xz',
+					meta: {
+						title: "新增"
+					},
+				},
+				{
+					path: '/qcjl',
+					component:() => import('@/components/aftersale/Qcjl.vue'),
+					name: 'qcjl',
+					meta: {
+						title: "回款期次"
+					},
+				},
+				{
+					path: '/kpjl',
+					component:() => import('@/components/aftersale/Kpjl.vue'),
+					name: 'kpjl',
+					meta: {
+						title: "开票记录"
+					},
+				},
+				{
+					path: '/ddhz',
+					component:() => import('@/components/aftersale/Ddhz.vue'),
+					name: 'ddhz',
+					meta: {
+						title: "按订单汇总"
+					},
 				}
 		 ],
 		 
