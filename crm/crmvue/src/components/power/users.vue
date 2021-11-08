@@ -79,12 +79,12 @@
 			</el-table-column>
 			<el-table-column label="所属部门" width="180" align="center" header-align="center">
 				<template #default="scope">
-					<span style="margin-left: 10px">{{ scope.row.dept.deptName }}</span>
+					<span style="margin-left: 10px" v-if="scope.row.dept">{{ scope.row.dept.deptName }}</span>
 				</template>
 			</el-table-column>
 			<el-table-column label="所属职位" width="100" align="center" header-align="center">
 				<template #default="scope">
-					<span style="margin-left: 10px">{{ scope.row.ajob.ajobName }}</span>
+					<span style="margin-left: 10px" v-if="scope.row.ajob">{{ scope.row.ajob.ajobName }}</span>
 				</template>
 			</el-table-column>
 			<el-table-column label="用户状态" width="200" align="center" header-align="center">

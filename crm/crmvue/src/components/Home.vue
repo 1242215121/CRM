@@ -49,7 +49,7 @@
 									</span>
 					  		</template>
 							<el-menu-item v-if="item.children!='' " v-for="item2,index2 in item.children" :index="index+'-'+index2" 
-							style="margin-left: 20px;">
+							style="margin-left: 0px;">
 								<router-link :to="item2.path">○ {{item2.name}}</router-link>
 							</el-menu-item>
 							

@@ -10,7 +10,7 @@
 		<el-form-item label="姓名" required prop="usersFullname">
 			<el-input v-model="ruleForm.usersFullname" maxlength="8" :readonly="!lookstate"></el-input>
 		</el-form-item>
-		<el-form-item label="性别" required prop="usersSex">
+		<el-form-item label="性别" prop="usersSex">
 			<el-radio-group v-model="ruleForm.usersSex">
 				<el-radio label="男" value="男" :disabled="!lookstate"></el-radio>
 				<el-radio label="女" value="女" :disabled="!lookstate"></el-radio>
@@ -52,7 +52,7 @@
 			<el-input v-model="ruleForm.usersEmail" maxlength="25" :readonly="!lookstate"></el-input>
 		</el-form-item>
 		<div style="text-align: center;">
-			<el-button type="primary" v-show="lookstate" @click="commitfrom">{{butstate?"修改":"新增"}}</el-button>
+			<el-button type="primary" v-show="lookstate" @click="commitfrom('ruleForm')">{{butstate?"修改":"新增"}}</el-button>
 			<el-button type="primary" @click="descrout">返回</el-button>
 		</div>
 		
@@ -94,7 +94,64 @@
 				dept:[],
 				//验证信息
 				rules: {
-					
+					usersName: [{
+							required: true,
+							message: '请输入用户名',
+							trigger: 'blur'
+						},
+						{
+							min: 2,
+							max: 16,
+							message: '长度在 2 到 16 个字符',
+							trigger: 'blur'
+						}
+					],
+					usersPwd: [{
+							required: true,
+							message: '请输入密码',
+							trigger: 'blur'
+						},
+						{
+							min: 2,
+							max: 16,
+							message: '长度在 2 到 16 个字符',
+							trigger: 'blur'
+						}
+					],
+					usersFullname: [{
+							required: true,
+							message: '请输入姓名',
+							trigger: 'blur'
+						},
+						{
+							min: 2,
+							max: 8,
+							message: '长度在 2 到 8 个字符',
+							trigger: 'blur'
+						}
+					],
+					usersPhone: [{
+							required: true,
+							message: '请输入电话',
+							trigger: 'blur'
+						},
+						{
+							min: 11,
+							max: 11,
+							message: '长度在 11 个字符',
+							trigger: 'blur'
+						}
+					],
+					ajob: [{
+						required: true,
+						message: '请选择职位',
+						trigger: 'change'
+					}],
+					dept: [{
+						required: true,
+						message: '请选择部门',
+						trigger: 'change'
+					}],
 				},
 				//修改还是新增
 				butstate: false,
@@ -104,60 +161,68 @@
 			};
 		},
 		methods: {
-			commitfrom(){
+			commitfrom(formName){
 				var $this=this;
 				console.log($this.ruleForm,"ruleForm");
-				if(!this.butstate){
-					//新增
-					this.axios.post("/users/add",{
-						usersId:$this.ruleForm.usersId,
-						usersName:$this.ruleForm.usersName,
-						usersPwd:$this.ruleForm.usersPwd,
-						usersFullname:$this.ruleForm.usersFullname,
-						usersSex:$this.ruleForm.usersSex=="男"?1:0,
-						usersBrith:$this.ruleForm.usersBrith,
-						usersPhone:$this.ruleForm.usersPhone,
-						usersEmail:$this.ruleForm.usersEmail,
-						usersImgs:'public/imgs/wjl.jpg',
-						state:1,
-						ajob:{
-							ajobId:$this.ruleForm.ajob.ajobId,
-						},
-						dept:{
-							deptId:$this.ruleForm.dept.deptId,
+				this.$refs[formName].validate((valid) => {
+					if (valid) {
+						if(!this.butstate){
+							//新增
+							this.axios.post("/users/add",{
+								usersId:$this.ruleForm.usersId,
+								usersName:$this.ruleForm.usersName,
+								usersPwd:$this.ruleForm.usersPwd,
+								usersFullname:$this.ruleForm.usersFullname,
+								usersSex:$this.ruleForm.usersSex=="男"?1:0,
+								usersBrith:$this.ruleForm.usersBrith,
+								usersPhone:$this.ruleForm.usersPhone,
+								usersEmail:$this.ruleForm.usersEmail,
+								usersImgs:'public/imgs/wjl.jpg',
+								state:1,
+								ajob:{
+									ajobId:$this.ruleForm.ajob.ajobId,
+								},
+								dept:{
+									deptId:$this.ruleForm.dept.deptId,
+								}
+							}).then(res=>{
+								if(res.code == 1){
+									this.$message.success("新增成功！");
+									this.$router.push("users");
+								}else if(res.msg=="该用户名已被注册!"){
+									alert(1);
+									this.ruleForm.usersName='';
+								}
+								
+							})
+						}else{
+							//修改
+							this.axios.post("/users/update",{
+								usersId:$this.ruleForm.usersId,
+								usersName:$this.ruleForm.usersName,
+								usersPwd:$this.ruleForm.usersPwd,
+								usersFullname:$this.ruleForm.usersFullname,
+								usersSex:$this.ruleForm.usersSex=="男"?1:0,
+								usersBrith:$this.ruleForm.usersBrith,
+								usersPhone:$this.ruleForm.usersPhone,
+								usersEmail:$this.ruleForm.usersEmail,
+								usersImgs:$this.ruleForm.usersImgs,
+								ajob:{
+									ajobId:$this.ruleForm.ajob.ajobId,
+								},
+								dept:{
+									deptId:$this.ruleForm.dept.deptId,
+								}
+							}).then(res=>{
+								if(res.code == 1){
+									this.$message.success("修改成功！");
+									this.$router.push("users");
+								}
+							})
 						}
-					}).then(res=>{
-						if(res.code == 1){
-							this.$message.success("新增成功！");
-							this.$router.push("users");
-						}
-						
-					})
-				}else{
-					//修改
-					this.axios.post("/users/update",{
-						usersId:$this.ruleForm.usersId,
-						usersName:$this.ruleForm.usersName,
-						usersPwd:$this.ruleForm.usersPwd,
-						usersFullname:$this.ruleForm.usersFullname,
-						usersSex:$this.ruleForm.usersSex=="男"?1:0,
-						usersBrith:$this.ruleForm.usersBrith,
-						usersPhone:$this.ruleForm.usersPhone,
-						usersEmail:$this.ruleForm.usersEmail,
-						usersImgs:$this.ruleForm.usersImgs,
-						ajob:{
-							ajobId:$this.ruleForm.ajob.ajobId,
-						},
-						dept:{
-							deptId:$this.ruleForm.dept.deptId,
-						}
-					}).then(res=>{
-						if(res.code == 1){
-							this.$message.success("修改成功！");
-							this.$router.push("users");
-						}
-					})
-				}
+					}
+				})
+				
 				
 			},
 			descrout(){
