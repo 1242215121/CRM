@@ -56,9 +56,6 @@
 							<el-form-item label="订单名称:" class="ttsalary" prop="name">
 								<el-input v-model="formInline.name" placeholder="请输入订单名称"></el-input>
 							</el-form-item>
-							<el-form-item label="订单金额:" class="ttsalary" prop="money">
-								<el-input v-model="formInline.money" placeholder="请输入订单金额"></el-input>
-							</el-form-item>
 							<el-form-item label="所属客户:" class="ttsalary" prop="custom">
 								<el-select v-model="formInline.custom" placeholder="请输入所属客户">
 									<el-option v-if="client!=null" v-for="c in client" :key="c.clientId"
@@ -159,11 +156,6 @@
 					person:[
 						{ required: true, message: '请输入联系人员', trigger: 'blur' },
 					],
-					money:[
-						{ required: true, message: '请输入订单金额', trigger: 'blur' },
-						{pattern: /^[0-9]*$/, message: '请输入数字'},
-						{pattern: /^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$/, message: '订单金额需要大于0'},
-					],
 					
 				},
 			};
@@ -220,7 +212,6 @@
 						//数据不为空，
 						let $this = this;
 						console.log("订单名称：",$this.formInline.name);
-						console.log("订单金额：",$this.formInline.money);
 						console.log("所属客户：", $this.formInline.custom);
 						console.log("联系人员：", $this.formInline.person);
 						console.log("添加的产品：", $this.oppro);
@@ -228,7 +219,6 @@
 						if($this.oppro.length>0){
 							this.axios.post("/saleorder/insert",{
 								name: $this.formInline.name,
-								money: $this.formInline.money,
 								custom: $this.formInline.custom,
 								person: $this.formInline.person,
 								user: $this.userid,
