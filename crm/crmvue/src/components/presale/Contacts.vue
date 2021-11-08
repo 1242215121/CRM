@@ -15,51 +15,32 @@
 	</div>
 	<el-drawer title="新增线索" v-model="drawer" :with-header="false" size="50%">
 		<div class="big">
-			<el-form>
-				<el-form-item label="机会名称:" class="ttsalary">
-					<el-input placeholder="请输入机会名称"></el-input>
+			<el-form :model="contactse" ref="contactse" :rules="rules">
+				<el-form-item label="姓名:" class="ttsalary" prop="contactsName">
+					<el-input v-model="contactse.contactsName" placeholder="请输入姓名"></el-input>
 				</el-form-item>
-				<el-form-item label="机会金额:" class="ttsalary">
-					<el-input placeholder="请输入机会金额"></el-input>
+				<el-form-item label="职务:" class="ttsalary" prop="contactsDuty">
+					<el-input v-model="contactse.contactsDuty" placeholder="请输入职务"></el-input>
 				</el-form-item>
-				<!-- <el-form-item label="负责人员:" class="ttsalary" prop="">
-					<el-select v-model="" placeholder="请输入负责人员">
-						<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
-							:label="o.oadeptName" :value="o.oadeptId">
+				<el-form-item label="联系电话:" class="ttsalary" prop="contactsPhone">
+					<el-input v-model="contactse.contactsPhone" placeholder="请输入电话号码"></el-input>
+				</el-form-item>
+				<el-form-item label="在职情况:" class="ttsalary" prop="contactsCase">
+					<el-select v-model="contactse.contactsCase" placeholder="请选择角色">
+						<el-option v-if="caset!=null" v-for="item in caset" :key="item.value" :label="item.label"
+							:value="item.label">
 						</el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="所属客户:" class="ttsalary" prop="custom">
-					<el-select v-model="formInline.custom" placeholder="请输入所属客户">
-						<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
-							:label="o.oadeptName" :value="o.oadeptId">
+				<el-form-item label="所属角色:" class="ttsalary" prop="contactsRole">
+					<el-select v-model="contactse.contactsRole" placeholder="请选择角色">
+						<el-option v-if="role!=null" v-for="item in role" :key="item.value" :label="item.label"
+							:value="item.label">
 						</el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="联系人员:" class="ttsalary" prop="person">
-					<el-select v-model="formInline.person" placeholder="请输入联系人员">
-						<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
-							:label="o.oadeptName" :value="o.oadeptId">
-						</el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item label="关联活动:" class="ttsalary" prop="activity">
-					<el-select v-model="formInline.activity" placeholder="请输入关联活动">
-						<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
-							:label="o.oadeptName" :value="o.oadeptId">
-						</el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item label="预成交日:" class="ttsalary" prop="value2">
-					<div class="block">
-						<el-date-picker v-model="formInline.value2" 
-						type="datetime" :disabledDate="dealDisabledDate"
-						placeholder="请选择时间">
-						</el-date-picker>
-					</div>
-				</el-form-item> -->
 				<el-form-item class="button">
-					<el-button type="primary" @click="submitForm('formInline')">提交</el-button>
+					<el-button type="primary" @click="getInContacts('contactse')">提交</el-button>
 					<el-button @click="resetForm()">重置</el-button>
 				</el-form-item>
 			</el-form>
@@ -105,10 +86,76 @@
 					contactsName:'',//联系人名称
 					pageNo: 1,
 					size: 3
-				}
+				},
+				role: [{
+						value: '选项1',
+						label: '关键决策人'
+					},
+					{
+						value: '选项2',
+						label: '分项决策人'
+					},
+					{
+						value: '选项3',
+						label: '普通人'
+					},
+					{
+						value: '选项4',
+						label: '直接用户'
+					},
+					{
+						value: '选项4',
+						label: '核心支持者'
+					}
+				],
+				caset: [{
+						value: '选项1',
+						label: '在职'
+					},
+					{
+						value: '选项2',
+						label: '离职'
+					},
+					
+				],
+				contactse:{
+					contactsName:''
+				},
+				rules: {
+					contactsName: [{
+						required: true,
+						message: '请输入姓名',
+						trigger: 'blur'
+					}, ],
+					contactsDuty: [{
+						required: true,
+						message: '请输入职务',
+						trigger: 'blur'
+					}, ],
+					contactsRole: [{
+						required: true,
+						message: '请输入角色',
+						trigger: 'blur'
+					}, ],
+					contactsCase: [{
+						required: true,
+						message: '请输入在职情况',
+						trigger: 'blur'
+					}, ],
+					contactsPhone: [{
+						required: true,
+						message: '请输入联系电话',
+						trigger: 'blur'
+					}, ],
+				
+				},
 			}
 		},
 		methods: {
+			//重置
+			resetForm() {
+				this.contactse = {};
+			},
 			getContactsData(no) {
 				this.contacts.contactsName = this.input;
 				if(no == undefined){
@@ -126,6 +173,23 @@
 				})
 
 			},
+			getInContacts(row){
+				this.axios.post('contacts/inContacts',this.contactse).then((v) => {
+					if(v.code == 1){
+						ElMessage({
+							message: "活动新增成功!",
+							type: 'success'
+						});
+						this.drawer = false;
+						this.getContactsData();
+					}else{
+						ElMessage({
+							message: v.msg,
+							type: 'erro'
+						});
+					}
+				})
+			}
 			
 		},
 		created() {

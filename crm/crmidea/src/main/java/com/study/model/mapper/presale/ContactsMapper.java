@@ -10,4 +10,6 @@ import java.util.List;
 public interface ContactsMapper {
     public List<Contacts> selectContacts(@Param("contactsName")String contactsName);
 
+    public Integer inContacts(Contacts contactse);
+
 }

@@ -50,9 +50,9 @@
         insert into activity(activity_id,activity_dept,activity_name,activity_user,activity_start,
                              activity_over,activity_address,activity_type,activity_state,
                              activity_plan_cost,activity_reality_cost,activity_plan,
-                             activity_plan_income,activity_reality_income,)
-        values (#{activityId},#{depts.deptName},#{activityName},#{users.usersName},#{activityStart},
-                #{activityOver},#{activityAddress},#{activityType},#{activityState},#{activityPlanCost}
-                #{activityRealityCost},#{activityPlan},#{activityPlanIncome},activityRealityIncome)
+                             activity_plan_income,activity_reality_income)
+        values (0,#{depts.deptId},#{activityName},#{users.usersId},#{activityStart},
+                #{activityOver},#{activityAddress},#{activityType},#{activityState},#{activityPlanCost},
+                #{activityRealityCost},#{activityPlan},#{activityPlanIncome},#{activityRealityIncome})
     </insert>
 </mapper>

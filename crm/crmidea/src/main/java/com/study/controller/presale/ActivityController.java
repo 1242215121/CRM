@@ -27,11 +27,13 @@ public class ActivityController {
 //    新增
     @PostMapping("inActivity")
     public MyResult inActivity(@RequestBody Activity activity){
+        System.out.println(activity);
         Integer a = activityService.inActivity(activity);
         if(a>0){
             myResult.setCode(1);
             System.err.println("新增成功");
+            return MyResult.SUCCESS;
         }
-        return myResult;
+        return MyResult.FAILURE("新增失败");
     }
 }

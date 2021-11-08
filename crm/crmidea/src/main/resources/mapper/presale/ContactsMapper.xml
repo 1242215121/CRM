@@ -24,4 +24,10 @@
         </where>
         order by contacts_id desc
     </select>
+    <insert id="inContacts" parameterType="com.study.model.pojo.presale.Contacts">
+        insert into contacts(contacts_id,contacts_name,contacts_duty,contacts_phone,
+                             contacts_role,contacts_case)
+        values (#{contactsId},#{contactsName},#{contactsDuty},#{contactsPhone},
+                #{contactsRole},#{contactsCase})
+    </insert>
 </mapper>

@@ -18,6 +18,9 @@ public class ContactsService {
     public Object selectContactsByPage(Integer PageNo,Integer size,String contactsName){
         return contactsMapper.selectContacts(contactsName);
     }
+    public Integer inContacts(Contacts contactse){
+        return contactsMapper.inContacts(contactse);
+    }
 
 
 }

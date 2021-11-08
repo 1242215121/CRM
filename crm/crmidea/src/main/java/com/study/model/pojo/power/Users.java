@@ -1,5 +1,7 @@
 package com.study.model.pojo.power;
 
+import com.study.model.pojo.presale.Activity;
+
 import java.sql.Date;
 import java.util.List;
 
@@ -19,6 +21,8 @@ public class Users {
     private Integer state;//用户状态
     private Ajob ajob;//职位
     private Dept dept;//部门
+    private Activity activity;//活动
+
     private List<UsersRole> usersRole;//角色
 
     public Integer getState() {
@@ -30,6 +34,13 @@ public class Users {
     }
 
 
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
 
     public Integer getUsersId() {
         return usersId;
