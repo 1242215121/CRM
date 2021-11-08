@@ -16,6 +16,8 @@
         <result column="invoice_khdz" property="invoiceKhdz"></result>
         <result column="invoice_date" property="invoiceDate"></result>
         <result column="invoice_kphm" property="invoiceKphm"></result>
+        <result column="invoice_blbz" property="invoiceBlbz"></result>
+        <result column="invoice_sqdate" property="invoiceSqdate"></result>
         <association property="invoiceDdid" javaType="com.study.model.pojo.insale.Saleorder">
             <id column="invoice_ddid" property="soId"></id>
             <result column="ddname" property="soName"></result>
@@ -56,4 +58,36 @@
             </if>
         </where>
     </select>
+
+    <select id="kpblcx" resultMap="kp">
+        SELECT r.*,s.so_name ddname,u.users_fullname uname,pt.periodoftime_name qcname,
+        c.client_name cname,us.users_fullname shrname,p.papertype_name pname FROM invoice r
+        LEFT JOIN saleorder s on r.invoice_ddid=s.so_id
+        LEFT JOIN users u on r.invoice_jbr=u.users_id
+        LEFT JOIN periodoftime pt on r.invoice_qcid=pt.periodoftime_id
+        LEFT JOIN client c on r.invoice_khid=c.client_id
+        LEFT JOIN users us on r.invoice_shr=us.users_id
+        LEFT JOIN papertype p on r.invoice_pjid=p.papertype_id
+        <where>
+            <if test="zt !=null and zt !=''">
+                and r.invoice_zt=#{zt}
+            </if>
+            <if test="nr !=null and nr !=''">
+                and s.so_name like concat(concat('%',#{nr}),'%')
+            </if>
+        </where>
+    </select>
+
+    <!--    确认办理-->
+    <update id="qrbl" parameterType="com.study.model.pojo.aftersale.Invoice">
+        update invoice set invoice_zt=${invoiceZt},invoice_kphm='${invoiceKphm}',invoice_date='${invoiceDate}',invoice_blbz='${invoiceBlbz}' where invoice_id=${invoiceId}
+    </update>
+<!--    订单开票金额修改-->
+    <update id="ddkpjexg">
+        update saleorder set so_invostatu=so_invostatu+#{price}  where so_id=${id}
+    </update>
+<!--    驳回-->
+    <update id="bhbl">
+        update invoice set invoice_zt=#{zt} where invoice_id=#{id}
+    </update>
 </mapper>

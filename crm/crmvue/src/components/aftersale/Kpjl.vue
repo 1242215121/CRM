@@ -21,13 +21,18 @@
 			</el-table-column>
 			<el-table-column prop="invoiceKphm" label="开票号码" width="150">
 			</el-table-column>
+			<el-table-column prop="invoicePjtt" label="票据抬头" width="150">
+			</el-table-column>
+			<el-table-column prop="invoiceNssbh" label="纳税识别号" width="150">
+			</el-table-column>
 			<el-table-column prop="invoiceShr.usersFullname" label="办理人" width="150">
 			</el-table-column>
 			<el-table-column prop="invoiceZt" label="开票状态" width="150" show-overflow-tooltip :formatter="ztxs">
 			</el-table-column>
 			<el-table-column prop="invoiceBz" label="备注" width="400">
 			</el-table-column>
-
+			<el-table-column prop="invoiceBlbz" label="办理备注" width="400">
+			</el-table-column>
 		</el-table>
 		<div class="block">
 			<el-pagination style="position: absolute;right:10px" @size-change="hal1" @current-change="hal"
@@ -35,6 +40,8 @@
 				layout="total, sizes, prev, pager, next, jumper">
 			</el-pagination>
 		</div>
+		
+		
 	</div>
 </template>
 

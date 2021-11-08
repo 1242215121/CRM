@@ -48,7 +48,7 @@
 					<p>回款日期：{{hkjl.receivableDate}}</p>
 				</div>
 				<div style="width: 200px;margin-left: 20px;display: inline-block;">
-					<p>关联客户：{{hkjl.receivablePrice}}</p>
+					<p>关联客户：{{hkjl.receivableKhid.clientName}}</p>
 					<p>销售订单：{{hkjl.receivableDdid.soName}}</p>
 				</div>
 			</div>
