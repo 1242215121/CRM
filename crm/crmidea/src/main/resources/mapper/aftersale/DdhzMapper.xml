@@ -51,4 +51,25 @@
                 </where>
                 order by so_id desc
     </select>
+
+    <!--按订单编号查询订单-->
+    <select id="ddcxid" resultMap="baseMap">
+        select so_id,so_name, so_money, so_orderstatu,
+        so_back, so_pay, so_return, so_backstatu, so_invoicing, so_invostatu,
+        so_date, so_num, so_wynum, so_nonum, so_warestatu,
+        u.users_id,u.users_name,cc.client_id,cc.client_name,s.sf_id,s.sf_name from saleorder
+        left join users u on u.users_id = saleorder.so_charge
+        left join client cc on cc.client_id = saleorder.so_customer
+        left join salefunnel s on s.sf_id = saleorder.sf_id
+       where so_id=#{id}
+    </select>
+
+<!--    修改订单回款，订单状态-->
+    <update id="xgddzt">
+        update saleorder set so_backstatu=#{zt},so_orderstatu=#{zt} where so_id=#{id}
+    </update>
+<!--    修改开票状态-->
+    <update id="xgkpzt">
+        update saleorder set so_invoicing=#{zt} where so_id=#{id}
+    </update>
 </mapper>

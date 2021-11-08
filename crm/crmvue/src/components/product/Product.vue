@@ -46,9 +46,9 @@
 			   <template #dropdown>
 			     <el-dropdown-menu>
 			       <el-dropdown-item @click="typeProp()">产品类别</el-dropdown-item>
-			       <el-dropdown-item>基准价</el-dropdown-item>
-			       <el-dropdown-item>启用状态</el-dropdown-item>
-			       <el-dropdown-item>负责人变更</el-dropdown-item>
+			       <el-dropdown-item @click="priceProp()">基准价</el-dropdown-item>
+			       <el-dropdown-item @click="stateProp()">启用状态</el-dropdown-item>
+			       <el-dropdown-item @click="personProp()">负责人变更</el-dropdown-item>
 			     </el-dropdown-menu>
 			   </template>
 			 </el-dropdown>
@@ -287,7 +287,7 @@
 	 		</el-form-item>
 	 		</el-col>
 	 		<el-col :span="12">
-	 		<el-form-item label="基准价格:" prop="price" >
+	 		<el-form-item label="基准价格:" prop="price1" >
 	 		   <el-input onkeyup="value=value.replace(/[^\d]/g,'')" v-model="pro.proPrice"  placeholder="请填写基准价格"  clearable></el-input>
 	 		</el-form-item>
 	 		</el-col>
@@ -326,7 +326,7 @@
 		width="35%"
 	>
 		<el-form label-width="100px" >
-			<el-form-item label="类别名称" prop="typeName">
+			<el-form-item label="类别名称" >
 				<el-select v-model="typeNumber" placeholder="请选择产品类别" style="width: 320px;"   clearable >
 				   <el-option
 				     v-for="item in typeAll"
@@ -345,8 +345,75 @@
 		</template>
 	</el-dialog>
 	
+	<!--批量修改基准价格弹框-->
+	<el-dialog
+		title="基准价格设置"
+		 v-model="dialogVisible2"
+		width="35%"
+	>
+		<el-form label-width="100px" >
+			<el-form-item label="基准价格" >
+				<el-input v-model="priceNumber" placeholder="请输入基准价格" style="width: 320px;"  clearable></el-input>
+			</el-form-item>
+		</el-form>
+		<template #footer>
+		  <span class="dialog-footer">
+		    <el-button >取 消</el-button>
+		    <el-button type="primary" @click="addpriceProp()">确 定</el-button>
+		  </span>
+		</template>
+	</el-dialog>
 	
-	
+	<!--批量修改启用状态弹框-->
+	<el-dialog
+		title="启用状态设置"
+		 v-model="dialogVisible3"
+		width="35%"
+	>
+		<el-form label-width="100px" >
+			<el-form-item label="启用状态" >
+				<el-select v-model="stateNumber"  placeholder="请选择启用状态" style="width: 220px;"   clearable >
+				   <el-option
+				     v-for="item in options"
+				     :key="item.value"
+				     :label="item.label"
+				     :value="item.value">
+				   </el-option>
+				 </el-select>
+			</el-form-item>
+		</el-form>
+		<template #footer>
+		  <span class="dialog-footer">
+		    <el-button >取 消</el-button>
+		    <el-button type="primary" @click="addstateProp()">确 定</el-button>
+		  </span>
+		</template>
+	</el-dialog>
+	<!--批量修改启用状态弹框-->
+	<el-dialog
+		title="产品负责人设置"
+		 v-model="dialogVisible4"
+		width="35%"
+	>
+		<el-form label-width="100px" >
+			<el-form-item label="产品负责人" >
+				<el-select v-model="personNumber"  placeholder="请选择负责人" style="width: 220px;"   clearable >
+				   <el-option
+				     v-for="item in duty"
+				     :key="item.usersId"
+				     :label="item.usersFullname"
+				     :value="item.usersId">
+				   </el-option>
+				 </el-select>
+			</el-form-item>
+		</el-form>
+		<template #footer>
+		  <span class="dialog-footer">
+		    <el-button >取 消</el-button>
+		    <el-button type="primary" @click="addpersonProp()">确 定</el-button>
+		  </span>
+		</template>
+	</el-dialog>
 </template>
 
 <script>
@@ -385,7 +452,7 @@
 				 }
 				 return callback();
 			}
-			var price =(rule, value, callback) =>{
+			var price1 =(rule, value, callback) =>{
 				 if (this.pro.proPrice==='') {
 				          return callback(new Error('基准价不能为空'))
 				 }
@@ -416,7 +483,7 @@
 					state: '',
 					person: '',
 					unit: '',
-					price: '',
+					price1: '',
 					count:''
 				},
 			    rules: {
@@ -425,7 +492,7 @@
 				    state: [{ validator: state, trigger: 'change' }],
 				    person: [{ validator: person, trigger: 'change' }],
 					unit: [{ validator: unit, trigger: 'change' }],
-					price: [{ validator: price, trigger: 'change' }],
+					price1: [{ validator: price1, trigger: 'change' }],
 					count: [{ validator: count, trigger: 'change' }]
 				},
 				ruleForm1: {
@@ -438,6 +505,9 @@
 				//新增类别弹框
 				dialogVisible:false,
 				dialogVisible1:false,
+				dialogVisible2:false,
+				dialogVisible3:false,
+				dialogVisible4:false,
 				//新增抽屉
 				drawer:false,
 				direction: 'rtl',
@@ -525,10 +595,12 @@
 					proState:'',
 					proPerson:'',
 				},
+				//批量修改类别
 				typeNumber:'',
-				
-				
-				
+				//批量修改基准价格
+				priceNumber:'',
+				stateNumber:'',
+				personNumber:'',
 				
 				//分页
 				total:0,
@@ -572,17 +644,15 @@
 					this.typeAll =res.data;
 				}).catch(()=>{})
 				
-			},
-			//点击打开新增弹框
-			openPro(){
-				
-				this.drawer = true;
-				
 				//查询负责人
 				this.axios({url:"/users/ajobId"})
 				.then((res)=>{
 					this.duty = res.data;
 				}).catch(()=>{})
+			},
+			//点击打开新增弹框
+			openPro(){
+				this.drawer = true;
 			},
 			//确定新增
 			addProduct(formName){
@@ -768,8 +838,8 @@
 					}
 				})
 			},
-			//批量修改产品类别
-			typeProp(){
+			//点击批量修改产品类别
+			typeProp(dia){
 				if(JSON.stringify(this.pitch)=='[]'){
 					 ElMessage.warning({
 						message: '请先选择数据！',
@@ -787,17 +857,107 @@
 				}
 				this.pitch.forEach(v=>{
 					v.proTypeId = this.typeNumber;
-					v.proState = "1";
 				})
-				
+				this.batch();
+			},
+			//点击批量修改基准价格
+			priceProp(){
+				if(JSON.stringify(this.pitch)=='[]'){
+					 ElMessage.warning({
+						message: '请先选择数据！',
+						type: 'warning',
+					  })
+					return;
+				}
+				this.dialogVisible2 = true;
+			},
+			//确定修改产品基准价格
+			addpriceProp(){
+				if(this.priceNumber == ''){
+					ElMessage.error('请输入基准价格')
+					return;
+				}
+				this.pitch.forEach(v=>{
+					v.proPrice = this.priceNumber;
+				})
+				this.batch();
+			},
+			//点击批量修改启用状态
+			stateProp(){
+				if(JSON.stringify(this.pitch)=='[]'){
+					 ElMessage.warning({
+						message: '请先选择数据！',
+						type: 'warning',
+					  })
+					return;
+				}
+				this.dialogVisible3 = true;
+			},
+			//确定修改产品启用状态
+			addstateProp(){
+				if(this.stateNumber == ''){
+					ElMessage.error('请选择启用状态')
+					return;
+				}
+				this.pitch.forEach(v=>{
+					v.proState = this.stateNumber;
+				})
+				this.batch();
+			},
+			//点击批量修改负责人
+			personProp(){
+				if(JSON.stringify(this.pitch)=='[]'){
+					 ElMessage.warning({
+						message: '请先选择数据！',
+						type: 'warning',
+					  })
+					return;
+				}
+				this.dialogVisible4 = true;
+			},
+			//确定修改产品负责人
+			addpersonProp(){
+				if(this.personNumber == ''){
+					ElMessage.error('请选择启用状态')
+					return;
+				}
+				this.pitch.forEach(v=>{
+					v.proPerson = this.personNumber;
+				})
 				this.batch();
 			},
 			
+			cancel1(){
+				this.pitch=[]
+				this.pit={
+					proId:'',
+					proTypeId:'',
+					proPrice:'',
+					proState:'',
+					proPerson:'',
+				}
+				this.typeNumber='';
+				this.priceNumber='';
+				this.stateNumber='';
+				this.personNumber='';
+				
+				this.dialogVisible1 = false;
+				this.dialogVisible2 = false;
+				this.dialogVisible3 = false;
+				this.dialogVisible4 = false;
+			},
 			//批量修改方法
 			batch(){
 				this.axios.post("/hzc/batchType",this.pitch)
 				.then((res)=>{
-					
+					if(res.code == 1){
+						ElMessage.success({
+							message: '修改成功',
+							type: 'success'
+						});
+					}	
+					this.cancel1();
+					this.getData();
 				}).catch(()=>{})
 			},
 			

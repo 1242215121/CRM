@@ -19,4 +19,7 @@ public class ClueService {
     public Object selectClueByPage(Integer pageNo,Integer size,String clueName){
         return clueMapper.selectClue(clueName);
     }
+    public Integer inClue(Clue clue){
+        return clueMapper.inClue(clue);
+    }
 }

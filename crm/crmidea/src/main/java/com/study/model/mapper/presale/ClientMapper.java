@@ -11,4 +11,6 @@ public interface ClientMapper {
     public List<Client> selectClient(@Param("clientRule")String clientRule,@Param("clientName")String clientName);
 
     public List<Client> seClient();
+
+    public Integer inClient(Client client);
 }

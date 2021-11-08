@@ -55,9 +55,6 @@
 							<el-form-item label="机会名称:" class="ttsalary" prop="name">
 								<el-input v-model="formInline.name" placeholder="请输入机会名称"></el-input>
 							</el-form-item>
-							<el-form-item label="机会金额:" class="ttsalary" prop="money">
-								<el-input v-model="formInline.money" placeholder="请输入机会金额"></el-input>
-							</el-form-item>
 							<el-form-item label="负责人员:" class="ttsalary" prop="emp">
 								<el-select v-model="formInline.emp" placeholder="请输入负责人员">
 									<el-option v-if="users!=null" v-for="u in users" :key="u.usersId"
@@ -198,21 +195,6 @@
 						message: '请输入关联活动',
 						trigger: 'blur'
 					}, ],
-					money: [{
-							required: true,
-							message: '请输入机会金额',
-							trigger: 'blur'
-						},
-						{
-							pattern: /^[0-9]*$/,
-							message: '请输入数字'
-						},
-						{
-							pattern: /^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$/,
-							message: '机会金额需要大于0'
-						},
-
-					],
 					value2: [{
 						required: true,
 						message: '请选择时间',
@@ -234,6 +216,7 @@
 			dealDisabledDate(time) {
 				return time.getTime() <= Date.now() - 24 * 60 * 60 * 1000;
 			},
+			 
 			//查询所有产品的信息
 			add() {
 				let $this = this;
@@ -275,41 +258,47 @@
 						console.log("选择的时间：", $this.formInline.value2);
 						$this.starttime = this.formatDate($this.formInline.value2);
 						console.log("选择时间：", $this.starttime);
-						console.log("机会名称：", $this.formInline.name);
 						console.log("机会金额：", $this.formInline.money);
 						console.log("负责人员：", $this.formInline.emp);
 						console.log("所属客户：", $this.formInline.custom);
 						console.log("联系人员：", $this.formInline.person);
 						console.log("关联活动：", $this.formInline.activity);
 						console.log("添加的产品：", $this.oppro);
-						this.axios.post("/salefunnel/insert", {
-							starttime: $this.starttime,
-							name: $this.formInline.name,
-							money: $this.formInline.money,
-							emp: $this.formInline.emp,
-							custom: $this.formInline.custom,
-							person: $this.formInline.person,
-							activity: $this.formInline.activity,
-							product: $this.oppro,
-						}).then(res => {
-							// console.log("调薪申请：",res.code);
-							if (res.code == 1) {
-								ElMessage({
-									message: "销售机会新增成功!",
-									type: 'success'
-								});
-								//关闭，并重新刷新页面
-								this.cancel();
-								this.loadData();
-
-							} else {
-								ElMessage({
-									message: res.msg,
-									type: 'erro'
-								});
-							}
-						})
-
+						
+						if($this.oppro.length > 0){
+							this.axios.post("/salefunnel/insert", {
+								starttime: $this.starttime,
+								name: $this.formInline.name,
+								emp: $this.formInline.emp,
+								custom: $this.formInline.custom,
+								person: $this.formInline.person,
+								activity: $this.formInline.activity,
+								product: $this.oppro,
+							}).then(res => {
+								// console.log("调薪申请：",res.code);
+								if (res.code == 1) {
+									ElMessage({
+										message: "销售机会新增成功!",
+										type: 'success'
+									});
+									//关闭，并重新刷新页面
+									this.cancel();
+									this.loadData();
+							
+								} else {
+									ElMessage({
+										message: res.msg,
+										type: 'erro'
+									});
+								}
+							})
+						}else{
+							ElMessage({
+								message: "产品不能为空！！！",
+								type: 'warning'
+							});
+						}
+						
 					} else {
 						ElMessage({
 							message: "请完整填写信息",

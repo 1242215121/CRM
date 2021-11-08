@@ -11,7 +11,6 @@ public class SalefunnelNewVo {
 
     private String starttime;//预计成交日
     private String name; //机会名称
-    private String money;//机会金额
     private Integer emp;//负责人员
     private Integer custom;//客户
     private Integer person;//联系人
@@ -32,14 +31,6 @@ public class SalefunnelNewVo {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getMoney() {
-        return money;
-    }
-
-    public void setMoney(String money) {
-        this.money = money;
     }
 
     public Integer getEmp() {

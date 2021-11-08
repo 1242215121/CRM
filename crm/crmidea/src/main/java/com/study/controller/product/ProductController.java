@@ -78,17 +78,13 @@ public class ProductController {
      * 批量修改产品
      */
     @PostMapping("/batchType")
-        public MyResult batchType(@RequestBody  List<Product> pitch){
-        System.out.println("集合");
-        System.out.println(pitch);
+    public MyResult batchType(@RequestBody  List<Product> pitch){
+        try {
+            productService.batchType(pitch);
+            return MyResult.SUCCESS;
+        }catch (Exception e){
+            return MyResult.FAILURE("修改出错");
+        }
 
-//        try {
-//            productService.batchType(products);
-//            return MyResult.SUCCESS;
-//        }catch (Exception e){
-//            return MyResult.FAILURE("修改出错");
-//        }
-        productService.batchType(pitch);
-        return MyResult.FAILURE("修改出错");
     }
 }

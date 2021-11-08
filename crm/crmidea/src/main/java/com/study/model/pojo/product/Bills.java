@@ -13,13 +13,13 @@ public class Bills {
     private String preUnit;//单位
     private Integer billsCount;//本次出库数量
     private String billsRemark;//备注
-    private Integer billId;//关联出入库单
+    private String billId;//关联出入库单
 
     public Bills() {
         super();
     }
 
-    public Bills(int billsId, String preId, String preName, String preUnit, Integer billsCount, String billsRemark, Integer billId) {
+    public Bills(int billsId, String preId, String preName, String preUnit, Integer billsCount, String billsRemark, String billId) {
         this.billsId = billsId;
         this.preId = preId;
         this.preName = preName;
@@ -77,11 +77,11 @@ public class Bills {
         this.billsRemark = billsRemark;
     }
 
-    public Integer getBillId() {
+    public String getBillId() {
         return billId;
     }
 
-    public void setBillId(Integer billId) {
+    public void setBillId(String billId) {
         this.billId = billId;
     }
 

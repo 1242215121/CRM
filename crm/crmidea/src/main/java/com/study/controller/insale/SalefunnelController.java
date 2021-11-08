@@ -49,7 +49,7 @@ public class SalefunnelController {
 
     @PostMapping("/insert")
     public MyResult insert(@RequestBody SalefunnelNewVo salefunnelNewVo){
-        System.out.println("新增销售机会方法：机会名称："+salefunnelNewVo.getName()+",机会金额："+salefunnelNewVo.getMoney()
+        System.out.println("新增销售机会方法：机会名称："+salefunnelNewVo.getName()
                 +",负责人员："+salefunnelNewVo.getEmp()+",所属客户："+salefunnelNewVo.getCustom()
                 +",联系人员："+salefunnelNewVo.getPerson()+",关联活动："+salefunnelNewVo.getActivity()
                 +",预计成交日："+salefunnelNewVo.getStarttime()+",添加产品："+salefunnelNewVo.getProduct());

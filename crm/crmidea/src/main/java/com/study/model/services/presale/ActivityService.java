@@ -26,4 +26,12 @@ public class ActivityService {
     public Integer inActivity(Activity activity){
         return activityMapper.inActivity(activity);
     }
+//   获取当前登录人
+    public List<Activity> selectUser(Integer useid){
+        return activityMapper.selectUser(useid);
+    }
+    //   修改
+    public Integer upActivity(Integer activityId,String activityType,String activityState){
+       return activityMapper.upActivity(activityId, activityType, activityState);
+    }
 }

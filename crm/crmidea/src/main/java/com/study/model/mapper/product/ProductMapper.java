@@ -44,4 +44,12 @@ public interface ProductMapper {
      */
     public Integer batchType( List<Product> pitch);
 
+    /**
+     * 修改库存数量(出库)
+     */
+    public Integer updateGo(@Param("count") String count,@Param("proId")String proId);
+    /**
+     * 修改库存数量(入库)
+     */
+    public Integer updateJoin(@Param("count") String count,@Param("proId")String proId);
 }

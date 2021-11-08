@@ -49,7 +49,6 @@ public class QuotationsController {
     @PostMapping("/insert")
     public MyResult insert(@RequestBody QuotationsNewVo quotationsNewVo){
         System.out.println("新增报价单方法：报价单名称："+quotationsNewVo.getName()
-                        +",报价单金额："+quotationsNewVo.getMoney()
                 +",关联机会："+quotationsNewVo.getActivity() +",添加产品："+quotationsNewVo.getProduct());
         Integer q = service.insert(quotationsNewVo);
         if(q>0){

@@ -15,10 +15,16 @@
         <association property="salefunnelBySfId" javaType="com.study.model.pojo.insale.Salefunnel">
             <id column="sf_id" property="sfId"/>
             <result column="sf_name" property="sfName"/>
+
             <association property="user" javaType="com.study.model.pojo.power.Users">
                 <id column="users_id" property="usersId"/>
                 <result column="users_name" property="usersName"/>
             </association>
+            <association property="client" javaType="com.study.model.pojo.presale.Client">
+                <id column="client_id" property="clientId"/>
+                <result column="client_name" property="clientName"/>
+            </association>
+
         </association>
         <!--  private List<Quotapro> quotapros;//多条报价单产品信息-->
         <collection property="quotapros" select="com.study.model.mapper.insale.QuotaproMapper.selectByQid" column="q_id"/>
@@ -55,6 +61,17 @@
     <update id="updateStage" parameterType="java.lang.Integer">
         update quotations set q_stage = '确认' where q_id = #{qid}
     </update>
+
+    <!-- public Quotations selectOwn(Integer qid);
+     根据报价单编号获取报价单信息-->
+    <select id="selectOwn" resultMap="baseMap" parameterType="java.lang.Integer">
+          select q_id, q_name, q_money, q_date, q_stage, q_time,s.sf_id,s.sf_name,u.users_id,u.users_name,c.client_id,c.client_name from quotations
+        left join salefunnel s on quotations.sf_id = s.sf_id
+        left join users u on u.users_id = s.sf_change
+        left join client c on c.client_id = s.sf_customer
+        where q_id = #{qid}
+        order by q_id desc
+    </select>
 
     <!--public Integer insert(Quotations quotations);
     新增报价单-->

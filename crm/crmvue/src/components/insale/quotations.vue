@@ -61,9 +61,6 @@
 							<el-form-item label="报价单名称:" class="ttsalary" prop="name">
 								<el-input v-model="formInline.name" placeholder="请输入报价单名称"></el-input>
 							</el-form-item>
-							<el-form-item label="报价单金额:" class="ttsalary" prop="money">
-								<el-input v-model="formInline.money" placeholder="请输入报价单金额"></el-input>
-							</el-form-item>
 							<el-form-item label="关联的机会:" class="ttsalary" prop="activity">
 								<el-select v-model="formInline.activity" placeholder="请输入关联机会">
 									<el-option v-if="salefunnel!=null" v-for="s in salefunnel" :key="s.sfId"
@@ -153,11 +150,6 @@
 					activity:[
 						{ required: true, message: '请输入关联机会', trigger: 'blur' },
 					],
-					money:[
-						{ required: true, message: '请输入报价单金额', trigger: 'blur' },
-						{pattern: /^[0-9]*$/, message: '请输入数字'},
-						{pattern: /^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$/, message: '报价单金额需要大于0'},	
-					],
 					
 				},
 			};
@@ -211,32 +203,38 @@
 						//数据不为空，
 						let $this = this;
 						console.log("报价单名称：",$this.formInline.name);
-						console.log("报价单金额：",$this.formInline.money);
 						console.log("关联机会：", $this.formInline.activity);
 						console.log("添加的产品：", $this.oppro);
-						this.axios.post("/quotations/insert",{
-							name:$this.formInline.name,
-							money:$this.formInline.money,
-							activity:$this.formInline.activity,
-							product: $this.oppro,
-						}).then(res=>{
-							// console.log("调薪申请：",res.code);
-							if (res.code == 1) {
-								ElMessage({
-									message: "报价单新增成功!",
-									type: 'success'
-								});
-								//关闭，并重新刷新页面
-								this.cancel();
-								this.loadData();
-								
-							}else{
-								ElMessage({
-									message: res.msg,
-									type: 'erro'
-								});
-							}
-						})
+						if($this.oppro.length>0){
+							this.axios.post("/quotations/insert",{
+								name:$this.formInline.name,
+								activity:$this.formInline.activity,
+								product: $this.oppro,
+							}).then(res=>{
+								// console.log("调薪申请：",res.code);
+								if (res.code == 1) {
+									ElMessage({
+										message: "报价单新增成功!",
+										type: 'success'
+									});
+									//关闭，并重新刷新页面
+									this.cancel();
+									this.loadData();
+									
+								}else{
+									ElMessage({
+										message: res.msg,
+										type: 'erro'
+									});
+								}
+							})
+						}else{
+							ElMessage({
+								message: "产品不能为空！！！",
+								type: 'warning'
+							});
+						}
+						
 						
 					} else {
 						ElMessage({

@@ -11,6 +11,8 @@
 			</el-input>
 			<el-button type="primary" icon="el-icon-search" @click="getData()">搜索</el-button>
 			<el-table :data="tableData" border @row-click="xq" style="width: 100%;margin-top:10px;">
+				<el-table-column prop="invoiceName" label="申请名称" width="150">
+				</el-table-column>
 				<el-table-column prop="invoiceDdid.soName" label="订单名称" width="150">
 				</el-table-column>
 				<el-table-column prop="invoiceKhid.clientName" label="客户名称" width="150">
@@ -235,6 +237,7 @@
 			  this.dialogFormVisible=true;
 		  },
 			qd(){
+				this.kpjl.invoiceShr=this.emp;
 				this.kpjl.invoiceZt=1;
 				this.axios.post("http://localhost:8086/llw/qrbl",
 				{'kpjl':this.kpjl})
@@ -255,7 +258,7 @@
 			},
 			bh(){
 				this.axios.post("http://localhost:8086/llw/kpbhbl",
-				{'id':this.kpjl.invoiceId})
+				{'id':this.kpjl.invoiceId,'shr':this.emp})
 				.then(res=>{
 					if(res.obj==0){
 						this.gb();

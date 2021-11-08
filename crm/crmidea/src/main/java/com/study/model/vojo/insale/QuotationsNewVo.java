@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class QuotationsNewVo {
     private String name; //报价单名称
-    private String money;//报价单金额
     private Integer activity;//关联机会
     private List<ProductVo> product;//添加产品
 
@@ -17,14 +16,6 @@ public class QuotationsNewVo {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getMoney() {
-        return money;
-    }
-
-    public void setMoney(String money) {
-        this.money = money;
     }
 
     public Integer getActivity() {
