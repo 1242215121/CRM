@@ -116,7 +116,7 @@
 								<el-col :span="4"></el-col>
 								<el-col :span="4">
 									<p style="padding-top: 6%;">
-										<el-button type="primary" size="mini" v-if="statu=true"
+										<el-button type="primary" size="mini" v-if="statu!=true"
 										@click="adds()">新增</el-button>
 									</p>
 								</el-col>
@@ -488,6 +488,7 @@
 					console.log("退货单信息:",res);
 					$this.back = res.data;
 					if(res.data.length>0){
+						console.log("有数据，修改状态");
 						$this.statu = true;
 					}
 				});

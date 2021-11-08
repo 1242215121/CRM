@@ -58,7 +58,7 @@
 							<el-form-item label="负责人员:" class="ttsalary" prop="emp">
 								<el-select v-model="formInline.emp" placeholder="请输入负责人员">
 									<el-option v-if="users!=null" v-for="u in users" :key="u.usersId"
-										:label="u.usersName" :value="u.usersId">
+										:label="u.usersFullname" :value="u.usersId">
 									</el-option>
 								</el-select>
 							</el-form-item>
@@ -131,7 +131,7 @@
 						<el-table-column prop="proId" label="产品编号" width="100px"></el-table-column>
 						<el-table-column prop="proName" label="产品名称"></el-table-column>
 						<el-table-column prop="proPrice" label="产品价格"></el-table-column>
-						<el-table-column prop="proInventoryAmount" label="库存数量"></el-table-column>
+						<el-table-column prop="proInventoryUsable" label="库存数量"></el-table-column>
 					</el-table>
 					<el-button type="primary" @click="sure" size="mini">确定</el-button>
 				</el-dialog>
