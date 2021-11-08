@@ -161,8 +161,6 @@ public class Users {
         this.usersRole = usersRole;
     }
 
-<<<<<<< .merge_file_a16172
-<<<<<<< .merge_file_a28876
     private String usersFullnames;//用户名
 
     public String getUsersFullnames() {
@@ -171,15 +169,14 @@ public class Users {
 
     public void setUsersFullnames(String usersFullnames) {
         this.usersFullnames = usersFullnames;
-=======
+    }
     public List<Refunds> getRefunds() {
         return refunds;
     }
 
     public void setRefunds(List<Refunds> refunds) {
         this.refunds = refunds;
->>>>>>> .merge_file_a27524
-=======
+    }
     @Override
     public String toString() {
         return "Users{" +
@@ -194,6 +191,5 @@ public class Users {
                 ", usersImgs='" + usersImgs + '\'' +
                 ", state=" + state +
                 '}';
->>>>>>> .merge_file_a28344
     }
 }

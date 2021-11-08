@@ -65,7 +65,7 @@
 						</div>
 						<!-- x为对象，i为下标 -->
 						<div v-for="(x,i) in qc">
-							<div style="width: 635px;height:100px;border: #C0C0C0 solid 1px;padding: 10px;margin-top: 10px;margin-bottom: 10px;">
+							<div style="width: 700px;height:100px;border: #C0C0C0 solid 1px;padding: 10px;margin-top: 10px;margin-bottom: 10px;">
 								<div>
 									<span>{{x.periodoftimeName}}</span>
 									<el-button style="position: absolute;right:150px" size="mini" @click="xzhk(x)">添加回款</el-button>

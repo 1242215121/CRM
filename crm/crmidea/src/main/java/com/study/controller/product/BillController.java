@@ -3,6 +3,7 @@ package com.study.controller.product;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.study.model.pojo.product.Bill;
+import com.study.model.pojo.product.Bills;
 import com.study.model.services.product.BillService;
 import com.study.utils.MyResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,14 @@ public class BillController {
      */
     @RequestMapping("/insertBill")
     public MyResult insertBill(@RequestBody Bill bill){
+        System.out.println("出库单");
+        System.out.println(bill);
+
+        List<Bills> bills = bill.getBills();
+        for (Bills b: bills) {
+            System.out.println(b);
+        }
+
         try {
             billService.insertBill(bill);
             return MyResult.SUCCESS;
