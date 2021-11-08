@@ -1,5 +1,6 @@
 package com.study.controller.aftersale;
 
+import com.study.model.pojo.aftersale.Invoice;
 import com.study.model.services.aftersale.InvoiceService;
 import com.study.utils.MyResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,18 @@ public class InvoiceController {
     @RequestMapping("kpblcx")
     public MyResult getKpblcx(Integer pageNo, Integer size,Integer zt,String nr){
         return MyResult.SUCCESS_Object(invoiceService.kpblcx(pageNo,size,zt,nr));
+    }
+
+    //根据期次查询开票记录，以及查询出所有票据类型
+    @RequestMapping("kpqccx")
+    public MyResult getKpqccx(Integer id){
+        return MyResult.SUCCESS_Object(invoiceService.kpqccx(id));
+    }
+
+    //新增开票记录
+    @RequestMapping("kpxz")
+    public MyResult kpxz(@RequestBody Invoice invoice){
+        return MyResult.SUCCESS_Object(invoiceService.kpxz(invoice));
     }
 
     //确认开票办理

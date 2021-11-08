@@ -41,7 +41,8 @@
 			<div style="margin-left:20px;">
 				<div style="width: 150px;display: inline-block;">
 					<p>经办人：{{hkjl.receivableJbr.usersFullname}}</p>
-					<p>审核人：{{hkjl.receivableShr.usersFullname}}</p>
+					<p>审核人：
+					<sapn v-if='hkjl.receivableShr!=null?true:false'>{{hkjl.receivableShr.usersFullname}}</sapn></p>
 				</div>
 				<div style="width: 260px;margin-left: 20px;display: inline-block;">
 					<p>回款金额：{{hkjl.receivablePrice}}</p>

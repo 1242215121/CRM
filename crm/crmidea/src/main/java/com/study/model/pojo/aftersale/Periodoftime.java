@@ -26,6 +26,7 @@ public class Periodoftime {
   private int periodoftimeQczt;//期次状态  1为已还款，2为部分还款，3为未还款
   private double periodoftimeKpprice;//开票金额
 
+
   public long getPeriodoftimeId() {
     return periodoftimeId;
   }

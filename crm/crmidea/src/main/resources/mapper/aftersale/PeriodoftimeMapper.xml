@@ -37,6 +37,14 @@
             </where>
     </select>
 
+    <select id="qcidcx" resultMap="qc">
+        SELECT r.*,s.so_name ddname,u.users_fullname uname,c.client_name cname FROM periodoftime r
+        LEFT JOIN saleorder s on r.periodoftime_ddid=s.so_id
+        LEFT JOIN users u on r.periodoftime_fzr=u.users_id
+        LEFT JOIN client c on r.periodoftime_khid=c.client_id
+        where r.periodoftime_id=#{id}
+    </select>
+
     <select id="qcddcx" resultMap="qc">
         SELECT r.*,s.so_name ddname,u.users_fullname uname,c.client_name cname FROM periodoftime r
             LEFT JOIN saleorder s on r.periodoftime_ddid=s.so_id
@@ -46,7 +54,7 @@
     </select>
 
     <insert id="qcxz" parameterType="com.study.model.pojo.aftersale.Periodoftime">
-        insert into periodoftime values (null,${periodoftimeDdid.getSoId()},'${periodoftimeName}',${periodoftimeFzr.getUsersId()},${periodoftimePrice},${periodoftimeDate},'${periodoftimeBz}',${periodoftimeKhid.getClientId()},${periodoftimeSjprice},${periodoftimeQczt},${periodoftimeKpprice})
+        insert into periodoftime values (null,${periodoftimeDdid.getSoId()},'${periodoftimeName}',${periodoftimeFzr.getUsersId()},${periodoftimePrice},'${periodoftimeDate}','${periodoftimeBz}',${periodoftimeKhid.getClientId()},${periodoftimeSjprice},${periodoftimeQczt},${periodoftimeKpprice})
     </insert>
 
 <!--    修改期次实际回款金额-->
@@ -56,5 +64,19 @@
     <!--    修改期次开票金额-->
     <update id="qckpje">
         update periodoftime set periodoftime_kpprice=periodoftime_kpprice+#{price} where periodoftime_id=#{id}
+    </update>
+
+<!--    修改期次状态-->
+    <update id="qcztxg">
+        update periodoftime set periodoftime_qczt=#{zt} where periodoftime_id=#{id}
+    </update>
+
+    <delete id="qcdel">
+        delete from periodoftime where periodoftime_id=#{id}
+    </delete>
+
+    <!--    修改期次名称-->
+    <update id="qcnamexg">
+        update periodoftime set periodoftime_name=#{name} where periodoftime_id=#{id}
     </update>
 </mapper>
