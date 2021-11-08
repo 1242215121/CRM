@@ -61,11 +61,13 @@ public class DeptController {
     }
 
     @GetMapping("delete")
-    public MyResult deleteDept(Integer did){
+    public MyResult deleteDept(@RequestParam Integer did){
         //        删除部门时先判断部门下是否还有员工
         //        如果有不能进行删除
+
         List<Users> usersList=usersServices.selectByDeptId(did);
-        if(usersList.size()>0||usersList!=null){
+
+        if(usersList.size()>0&&usersList!=null){
             return MyResult.FAILURE("该部门下还有员工，删除失败！");
         }else {
             //    如果没有删除部门同时删除该部门下的职位

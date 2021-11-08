@@ -6,10 +6,7 @@ import com.study.model.services.power.AjobServices;
 import com.study.model.services.power.UsersServices;
 import com.study.utils.MyResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,8 +24,17 @@ public class AjobController {
     }
 
     @PostMapping("add")
-    public MyResult insertAjob(Ajob ajob){
-        //  新增前先判断该部门下是否有相同的职位
+    public MyResult insertAjob(@RequestBody Ajob ajob){
+        //  新增前先判断该部门下是否有相同的职位 判断是否选中了上级部门
+        try {
+           Integer i= ajob.getDept().getDeptId();
+           if(i==null){
+               return MyResult.FAILURE("请选择部门!");
+           }
+        }catch (Exception e){
+            e.printStackTrace();
+            return MyResult.FAILURE("请选择部门!");
+        }
         Ajob idnameAjob=ajobServices.selectByAjobName(ajob.getAjobName(),ajob.getDept().getDeptId());
         if(idnameAjob!=null){
             return MyResult.FAILURE("该部门下已有该职位，新增失败!");
@@ -39,8 +45,18 @@ public class AjobController {
     }
 
     @PostMapping("update")
-    public MyResult updateAjob(Ajob ajob){
-        //  修改前先查询是否有相同的职位
+    public MyResult updateAjob(@RequestBody Ajob ajob){
+        //  修改前先查询是否有相同的职位  是否选中了上级部门
+       try {
+           ajob.getDept().getDeptId();
+           Integer i= ajob.getDept().getDeptId();
+           if(i==null){
+               return MyResult.FAILURE("请选择部门!");
+           }
+        }catch (Exception e){
+           e.printStackTrace();
+           return MyResult.FAILURE("请选择部门!");
+       }
         Ajob idnameAjob=ajobServices.selectByAjobName(ajob.getAjobName(),ajob.getDept().getDeptId());
         if(idnameAjob!=null){
             return MyResult.FAILURE("该部门下已有该职位，修改失败!");
@@ -51,10 +67,11 @@ public class AjobController {
     }
 
     @GetMapping("delete")
-    public MyResult deleteAjob(Integer ajobid){
+    public MyResult deleteAjob(@RequestParam Integer ajobid){
         //  删除前要判断该职位下是否有员工
         List<Users> usersList=usersServices.selectByAjobId(ajobid);
-        if(usersList.size()>0||usersList!=null){
+
+        if(usersList.size()>0&&usersList!=null){
             return MyResult.FAILURE("该职位下还有员工，删除失败！");
         }else {
             ajobServices.deleteByAjobId(ajobid);

@@ -232,7 +232,6 @@
 				this.axios.get("/dept/all").then(res=>{
 					console.log("查询到的部门",res.data)
 					$this.dept=res.data;
-					
 				})
 			},
 		},

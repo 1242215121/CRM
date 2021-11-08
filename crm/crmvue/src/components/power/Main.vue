@@ -43,8 +43,8 @@
 		
 		</el-form-item>
 		<el-form-item label="出生日期">
-			<el-form-item prop="usersBirth">
-				<el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.usersBirth"
+			<el-form-item prop="usersBrith">
+				<el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.usersBrith"
 					:readonly="!lookstate"></el-date-picker>
 			</el-form-item>
 		</el-form-item>

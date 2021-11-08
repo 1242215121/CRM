@@ -37,6 +37,7 @@
 						</el-col>
 						<el-button
 						title="添加用户"
+						@click="addUsers(r.roleId)"
 						class="btn">
 							+
 							</el-button>
@@ -60,6 +61,7 @@
 					</el-col>
 					<el-button
 					title="添加模块"
+					@click="addModule(r.roleId)"
 					class="btn">
 						+
 						</el-button>
@@ -74,6 +76,9 @@
 			</el-col>
 		</el-row>
 	</el-card>
+	
+	
+	
 </template>
 
 <script>
@@ -91,7 +96,13 @@
 	 				$this.role=res.data;
 	 				
 	 			})
-	 		}
+	 		},
+			addUsers(rid){
+				
+			},
+			addModule(mid){
+				
+			}
 	   },
 	   created(){
 	 		this.lodeDate();

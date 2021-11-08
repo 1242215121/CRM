@@ -33,7 +33,7 @@
 			-->
 				<el-menu
 				      :uniqueOpened="true"
-				      default-active="1-1"
+				      default-active="0"
 				      class="el-menu-vertical-demo"
 				      @open="handleOpen"
 				      @close="handleClose"
@@ -44,7 +44,7 @@
 					  		<i class="el-icon-menu"></i>
 					  		<router-link to="/main">个人信息</router-link>
 					  </el-menu-item>
-					  <el-submenu v-for="(item,index) in routers" :index="index">
+					  <el-submenu  v-for="(item,index) in routers" :index="index">
 					       
 					          <template #title>
 								   <i :class="item.iconcls" style="color: #FFFFFF"></i>

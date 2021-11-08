@@ -1,10 +1,7 @@
 package com.study.model.pojo.power;
 
-<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonFormat;
-=======
 import com.study.model.pojo.insale.Refunds;
->>>>>>> 31ab1a4a0ac86fd71242ccbab1fc3c3f52cb029d
 import com.study.model.pojo.presale.Activity;
 import com.study.model.pojo.presale.Client;
 import com.study.model.pojo.presale.Clue;

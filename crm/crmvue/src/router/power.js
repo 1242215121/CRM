@@ -25,6 +25,7 @@ export const initModule = (router, store,next,to) => {
 			if (res.code == 1) {
 			
 				var myroutes=[];
+
 				res.data.forEach(v=>{
 					v.role.roleModule.forEach(j=>{
 						

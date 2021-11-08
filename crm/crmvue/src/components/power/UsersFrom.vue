@@ -32,19 +32,19 @@
 		</el-form-item>
 		<el-form-item label="所在部门" required prop="dept">
 			<el-input  v-if="!lookstate" v-model="ruleForm.dept.deptName" :readonly="!lookstate"></el-input>
-			<el-select v-if="lookstate" v-model="ruleForm.dept.deptId">
-			<el-option v-for="v in depts" :label="v.deptName" :key="v.deptId" :value="v.deptId" >
+				<el-select v-if="lookstate" v-model="ruleForm.dept.deptId">
+					<el-option v-for="v in dept" :label="v.deptName" :key="v.deptId" :value="v.deptId" >
 				
-			</el-option>
-			</el-select>
+					</el-option>
+				</el-select>
 		</el-form-item>
 		<el-form-item label="联系电话" required prop="usersPhone">
 			<el-input v-model="ruleForm.usersPhone" maxlength="11" :readonly="!lookstate"></el-input>
 		
 		</el-form-item>
 		<el-form-item label="出生日期">
-			<el-form-item prop="usersBirth">
-				<el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.usersBirth"
+			<el-form-item prop="usersBrith">
+				<el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.usersBrith"
 					:readonly="!lookstate"></el-date-picker>
 			</el-form-item>
 		</el-form-item>
@@ -80,7 +80,7 @@
 					usersPhone:'',
 					usersEmail:'',
 					usersImgs:'',
-					state:1,
+					state:0,
 					ajob:{
 						ajobId:'',
 						ajobName:''
@@ -91,7 +91,7 @@
 					}
 				},
 				ajob:[],
-				depts:[],
+				dept:[],
 				//验证信息
 				rules: {
 					usersName: [{
@@ -112,9 +112,9 @@
 							trigger: 'blur'
 						},
 						{
-							min: 2,
+							min: 6,
 							max: 16,
-							message: '长度在 2 到 16 个字符',
+							message: '长度在 6 到 16 个字符',
 							trigger: 'blur'
 						}
 					],
@@ -190,7 +190,6 @@
 									this.$message.success("新增成功！");
 									this.$router.push("users");
 								}else if(res.msg=="该用户名已被注册!"){
-									alert(1);
 									this.ruleForm.usersName='';
 								}
 								
@@ -236,7 +235,7 @@
 							usersid:usersId
 						}
 					}).then(res=>{
-						console.log("查到的users",res)
+						this.ruleForm.usersPwd="**********";
 						this.ruleForm=res.obj;
 						if(this.ruleForm.usersSex==1){
 							this.ruleForm.usersSex="男"
@@ -250,6 +249,7 @@
 						this.lookstate=false;
 					}else if(edit==2){
 						this.butstate=true;
+						
 					}
 				}
 			},
@@ -268,9 +268,9 @@
 					
 				var $this=this;
 				this.axios.get("/dept/all").then(res=>{
-					console.log("查询到的部门",res.data)
-					$this.dept=res.data;
 					
+					$this.dept=res.data;
+					console.log("查询到的部门$this.dept",$this.dept)
 				})
 			},
 		},
