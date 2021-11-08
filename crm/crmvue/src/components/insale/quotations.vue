@@ -205,28 +205,36 @@
 						console.log("报价单名称：",$this.formInline.name);
 						console.log("关联机会：", $this.formInline.activity);
 						console.log("添加的产品：", $this.oppro);
-						this.axios.post("/quotations/insert",{
-							name:$this.formInline.name,
-							activity:$this.formInline.activity,
-							product: $this.oppro,
-						}).then(res=>{
-							// console.log("调薪申请：",res.code);
-							if (res.code == 1) {
-								ElMessage({
-									message: "报价单新增成功!",
-									type: 'success'
-								});
-								//关闭，并重新刷新页面
-								this.cancel();
-								this.loadData();
-								
-							}else{
-								ElMessage({
-									message: res.msg,
-									type: 'erro'
-								});
-							}
-						})
+						if($this.oppro.length>0){
+							this.axios.post("/quotations/insert",{
+								name:$this.formInline.name,
+								activity:$this.formInline.activity,
+								product: $this.oppro,
+							}).then(res=>{
+								// console.log("调薪申请：",res.code);
+								if (res.code == 1) {
+									ElMessage({
+										message: "报价单新增成功!",
+										type: 'success'
+									});
+									//关闭，并重新刷新页面
+									this.cancel();
+									this.loadData();
+									
+								}else{
+									ElMessage({
+										message: res.msg,
+										type: 'erro'
+									});
+								}
+							})
+						}else{
+							ElMessage({
+								message: "产品不能为空！！！",
+								type: 'warning'
+							});
+						}
+						
 						
 					} else {
 						ElMessage({

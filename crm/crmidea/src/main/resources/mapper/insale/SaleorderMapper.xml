@@ -35,6 +35,8 @@
             <id column="client_id" property="clientId"/>
             <result column="client_name" property="clientName"/>
         </association>
+        <!-- private List<Sorderpro> sorderpros;//销售订单和产品中间表-->
+        <!--<collection property="sorderpros" select="com.study.model.mapper.insale.SorderproMapper.selectBySfid" column="so_id"/>-->
     </resultMap>
 
     <!-- public List<Saleorder> selectAll();
@@ -70,6 +72,28 @@
         </where>
         order by so_id desc
     </select>
+
+    <!--
+     * 根据销售订单查询所有
+    public Saleorder selectBySoid(Integer soid);-->
+    <select id="selectBySoid" parameterType="java.lang.Integer" resultMap="baseMap">
+         select so_id,so_name, so_money, so_orderstatu,
+        so_back, so_pay, so_return, so_backstatu, so_invoicing, so_invostatu,
+        so_date, so_num, so_wynum, so_nonum, so_warestatu,
+        u.users_id,u.users_name,cc.client_id,cc.client_name,s.sf_id,s.sf_name  from saleorder
+        left join users u on u.users_id = saleorder.so_charge
+        left join client cc on cc.client_id = saleorder.so_customer
+        left join salefunnel s on s.sf_id = saleorder.sf_id
+        where so_id = #{soid}
+    </select>
+
+    <!--
+    /**
+     * 根据销售订单编号修改退货单金额
+     public Integer updateByStatu(@Param("soid") Integer soid, @Param("money")BigDecimal money);-->
+    <update id="updateByStatu">
+        update saleorder set so_return = #{money} where so_id = #{soid}
+    </update>
 
     <!-- public Integer insert(Saleorder saleorder);
     新增销售订单-->

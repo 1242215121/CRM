@@ -1,5 +1,6 @@
 package com.study.model.pojo.power;
 
+import com.study.model.pojo.insale.Refunds;
 import com.study.model.pojo.presale.Activity;
 
 import java.sql.Date;
@@ -24,6 +25,8 @@ public class Users {
     private Activity activity;//活动
 
     private List<UsersRole> usersRole;//角色
+
+    private List<Refunds> refunds;//退货单
 
     public Integer getState() {
         return state;
@@ -136,5 +139,13 @@ public class Users {
 
     public void setUsersRole(List<UsersRole> usersRole) {
         this.usersRole = usersRole;
+    }
+
+    public List<Refunds> getRefunds() {
+        return refunds;
+    }
+
+    public void setRefunds(List<Refunds> refunds) {
+        this.refunds = refunds;
     }
 }

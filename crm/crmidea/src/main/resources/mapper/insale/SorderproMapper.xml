@@ -11,13 +11,14 @@
             <id property="proId" column="pro_id"/>
             <result property="proName" column="pro_name"/>
             <result property="proPrice" column="pro_price"/>
+            <result property="proUnit" column="pro_unit"/>
         </association>
     </resultMap>
 
     <!-- public List<Sorderpro> selectBySoid(Integer soid);
      根据销售订单查询产品信息-->
     <select id="selectBySoid" resultMap="baseMap">
-         select sorderpro_id ,p.pro_id,p.pro_name,p.pro_price, pro_num from sorderpro
+         select sorderpro_id ,p.pro_id,p.pro_name,p.pro_price, pro_num,p.pro_unit from sorderpro
         left join product p on p.pro_id = sorderpro.pro_id
         where so_id = #{soid}
         order by sorderpro_id desc

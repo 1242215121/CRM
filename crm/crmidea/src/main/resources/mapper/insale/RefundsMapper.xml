@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.insale.RefundsMapper">
+
+    <resultMap id="baseMap" type="com.study.model.pojo.insale.Refunds">
+        <id column="r_id" property="rId"/>
+        <result column="r_name" property="rName"/>
+        <result column="r_money" property="rMoney"/>
+        <result column="r_date" property="rDate"/>
+        <result column="r_way" property="rWay"/>
+        <result column="r_reasons" property="rReasons"/>
+        <result column="r_tel" property="rTel"/>
+        <result column="r_num" property="rNum"/>
+        <result column="r_statu" property="rStatu" />
+        <!-- private Saleorder saleorderBySoId;-->
+        <association property="saleorderBySoId" javaType="com.study.model.pojo.insale.Saleorder">
+            <id column="so_id" property="soId"/>
+            <result column="so_name" property="soName"/>
+
+            <association property="client" javaType="com.study.model.pojo.presale.Client">
+                <id column="client_id" property="clientId"/>
+                <result column="client_name" property="clientName"/>
+            </association>
+
+        </association>
+        <!-- private Users users;//负责人-->
+        <association property="users" javaType="com.study.model.pojo.power.Users">
+            <id property="usersId" column="users_id"/>
+            <result property="usersName" column="users_name"/>
+        </association>
+    </resultMap>
+
+    <!-- public List<Refunds> selectAll();
+    连表查询所有退货单信息-->
+    <select id="selectAll" resultMap="baseMap">
+        select r_id, r_name, r_money, r_date, r_way, r_reasons, r_tel, r_num,r_statu,
+        s.so_id,s.so_name,u.users_id,u.users_name,c.client_id,c.client_name from refunds
+        left join saleorder s on s.so_id = refunds.so_id
+        left join users u on u.users_id = refunds.r_change
+        left join client c on c.client_id = s.so_customer
+        order by r_id desc
+    </select>
+
+    <!-- public List<Refunds> selectMany(@Param("id") Integer id, @Param("name") String name);-->
+    <select id="selectMany" resultMap="baseMap">
+         select r_id, r_name, r_money, r_date, r_way, r_reasons, r_tel, r_num,r_statu,
+        s.so_id,s.so_name,u.users_id,u.users_name,c.client_id,c.client_name from refunds
+        left join saleorder s on s.so_id = refunds.so_id
+        left join users u on u.users_id = refunds.r_change
+        left join client c on c.client_id = s.so_customer
+        <where>
+            <if test="id != null and id != '' ">
+                and r_id like concat('%',#{id},'%')
+            </if>
+            <if test="name != null and name != '' ">
+                and r_name like concat('%',#{name},'%')
+            </if>
+        </where>
+        order by r_id desc
+    </select>
+
+    <!--   /**
+     * 根据销售订单查询退货信息
+     * @param soid
+     * @return
+     */
+    public List<Refunds> selectRefundsBySoid(Integer soid);-->
+    <select id="selectRefundsBySoid" resultMap="baseMap">
+         select r_id, r_name, r_money, r_date, r_way, r_reasons, r_tel, r_num,r_statu,
+        s.so_id,s.so_name,u.users_id,u.users_name,c.client_id,c.client_name from refunds
+        left join saleorder s on s.so_id = refunds.so_id
+        left join users u on u.users_id = refunds.r_change
+        left join client c on c.client_id = s.so_customer
+        where s.so_id = #{soid}
+        order by r_id desc
+    </select>
+
+    <!--  /**
+     * 新增
+    public Integer insert(Refunds refunds);-->
+    <insert id="insert" parameterType="com.study.model.pojo.insale.Refunds">
+        insert into refunds (r_id, so_id, r_name, r_money, r_date, r_way, r_reasons, r_tel, r_num, r_change, r_statu)
+        values (#{rId},#{saleorderBySoId.soId}, #{rName}, #{rMoney},#{rDate},#{rWay},#{rReasons},#{rTel},#{rNum},#{users.usersId},#{rStatu})
+    </insert>
+
+</mapper>

@@ -1,9 +1,12 @@
 package com.study.model.pojo.insale;
 
+import com.study.model.pojo.power.Users;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -18,8 +21,11 @@ public class Refunds {
     private String rReasons; // 退货原因
     private String rTel; // 联系电话
     private Integer rNum; // 退货产品数量
+    private String rStatu;//入库状态
 
     private Saleorder saleorderBySoId; // 销售订单  一个退货单源于一个销售订单
+    private Users users;//负责人
+    private List<Refundpro> refundpros;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -87,6 +93,14 @@ public class Refunds {
         this.rNum = rNum;
     }
 
+    public String getrStatu() {
+        return rStatu;
+    }
+
+    public void setrStatu(String rStatu) {
+        this.rStatu = rStatu;
+    }
+
     public Saleorder getSaleorderBySoId() {
         return saleorderBySoId;
     }
@@ -95,11 +109,27 @@ public class Refunds {
         this.saleorderBySoId = saleorderBySoId;
     }
 
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+
+    public List<Refundpro> getRefundpros() {
+        return refundpros;
+    }
+
+    public void setRefundpros(List<Refundpro> refundpros) {
+        this.refundpros = refundpros;
+    }
+
     public Refunds() {
 
     }
 
-    public Refunds(Integer rId, String rName, BigDecimal rMoney, Date rDate, String rWay, String rReasons, String rTel, Integer rNum) {
+    public Refunds(Integer rId, String rName, BigDecimal rMoney, Date rDate, String rWay, String rReasons, String rTel, Integer rNum, String rStatu) {
         this.rId = rId;
         this.rName = rName;
         this.rMoney = rMoney;
@@ -108,6 +138,7 @@ public class Refunds {
         this.rReasons = rReasons;
         this.rTel = rTel;
         this.rNum = rNum;
+        this.rStatu = rStatu;
     }
 
     @Override
@@ -121,6 +152,7 @@ public class Refunds {
                 ", rReasons='" + rReasons + '\'' +
                 ", rTel='" + rTel + '\'' +
                 ", rNum=" + rNum +
+                ", rStatu=" + rStatu +
                 '}';
     }
 }
