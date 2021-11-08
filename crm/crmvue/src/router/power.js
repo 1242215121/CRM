@@ -5,9 +5,11 @@ import Home from '@/components/Home.vue'
 export const initModule = (router, store,next,to) => {
 	//如果vuex的状态管理中存在路由信息，则不需要再次请求
 	if (store.state.routers.length > 0) {
+		next();
 		return;
 	}
 	if (!store.state.users) {
+		next();
 		return;
 	}
 	

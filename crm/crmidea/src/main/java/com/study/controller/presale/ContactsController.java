@@ -18,19 +18,26 @@ MyResult myResult = new MyResult();
         return MyResult.SUCCESS_Object(contactsService.selectContactsByPage(contacts.getPageNo(),
                 contacts.getSize(),contacts.getContactsName()));
     }
+<<<<<<< .merge_file_a19076
 <<<<<<< .merge_file_a11496
 
 =======
 >>>>>>> .merge_file_a18448
+=======
+
+>>>>>>> .merge_file_a14592
 
     @GetMapping
     public MyResult seContacts() {
         return MyResult.SUCCESS_DATA(contactsService.seContacts());
     }
+<<<<<<< .merge_file_a19076
 <<<<<<< .merge_file_a11496
 
 =======
 >>>>>>> .merge_file_a18448
+=======
+>>>>>>> .merge_file_a14592
     @PostMapping("inContacts")
     public MyResult inContacts(@RequestBody Contacts contactse){
         System.out.println(contactse);
@@ -41,9 +48,13 @@ MyResult myResult = new MyResult();
             return MyResult.SUCCESS;
         }
         return MyResult.FAILURE("新增失败");
+<<<<<<< .merge_file_a19076
 <<<<<<< .merge_file_a11496
 
 =======
 >>>>>>> .merge_file_a18448
+=======
+
+>>>>>>> .merge_file_a14592
     }
 }

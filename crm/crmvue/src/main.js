@@ -27,6 +27,8 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 //路由卫士
 router.beforeEach((to, from, next) => {
+	console.log(to,"to");
+	console.log(next,"next");
 	if(to.name=="Login"){
 		next();
 		return;
@@ -35,9 +37,10 @@ router.beforeEach((to, from, next) => {
 	let user=store.state.users.usersId;
 	if(user==undefined){
 		next("/login");
+	}else{
+		initModule(router,store,next,to);
 	}
-	initModule(router,store,next,to);
-	next();
+	
 	
 	
 })

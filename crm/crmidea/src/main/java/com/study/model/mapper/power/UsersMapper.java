@@ -1,7 +1,9 @@
 package com.study.model.mapper.power;
 
 import com.study.model.pojo.power.Users;
+import com.study.model.vojo.power.UsersVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ public interface UsersMapper {
      * 查询所有用户
      * @return
      */
-    public List<Users> selectAll();
+    public List<Users> selectAll(UsersVo vo);
 
     /**
      * 查询所有用户
@@ -61,4 +63,12 @@ public interface UsersMapper {
      * @return
      */
     public Integer updateUsers(Users users);
+
+    /**
+     * 根据用户编号修改状态
+     * @param usersid state
+     * @return
+     */
+    public Integer updateUsersState(@Param("usersid") Integer usersid,
+                                    @Param("state") Integer state);
 }

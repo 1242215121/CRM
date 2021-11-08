@@ -31,4 +31,16 @@
     <select id="selectByRoleId" resultMap="roleResult">
         select * from `role` where role_id=#{roleid}
     </select>
+
+    <resultMap id="allResult" type="com.study.model.pojo.power.Role" extends="roleResult">
+        <collection property="usersRole" select="com.study.model.mapper.power.UsersRoleMapper.ByRoleId"
+                    column="role_id"
+                    ofType="com.study.model.pojo.power.UsersRole">
+
+        </collection>
+    </resultMap>
+
+    <select id="selectAll" resultMap="allResult">
+        select * from `role` order by role_id desc
+    </select>
 </mapper>

@@ -141,6 +141,7 @@ public class Users {
         this.usersRole = usersRole;
     }
 
+<<<<<<< .merge_file_a16172
 <<<<<<< .merge_file_a28876
     private String usersFullnames;//用户名
 
@@ -158,5 +159,21 @@ public class Users {
     public void setRefunds(List<Refunds> refunds) {
         this.refunds = refunds;
 >>>>>>> .merge_file_a27524
+=======
+    @Override
+    public String toString() {
+        return "Users{" +
+                "usersId=" + usersId +
+                ", usersName='" + usersName + '\'' +
+                ", usersPwd='" + usersPwd + '\'' +
+                ", usersFullname='" + usersFullname + '\'' +
+                ", usersSex=" + usersSex +
+                ", usersBrith=" + usersBrith +
+                ", usersPhone='" + usersPhone + '\'' +
+                ", usersEmail='" + usersEmail + '\'' +
+                ", usersImgs='" + usersImgs + '\'' +
+                ", state=" + state +
+                '}';
+>>>>>>> .merge_file_a28344
     }
 }

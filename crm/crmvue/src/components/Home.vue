@@ -10,11 +10,7 @@
 							</el-avatar>
 						</div>
 					</template>
-					<el-menu-item index="1-1"  >
-						<router-link @click="addtabs($event)" style="color: #000000;text-decoration-line: none"  to="/personal">修改密码
-						</router-link>
-						</el-menu-item>
-					<el-menu-item index="1-2" @click="outUsers()">退出登录</el-menu-item>
+					<el-menu-item index="1-1" @click="outUsers()">退出登录</el-menu-item>
 				</el-submenu>
 			</el-menu>
 		</el-header>
@@ -47,17 +43,18 @@
 					  <el-submenu v-for="(item,index) in routers" :index="index">
 					       
 					          <template #title>
-								   <i :class="item.iconcls"></i>
+								   <i :class="item.iconcls" style="color: #FFFFFF"></i>
 									<span>
 									{{item.name}}
 									</span>
 					  		</template>
-							<el-menu-item v-if="item.children!='' " v-for="item2,index2 in item.children" :index="index+'-'+index2">
-								<router-link :to="item2.path">{{item2.name}}</router-link>
-								</el-menu-item>
+							<el-menu-item v-if="item.children!='' " v-for="item2,index2 in item.children" :index="index+'-'+index2" 
+							style="margin-left: 0px;">
+								<router-link :to="item2.path">○ {{item2.name}}</router-link>
+							</el-menu-item>
 							
 					  </el-submenu>
-
+				
 					  </el-menu>
 			
 			</el-aside>
@@ -180,11 +177,16 @@
 
 	/* 用户样式 */
 	.el-menu.el-menu--horizontal {
-		border-bottom: solid 1px #e6e6e6;
+		border-bottom: none;
 		float: right;
 		display: inline-block;
+		border-radius: 70%;
+		width: 80px;
+		background: none;
+	}
+	.el-menu.el-menu--horizontal :hover{
+		background: none;
 	}
 
-  
   
 </style>

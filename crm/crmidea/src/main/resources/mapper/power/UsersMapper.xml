@@ -34,13 +34,16 @@
         select * from users
         <where>
             <if test="name!=null and name!=''">
-                and users_fullname=#{name}
+                and users_fullname like concat("%",#{name},"%")
             </if>
-            <if test="dpetid!=null and deptid>0">
+            <if test="deptid!=null and deptid>0">
                 and dept_id=#{deptid}
             </if>
             <if test="ajobid!=null and ajobid>0">
-                and ajob_id=#{ajob_id}
+                and ajob_id=#{ajobid}
+            </if>
+            <if test="state!=null and state!=2">
+                and `state`=#{state}
             </if>
         </where>
         order by users_id desc
@@ -71,7 +74,6 @@
         insert into users values (null,
                                   #{usersName},
                                   #{usersPwd},
-                                  #{usersPwd},
                                   #{usersFullname},
                                   #{usersSex},
                                   #{usersBrith},
@@ -93,9 +95,13 @@
                          users_phone=#{usersPhone},
                          users_email=#{usersEmail},
                          users_imgs=#{usersImgs},
-                         `state`=#{state},
                          ajob_id=#{ajob.ajobId},
                          dept_id=#{dept.deptId}
         where users_id=#{usersId}
+    </update>
+
+    <update id="updateUsersState">
+        update users set `state`=#{state}
+        where users_id=#{usersid}
     </update>
 </mapper>
