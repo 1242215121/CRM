@@ -45,7 +45,7 @@
 			   </el-button>
 			   <template #dropdown>
 			     <el-dropdown-menu>
-			       <el-dropdown-item>产品类别</el-dropdown-item>
+			       <el-dropdown-item @click="typeProp()">产品类别</el-dropdown-item>
 			       <el-dropdown-item>基准价</el-dropdown-item>
 			       <el-dropdown-item>启用状态</el-dropdown-item>
 			       <el-dropdown-item>负责人变更</el-dropdown-item>
@@ -319,6 +319,33 @@
 		</el-row>
 	</el-drawer>
 	
+	<!--批量修改类别弹框-->
+	<el-dialog
+		title="产品类别设置"
+		 v-model="dialogVisible1"
+		width="35%"
+	>
+		<el-form label-width="100px" >
+			<el-form-item label="类别名称" prop="typeName">
+				<el-select v-model="typeNumber" placeholder="请选择产品类别" style="width: 320px;"   clearable >
+				   <el-option
+				     v-for="item in typeAll"
+				     :key="item.typeId"
+				     :label="item.typeName"
+				     :value="item.typeId">
+				   </el-option>
+				 </el-select>
+			</el-form-item>
+		</el-form>
+		<template #footer>
+		  <span class="dialog-footer">
+		    <el-button >取 消</el-button>
+		    <el-button type="primary" @click="addtypeProp()">确 定</el-button>
+		  </span>
+		</template>
+	</el-dialog>
+	
+	
 	
 </template>
 
@@ -410,6 +437,7 @@
 				
 				//新增类别弹框
 				dialogVisible:false,
+				dialogVisible1:false,
 				//新增抽屉
 				drawer:false,
 				direction: 'rtl',
@@ -488,8 +516,16 @@
 					typeName:'',
 					parentId:'',
 				},
-				
-				
+				//接收选中表格的数据
+				pitch:[],
+				pit:{
+					proId:'',
+					proTypeId:'',
+					proPrice:'',
+					proState:'',
+					proPerson:'',
+				},
+				typeNumber:'',
 				
 				
 				
@@ -718,11 +754,52 @@
 			},
 			//获取选中的表格数据
 			choose(val){
-				console.log(val)
+				this.pitch=[];
+				val.forEach(r=>{
+					this.pit.proId = r.proId;
+					
+					this.pitch.push(this.pit);
+					this.pit ={
+						proId:'',
+						proTypeId:'',
+						proPrice:'',
+						proState:'',
+						proPerson:'',
+					}
+				})
+			},
+			//批量修改产品类别
+			typeProp(){
+				if(JSON.stringify(this.pitch)=='[]'){
+					 ElMessage.warning({
+						message: '请先选择数据！',
+						type: 'warning',
+					  })
+					return;
+				}
+				this.dialogVisible1 = true;
+			},
+			//确定修改产品类别
+			addtypeProp(){
+				if(this.typeNumber == ''){
+					ElMessage.error('请选中产品类别')
+					return;
+				}
+				this.pitch.forEach(v=>{
+					v.proTypeId = this.typeNumber;
+					v.proState = "1";
+				})
+				
+				this.batch();
 			},
 			
-			
-			
+			//批量修改方法
+			batch(){
+				this.axios.post("/hzc/batchType",this.pitch)
+				.then((res)=>{
+					
+				}).catch(()=>{})
+			},
 			
 			
 			

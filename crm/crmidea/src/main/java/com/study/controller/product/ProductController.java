@@ -1,14 +1,12 @@
 package com.study.controller.product;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.study.model.pojo.product.Product;
 import com.study.model.services.product.ProductService;
 import com.study.utils.MyResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -76,4 +74,21 @@ public class ProductController {
         return  MyResult.SUCCESS_DATA(productService.selTypeId(typeId));
     }
 
+    /**
+     * 批量修改产品
+     */
+    @PostMapping("/batchType")
+        public MyResult batchType(@RequestBody  List<Product> pitch){
+        System.out.println("集合");
+        System.out.println(pitch);
+
+//        try {
+//            productService.batchType(products);
+//            return MyResult.SUCCESS;
+//        }catch (Exception e){
+//            return MyResult.FAILURE("修改出错");
+//        }
+        productService.batchType(pitch);
+        return MyResult.FAILURE("修改出错");
+    }
 }

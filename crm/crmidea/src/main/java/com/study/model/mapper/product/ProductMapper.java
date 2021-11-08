@@ -1,5 +1,6 @@
 package com.study.model.mapper.product;
 
+import com.alibaba.fastjson.JSONArray;
 import com.study.model.pojo.product.Product;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -37,4 +38,10 @@ public interface ProductMapper {
      * 根据类别id查产品
      */
     public List<Product> selTypeId(String typeId);
+
+    /**
+     * 批量修改产品
+     */
+    public Integer batchType( List<Product> pitch);
+
 }

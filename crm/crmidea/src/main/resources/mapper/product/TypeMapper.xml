@@ -48,4 +48,6 @@
     <delete id="deleteType">
         delete from type where type_id = #{typeId}
     </delete>
+
+
 </mapper>

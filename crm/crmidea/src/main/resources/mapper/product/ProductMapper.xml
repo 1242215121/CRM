@@ -77,4 +77,26 @@
         where t.type_id = #{typeId}
     </select>
 
+    <!--批量修改产品类别-->
+    <update id="batchType" parameterType="java.util.List">
+        <foreach collection="pitch" item="item" index="i" open="" close="" separator=";">
+            update product
+            <set>
+                <if test="item.proTypeId != null and item.proTypeId != '' ">
+                    pro_type_id = #{item.proTypeId},
+                </if>
+                <if test="item.proPrice != null and item.proPrice != '' ">
+                    pro_price = #{item.proPrice},
+                </if>
+                <if test="item.proState != null and item.proState != '' ">
+                    pro_state = #{item.proState},
+                </if>
+                <if test="item.proPerson != null and item.proPerson != '' ">
+                    pro_person = #{item.proPerson}
+                </if>
+            </set>
+            where pro_id = #{item.proId}
+        </foreach>
+    </update>
+
 </mapper>

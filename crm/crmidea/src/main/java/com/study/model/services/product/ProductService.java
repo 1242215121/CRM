@@ -1,5 +1,6 @@
 package com.study.model.services.product;
 
+import com.alibaba.fastjson.JSONArray;
 import com.study.model.mapper.product.ProductMapper;
 import com.study.model.pojo.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +66,11 @@ public class ProductService {
         return productMapper.selTypeId(typeId);
     }
 
+    /**
+     * 批量修改产品
+     */
+    public Integer batchType(List<Product> pitch){
+        return productMapper.batchType(pitch);
+    }
 
 }
