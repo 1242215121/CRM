@@ -3,9 +3,7 @@
 <el-card style="margin: 20px;min-height: 500px;">
 	<div style="text-align: center;margin: 10px;">
 		<el-button @click="addDept(),dialogFormVisible=true" type="primary">新增部门</el-button>
-		<el-button @click="deleteDept()" type="primary">新增职位</el-button>
-		<el-button @click="addAjob()" type="danger">删除部门</el-button>
-		<el-button @click="deleteAjob()" type="danger">删除职位</el-button>
+		<el-button @click="addAjob()" type="primary">新增职位</el-button>
 	</div>
     <el-table
       :data="tableData"
@@ -16,6 +14,9 @@
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
     >
       <el-table-column prop="date" label="编号" sortable width="180">
+		  <template #default="scope">
+		  	<el-tag type="info" style="border-radius: 50%;" v-if="scope.row.ajobs">{{scope.row.date}}</el-tag>
+		  </template>
       </el-table-column>
       <el-table-column prop="name" label="部门名称" sortable width="180">
       </el-table-column>
@@ -27,8 +28,8 @@
 	  </el-table-column>
 	  <el-table-column label="操作">
 	  		  <template #default="scope">
-				  <el-button @click="updateDiy(scope.row.date)">编辑</el-button>
-	  		  	 <el-button @click="delectDiy(scope.row.date)">删除</el-button>
+				  <el-button type="warning" @click="updateDiy(scope.row)">编辑</el-button>
+	  		  	 <el-button type="danger" @click="delectDiy(scope.row)">删除</el-button>
 	  		  </template>
 	  </el-table-column>
     </el-table>
@@ -144,7 +145,7 @@
 						datasuper.children=[];
 						v.ajobs.forEach(j=>{
 							var datasub={};
-							datasub.date='';
+							datasub.date=j.ajobId;
 							datasub.name=j.ajobName;
 							datasub.address=j.ajobDesc;
 							datasuper.children.push(datasub);
@@ -158,20 +159,15 @@
 		addDept(){
 			
 		},
-		//删除部门
-		deleteDept(){
-			
-		},
 		//新增职位
 		addAjob(){
 			
 		},
-		//删除职位
-		deleteAjob(){
-			
+		delectDiy(row){
+			console.log(row,"点击了删除");
 		},
-		delectDiy(id){
-			alert(id);
+		updateDiy(row){
+			console.log(row,"点击了修改");
 		}
 		
     },
