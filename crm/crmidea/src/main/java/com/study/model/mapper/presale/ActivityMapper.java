@@ -18,4 +18,9 @@ public interface ActivityMapper {
     //新增活动表
     public Integer inActivity(Activity activity);
 
+    //根据用户表id查找当前登录人
+    public List<Activity> selectUser(Integer useid);
+
+    //修改状态/类型
+    public Integer upActivity(@Param("activityId")Integer activityId,@Param("activityType") String activityType,@Param("activityState") String activityState);
 }

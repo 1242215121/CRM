@@ -1,6 +1,8 @@
 package com.study.model.pojo.power;
 
 import com.study.model.pojo.presale.Activity;
+import com.study.model.pojo.presale.Client;
+import com.study.model.pojo.presale.Clue;
 
 import java.sql.Date;
 import java.util.List;
@@ -22,6 +24,24 @@ public class Users {
     private Ajob ajob;//职位
     private Dept dept;//部门
     private Activity activity;//活动
+    private Clue clue;//线索
+    private Client client;//客户
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Clue getClue() {
+        return clue;
+    }
+
+    public void setClue(Clue clue) {
+        this.clue = clue;
+    }
 
     private List<UsersRole> usersRole;//角色
 

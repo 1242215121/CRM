@@ -173,22 +173,33 @@
 				})
 
 			},
-			getInContacts(row){
-				this.axios.post('contacts/inContacts',this.contactse).then((v) => {
-					if(v.code == 1){
+			getInContacts(formName){
+				this.$refs[formName].validate((valid) => {
+					if (valid) {
+						this.axios.post('contacts/inContacts',this.contactse).then((v) => {
+							if(v.code == 1){
+								ElMessage({
+									message: "活动新增成功!",
+									type: 'success'
+								});
+								this.drawer = false;
+								this.getContactsData();
+							}else{
+								ElMessage({
+									message: v.msg,
+									type: 'erro'
+								});
+							}
+						})
+					} else {
 						ElMessage({
-							message: "活动新增成功!",
-							type: 'success'
-						});
-						this.drawer = false;
-						this.getContactsData();
-					}else{
-						ElMessage({
-							message: v.msg,
+							message: res.msg,
 							type: 'erro'
 						});
+						return false;
 					}
 				})
+				
 			}
 			
 		},

@@ -18,22 +18,22 @@ MyResult myResult = new MyResult();
         return MyResult.SUCCESS_Object(contactsService.selectContactsByPage(contacts.getPageNo(),
                 contacts.getSize(),contacts.getContactsName()));
     }
-<<<<<<< .merge_file_a24464
 
     @GetMapping
-    public MyResult seContacts(){
+    public MyResult seContacts() {
         return MyResult.SUCCESS_DATA(contactsService.seContacts());
-=======
+    }
+
     @PostMapping("inContacts")
     public MyResult inContacts(@RequestBody Contacts contactse){
-        System.out.println(contactse);
-        Integer a = contactsService.inContacts(contactse);
-        if(a>0){
-            myResult.setCode(1);
-            System.out.println("新增成功");
-            return MyResult.SUCCESS;
-        }
-        return MyResult.FAILURE("新增失败");
->>>>>>> .merge_file_a13596
+            System.out.println(contactse);
+            Integer a = contactsService.inContacts(contactse);
+            if (a > 0) {
+                myResult.setCode(1);
+                System.out.println("新增成功");
+                return MyResult.SUCCESS;
+            }
+            return MyResult.FAILURE("新增失败");
+
     }
 }
