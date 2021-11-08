@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class SaleorderNewVo {
     private String name; //订单名称
-    private String money;//订单金额
     private Integer custom;//客户
     private Integer person;//销售机会
     private Integer user;//负责人 == 当前登录人员
@@ -19,14 +18,6 @@ public class SaleorderNewVo {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getMoney() {
-        return money;
-    }
-
-    public void setMoney(String money) {
-        this.money = money;
     }
 
     public Integer getCustom() {

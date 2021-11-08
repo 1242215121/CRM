@@ -58,7 +58,16 @@ public class SaleorderService {
         //负责人员==当前登录人员，成交金额==now，
         Integer num = 0;
 
-        BigDecimal mm = new BigDecimal(saleorderNewVo.getMoney());
+        BigDecimal mm = new BigDecimal("0.00");
+
+        List<ProductVo> list = saleorderNewVo.getProduct();
+        if(list != null && list.size()>0){
+            for (ProductVo productVo : list) {
+//                System.out.println("产品价格："+productVo.getProPrice()+"，数量:"+productVo.getNum());
+                mm = mm.add(BigDecimal.valueOf(productVo.getProPrice()).multiply(BigDecimal.valueOf(productVo.getNum())));
+//                System.out.println("累加价格："+mm);
+            }
+        }
         java.sql.Date date=new java.sql.Date(new Date().getTime());//成交日期
 
         //负责人
@@ -88,7 +97,6 @@ public class SaleorderService {
         saleorder.setUser(users);
         saleorder.setSalefunnelBySfId(salefunnel);
 
-        List<ProductVo> list = saleorderNewVo.getProduct();
         Integer pnum = 0;//产品数量
         Integer lnum = list.size();
         System.out.println("共需添加"+lnum+"条产品信息");
@@ -103,7 +111,7 @@ public class SaleorderService {
 
         //新增销售订单
         Integer s = mapper.insert(saleorder);
-        System.out.println("报价单主键："+saleorder.getSoId());
+        System.out.println("销售订单主键："+saleorder.getSoId());
         System.out.println("销售订单返回的值："+s);
         if(s>0){
             num += 1;

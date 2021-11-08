@@ -36,6 +36,13 @@ public interface QuotationsMapper {
     public Integer updateStage(Integer qid);
 
     /**
+     * 根据报价单编号获取报价单信息
+     * @param qid
+     * @return
+     */
+    public Quotations selectOwn(Integer qid);
+
+    /**
      * 新增报价单
      * @param quotations
      * @return

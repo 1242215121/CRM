@@ -65,9 +65,6 @@ public class SalefunnelService {
     public Integer insert(SalefunnelNewVo salefunnelNewVo){
         Integer num = 0;
 
-        BigDecimal mm = new BigDecimal(salefunnelNewVo.getMoney());
-        System.out.println("机会金额："+mm);
-
         //负责人
         Users users = new Users();
         users.setUsersId(salefunnelNewVo.getEmp());
@@ -83,6 +80,18 @@ public class SalefunnelService {
 
         Salefunnel salefunnel = new Salefunnel();
         salefunnel.setSfName(salefunnelNewVo.getName());//机会名称
+
+        BigDecimal mm = new BigDecimal("0.00");
+        List<ProductVo> list = salefunnelNewVo.getProduct();
+        if(list != null && list.size()>0){
+            for (ProductVo productVo : list) {
+                //System.out.println("产品价格："+productVo.getProPrice()+"，数量:"+productVo.getNum());
+                mm = mm.add(BigDecimal.valueOf(productVo.getProPrice()).multiply(BigDecimal.valueOf(productVo.getNum())));
+                //System.out.println("累加价格："+mm);
+            }
+        }
+
+        System.out.println("最后机会金额："+mm);
         salefunnel.setSfMoney(mm);////机会金额
         salefunnel.setSfDate(Date.valueOf(salefunnelNewVo.getStarttime()));//预计日期
 
@@ -97,7 +106,6 @@ public class SalefunnelService {
         if(s>0){
             num += 1;
             //添加产品中间表
-            List<ProductVo> list = salefunnelNewVo.getProduct();
             Integer lnum = list.size();
             Integer fnum = 0;
             System.out.println("共需添加"+lnum+"条产品信息");

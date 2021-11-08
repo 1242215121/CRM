@@ -1,5 +1,7 @@
 package com.study.model.pojo.insale;
 
+import com.study.model.pojo.product.Product;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -9,17 +11,16 @@ import java.util.Objects;
 public class Refundpro {
     private Integer refundproId;
     private Integer proNum; //退货产品数量
-    private Integer rId; // 退货单编号
-    private String proId;
+
+    private Product product;//产品
+    private Refunds refunds;
 
     public Refundpro() {
     }
 
-    public Refundpro(Integer refundproId, Integer proNum, Integer rId, String proId) {
+    public Refundpro(Integer refundproId, Integer proNum) {
         this.refundproId = refundproId;
         this.proNum = proNum;
-        this.rId = rId;
-        this.proId = proId;
     }
 
     @Id
@@ -40,20 +41,20 @@ public class Refundpro {
         this.proNum = proNum;
     }
 
-    public Integer getrId() {
-        return rId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setrId(Integer rId) {
-        this.rId = rId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public String getProId() {
-        return proId;
+    public Refunds getRefunds() {
+        return refunds;
     }
 
-    public void setProId(String proId) {
-        this.proId = proId;
+    public void setRefunds(Refunds refunds) {
+        this.refunds = refunds;
     }
 
     @Override
@@ -61,8 +62,6 @@ public class Refundpro {
         return "Refundpro{" +
                 "refundproId=" + refundproId +
                 ", proNum=" + proNum +
-                ", rId=" + rId +
-                ", proId='" + proId + '\'' +
                 '}';
     }
 }

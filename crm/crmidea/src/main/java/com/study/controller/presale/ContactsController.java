@@ -21,7 +21,7 @@ MyResult myResult = new MyResult();
 
 
     @GetMapping
-    public MyResult seContacts(){
+    public MyResult seContacts() {
         return MyResult.SUCCESS_DATA(contactsService.seContacts());
     }
 
