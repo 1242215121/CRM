@@ -14,4 +14,6 @@ public interface ReceivableMapper {
     public void receivablexgzt(@Param("zt") Integer zt,@Param("id") String id,@Param("usersId") Integer usersId);
     //根据回款状态,回款编号，用户人查询回款记录
     public List<Receivable> hkjlcx(@Param("nr")  String nr);
+
+    public void ddhkjexg(@Param("price") double price,@Param("id")  Integer id);
 }

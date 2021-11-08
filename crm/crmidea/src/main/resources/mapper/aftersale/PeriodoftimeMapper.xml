@@ -48,4 +48,13 @@
     <insert id="qcxz" parameterType="com.study.model.pojo.aftersale.Periodoftime">
         insert into periodoftime values (null,${periodoftimeDdid.getSoId()},'${periodoftimeName}',${periodoftimeFzr.getUsersId()},${periodoftimePrice},${periodoftimeDate},'${periodoftimeBz}',${periodoftimeKhid.getClientId()},${periodoftimeSjprice},${periodoftimeQczt},${periodoftimeKpprice})
     </insert>
+
+<!--    修改期次实际回款金额-->
+    <update id="qchkje">
+        update periodoftime set periodoftime_sjprice=periodoftime_sjprice+#{price} where periodoftime_id=#{id}
+    </update>
+    <!--    修改期次开票金额-->
+    <update id="qckpje">
+        update periodoftime set periodoftime_kpprice=periodoftime_kpprice+#{price} where periodoftime_id=#{id}
+    </update>
 </mapper>

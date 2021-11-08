@@ -5,4 +5,5 @@
     <select id="hkxqcx" resultType="com.study.model.pojo.aftersale.Hk">
         select * from hk where receivable_id=#{id}
     </select>
+
 </mapper>

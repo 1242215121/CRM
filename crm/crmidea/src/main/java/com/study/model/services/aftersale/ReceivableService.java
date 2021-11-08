@@ -3,6 +3,7 @@ package com.study.model.services.aftersale;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.study.model.mapper.aftersale.PeriodoftimeMapper;
 import com.study.model.mapper.aftersale.ReceivableMapper;
 import com.study.model.pojo.aftersale.Receivable;
 import com.study.model.pojo.power.Users;
@@ -20,6 +21,9 @@ import java.util.Map;
 public class ReceivableService {
     @Autowired
     ReceivableMapper receivableMapper;
+
+    @Autowired
+    PeriodoftimeMapper periodoftimeMapper;
 
     //根据回款状态,回款编号，用户人查询回款记录
     public Map<String,Object> hkcx(Integer pageNo,Integer size,Integer zt,String nr){
@@ -51,6 +55,8 @@ public class ReceivableService {
         for (Object o : list) {
             Receivable receivable = mapper.convertValue(o, Receivable.class);
             receivableMapper.receivablexgzt(1,receivable.getReceivableId(),emp.getUsersId());
+            receivableMapper.ddhkjexg(receivable.getReceivablePrice(),receivable.getReceivableDdid().getSoId());
+            periodoftimeMapper.qchkje(receivable.getReceivablePrice(),receivable.getReceivableQcid().getPeriodoftimeId());
         }
     }
 

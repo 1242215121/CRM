@@ -33,6 +33,9 @@ public class Invoice {
   private String invoiceKphm;//开票号码
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="Asia/Shanghai")
   private Timestamp invoiceDate;//开票日期
+  private String invoiceBlbz;//办理备注
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="Asia/Shanghai")
+  private Timestamp invoiceSqdate;//申请日期
 
 
   public long getInvoiceId() {
@@ -198,5 +201,13 @@ public class Invoice {
 
   public void setInvoiceDate(Timestamp invoiceDate) {
     this.invoiceDate = invoiceDate;
+  }
+
+  public String getInvoiceBlbz() {
+    return invoiceBlbz;
+  }
+
+  public void setInvoiceBlbz(String invoiceBlbz) {
+    this.invoiceBlbz = invoiceBlbz;
   }
 }
