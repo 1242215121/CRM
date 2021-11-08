@@ -15,11 +15,20 @@
         </association>
     </resultMap>
 
+    <resultMap id="roleGetUsers" type="com.study.model.pojo.power.UsersRole">
+        <id column="id" property="id"/>
+        <association property="users" column="users_id"
+                     javaType="com.study.model.pojo.power.Users"
+                     select="com.study.model.mapper.power.UsersMapper.selectByUsersId">
+
+        </association>
+    </resultMap>
+
     <select id="selectByUsersId" resultMap="usersRoleResult">
         select * from users_role where users_id=#{usersid}
     </select>
 
-    <select id="ByRoleId" resultMap="usersRoleResult">
+    <select id="ByRoleId" resultMap="roleGetUsers">
         select * from users_role where role_id=#{roleid}
     </select>
 
@@ -29,5 +38,9 @@
 
     <delete id="deleteByUsersId">
         delete from users_role where users_id=#{usersid}
+    </delete>
+
+    <delete id="deleteByRoleId">
+        delete from users_role where role_id=#{roleid}
     </delete>
 </mapper>

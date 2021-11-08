@@ -18,6 +18,14 @@ public class Dept {
     private String deptDesc;//部门描述
     private Activity activity;//活动
 
+    public List<Ajob> getAjobs() {
+        return ajobs;
+    }
+
+    public void setAjobs(List<Ajob> ajobs) {
+        this.ajobs = ajobs;
+    }
+
     public Activity getActivity() {
         return activity;
     }

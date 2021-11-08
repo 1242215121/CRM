@@ -59,6 +59,30 @@
         </where>
     </select>
 
+    <select id="kpqccx" resultMap="kp">
+        SELECT r.*,s.so_name ddname,u.users_fullname uname,pt.periodoftime_name qcname,
+        c.client_name cname,us.users_fullname shrname,p.papertype_name pname FROM invoice r
+        LEFT JOIN saleorder s on r.invoice_ddid=s.so_id
+        LEFT JOIN users u on r.invoice_jbr=u.users_id
+        LEFT JOIN periodoftime pt on r.invoice_qcid=pt.periodoftime_id
+        LEFT JOIN client c on r.invoice_khid=c.client_id
+        LEFT JOIN users us on r.invoice_shr=us.users_id
+        LEFT JOIN papertype p on r.invoice_pjid=p.papertype_id
+        where r.invoice_qcid=#{id} and r.invoice_zt!=2
+    </select>
+<!--    按期次查询所有开票记录-->
+    <select id="kpqccxall" resultMap="kp">
+        SELECT r.*,s.so_name ddname,u.users_fullname uname,pt.periodoftime_name qcname,
+                   c.client_name cname,us.users_fullname shrname,p.papertype_name pname FROM invoice r
+                   LEFT JOIN saleorder s on r.invoice_ddid=s.so_id
+                   LEFT JOIN users u on r.invoice_jbr=u.users_id
+                   LEFT JOIN periodoftime pt on r.invoice_qcid=pt.periodoftime_id
+                   LEFT JOIN client c on r.invoice_khid=c.client_id
+                    LEFT JOIN users us on r.invoice_shr=us.users_id
+                    LEFT JOIN papertype p on r.invoice_pjid=p.papertype_id
+        where r.invoice_qcid=#{id}
+    </select>
+<!--    开票办理查询-->
     <select id="kpblcx" resultMap="kp">
         SELECT r.*,s.so_name ddname,u.users_fullname uname,pt.periodoftime_name qcname,
         c.client_name cname,us.users_fullname shrname,p.papertype_name pname FROM invoice r
@@ -77,10 +101,18 @@
             </if>
         </where>
     </select>
-
+<!--    开票新增-->
+    <insert id="kpxz" parameterType="com.study.model.pojo.aftersale.Invoice">
+        insert into invoice(invoice_id,invoice_pjid,invoice_name,invoice_ddid,
+                            invoice_qcid,invoice_price,invoice_jbr,invoice_pjtt,
+                            invoice_nssbh,invoice_bz,invoice_zt,invoice_khid,invoice_sqdate)
+                            values (null,${invoicePjid.getPapertypeId()},'${invoiceName}',
+                                    ${invoiceDdid.getSoId()},${invoiceQcid.getPeriodoftimeId()},${invoicePrice},${invoiceJbr.getUsersId()},
+                                    '${invoicePjtt}','${invoiceNssbh}','${invoiceBz}',${invoiceZt},${invoiceKhid.getClientId()},'${invoiceSqdate}')
+    </insert>
     <!--    确认办理-->
     <update id="qrbl" parameterType="com.study.model.pojo.aftersale.Invoice">
-        update invoice set invoice_zt=${invoiceZt},invoice_kphm='${invoiceKphm}',invoice_date='${invoiceDate}',invoice_blbz='${invoiceBlbz}' where invoice_id=${invoiceId}
+        update invoice set invoice_zt=${invoiceZt},invoice_kphm='${invoiceKphm}',invoice_date='${invoiceDate}',invoice_blbz='${invoiceBlbz}',invoice_shr=${invoiceShr.getUsersId()} where invoice_id=${invoiceId}
     </update>
 <!--    订单开票金额修改-->
     <update id="ddkpjexg">
@@ -88,6 +120,6 @@
     </update>
 <!--    驳回-->
     <update id="bhbl">
-        update invoice set invoice_zt=#{zt} where invoice_id=#{id}
+        update invoice set invoice_zt=#{zt},invoice_shr=#{shr} where invoice_id=#{id}
     </update>
 </mapper>

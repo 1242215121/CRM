@@ -47,13 +47,28 @@ public class UsersRoleSevices {
     }
 
     /**
-     * 删除用户下的角色
+     * 删除用户下关联的角色
      * @param usersid
      * @return
      */
     public Integer deleteByUsersId(Integer usersid){
         try {
             mapper.deleteByUsersId(usersid);
+            return 1;
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
+     * 删除角色下关联的用户
+     * @param roleid
+     * @return
+     */
+    public Integer deleteByRoleId(Integer roleid){
+        try {
+            mapper.deleteByRoleId(roleid);
             return 1;
         }catch (Exception e){
             e.printStackTrace();

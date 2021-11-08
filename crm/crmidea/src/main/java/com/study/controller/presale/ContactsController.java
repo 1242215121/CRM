@@ -26,15 +26,16 @@ MyResult myResult = new MyResult();
     }
 
     @PostMapping("inContacts")
-    public MyResult inContacts(@RequestBody Contacts contactse){
+    public MyResult inContacts(@RequestBody Contacts contactse) {
         System.out.println(contactse);
         Integer a = contactsService.inContacts(contactse);
-        if(a>0){
+        if (a > 0) {
             myResult.setCode(1);
             System.out.println("新增成功");
             return MyResult.SUCCESS;
         }
         return MyResult.FAILURE("新增失败");
-
     }
+
+
 }

@@ -1,11 +1,12 @@
 <template>
+
 	<h3>退货单</h3>
 	<div class="top">
 		<el-container>
-			<el-header class="header" style="height: 40px">
+			<!-- <el-header class="header" style="height: 40px">
 				<el-button size="mini" icon="el-icon-circle-plus-outline" @click="drawer=true">退货单新增
 				</el-button>
-			</el-header>
+			</el-header> -->
 
 			<el-main>
 				<div class="search">
@@ -119,6 +120,9 @@
 			</el-main>
 		</el-container>
 	</div>
+
+
+
 </template>
 
 <script>
@@ -408,17 +412,16 @@
 				 this.billObject.billPerson = this.$store.state.users.usersId;
 				 this.billObject.billOrder = row.saleorderBySoId.soId;
 				 console.log(this.billObject)
-				 // this.axios.post('/hzc/insertBill',this.billObject)
-				 // .then((res)=>{
-					// if(res.code == 1){
-					// 	 ElMessage.success({
-					// 		message: '新增成功',
-					// 		type: 'success'
-					// 	 });					 
-					// }	
-					// this.getData();
-					// this.cancel();
-				 // }).catch(()=>{})
+				 this.axios.post('/hzc/insertBill',this.billObject)
+				 .then((res)=>{
+					if(res.code == 1){
+						 ElMessage.success({
+							message: '新增成功',
+							type: 'success'
+						 });					 
+					}	
+					this.loadData();
+				 }).catch(()=>{})
 				 
 				
 			},

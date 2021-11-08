@@ -30,4 +30,10 @@
     <select id="seClue" resultType="com.study.model.pojo.presale.Clue">
         select * from clue;
     </select>
+    <insert id="inClue" parameterType="com.study.model.pojo.presale.Clue">
+        insert into clue(clue_id,clue_name,clue_user,clue_company,clue_post,
+                         clue_go_state,clue_duty,clue_state,clue_time,clue_phone)
+        values(0,#{clueName},#{users.usersId},#{clueCompany},#{cluePost},
+               #{clueGoState},#{clueDuty},#{clueState},#{clueTime},#{cluePhone})
+    </insert>
 </mapper>

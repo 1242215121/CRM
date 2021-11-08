@@ -2,6 +2,8 @@ package com.study.model.pojo.power;
 
 import com.study.model.pojo.insale.Refunds;
 import com.study.model.pojo.presale.Activity;
+import com.study.model.pojo.presale.Client;
+import com.study.model.pojo.presale.Clue;
 
 import java.sql.Date;
 import java.util.List;
@@ -23,6 +25,24 @@ public class Users {
     private Ajob ajob;//职位
     private Dept dept;//部门
     private Activity activity;//活动
+    private Clue clue;//线索
+    private Client client;//客户
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Clue getClue() {
+        return clue;
+    }
+
+    public void setClue(Clue clue) {
+        this.clue = clue;
+    }
 
     private List<UsersRole> usersRole;//角色
 
@@ -141,11 +161,35 @@ public class Users {
         this.usersRole = usersRole;
     }
 
+    private String usersFullnames;//用户名
+
+    public String getUsersFullnames() {
+        return usersFullnames;
+    }
+
+    public void setUsersFullnames(String usersFullnames) {
+        this.usersFullnames = usersFullnames;
+    }
     public List<Refunds> getRefunds() {
         return refunds;
     }
 
     public void setRefunds(List<Refunds> refunds) {
         this.refunds = refunds;
+    }
+    @Override
+    public String toString() {
+        return "Users{" +
+                "usersId=" + usersId +
+                ", usersName='" + usersName + '\'' +
+                ", usersPwd='" + usersPwd + '\'' +
+                ", usersFullname='" + usersFullname + '\'' +
+                ", usersSex=" + usersSex +
+                ", usersBrith=" + usersBrith +
+                ", usersPhone='" + usersPhone + '\'' +
+                ", usersEmail='" + usersEmail + '\'' +
+                ", usersImgs='" + usersImgs + '\'' +
+                ", state=" + state +
+                '}';
     }
 }

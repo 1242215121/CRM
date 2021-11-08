@@ -600,17 +600,16 @@
 				 this.billObject.billOrder = row.soId ;
 				 
 				 console.log(this.billObject)
-				 // this.axios.post('/hzc/insertBill',this.billObject)
-				 // .then((res)=>{
-					// if(res.code == 1){
-					// 	 ElMessage.success({
-					// 		message: '新增成功',
-					// 		type: 'success'
-					// 	 });					 
-					// }	
-					// this.getData();
-					// this.cancel();
-				 // }).catch(()=>{})
+				 this.axios.post('/hzc/insertBill',this.billObject)
+				 .then((res)=>{
+					if(res.code == 1){
+						 ElMessage.success({
+							message: '新增成功',
+							type: 'success'
+						 });					 
+					}	
+					this.loadData();
+				 }).catch(()=>{})
 				 
 				
 			},

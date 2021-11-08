@@ -27,7 +27,7 @@
 			    <el-table-column
 			      prop="receivableId"
 			      label="回款编号"
-			      width="150">
+			      width="180">
 			    </el-table-column>
 			    <el-table-column
 			      prop="receivableDdid.soName"

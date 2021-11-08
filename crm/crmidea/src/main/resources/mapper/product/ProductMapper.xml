@@ -100,4 +100,16 @@
         </foreach>
     </update>
 
+    <!--修改库存数量(出库)-->
+    <update id="updateGo">
+        update product  set  pro_inventory_usable = (pro_inventory_usable - #{count} ),
+        pro_inventory_lock = (pro_inventory_lock + #{count} )
+        where pro_id = #{proId}
+    </update>
+    <!--修改库存数量(入库)-->
+    <update id="updateJoin">
+        update product  set  pro_inventory_amount = (pro_inventory_amount + #{count} ),
+        pro_inventory_usable = (pro_inventory_usable + #{count} )
+        where pro_id = #{proId}
+    </update>
 </mapper>

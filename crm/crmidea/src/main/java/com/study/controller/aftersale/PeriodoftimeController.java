@@ -35,4 +35,10 @@ public class PeriodoftimeController {
     public MyResult qcxz(@RequestBody Periodoftime periodoftime){
         return MyResult.SUCCESS_Object(periodoftimeService.qcxz(periodoftime));
     }
+
+    //删除期次
+    @RequestMapping("qcdel")
+    public MyResult qcdel(@RequestBody Periodoftime periodoftime){
+        return MyResult.SUCCESS_Object(periodoftimeService.del(periodoftime));
+    }
 }

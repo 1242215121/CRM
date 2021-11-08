@@ -264,33 +264,41 @@
 						console.log("联系人员：", $this.formInline.person);
 						console.log("关联活动：", $this.formInline.activity);
 						console.log("添加的产品：", $this.oppro);
-						this.axios.post("/salefunnel/insert", {
-							starttime: $this.starttime,
-							name: $this.formInline.name,
-							emp: $this.formInline.emp,
-							custom: $this.formInline.custom,
-							person: $this.formInline.person,
-							activity: $this.formInline.activity,
-							product: $this.oppro,
-						}).then(res => {
-							// console.log("调薪申请：",res.code);
-							if (res.code == 1) {
-								ElMessage({
-									message: "销售机会新增成功!",
-									type: 'success'
-								});
-								//关闭，并重新刷新页面
-								this.cancel();
-								this.loadData();
-
-							} else {
-								ElMessage({
-									message: res.msg,
-									type: 'erro'
-								});
-							}
-						})
-
+						
+						if($this.oppro.length > 0){
+							this.axios.post("/salefunnel/insert", {
+								starttime: $this.starttime,
+								name: $this.formInline.name,
+								emp: $this.formInline.emp,
+								custom: $this.formInline.custom,
+								person: $this.formInline.person,
+								activity: $this.formInline.activity,
+								product: $this.oppro,
+							}).then(res => {
+								// console.log("调薪申请：",res.code);
+								if (res.code == 1) {
+									ElMessage({
+										message: "销售机会新增成功!",
+										type: 'success'
+									});
+									//关闭，并重新刷新页面
+									this.cancel();
+									this.loadData();
+							
+								} else {
+									ElMessage({
+										message: res.msg,
+										type: 'erro'
+									});
+								}
+							})
+						}else{
+							ElMessage({
+								message: "产品不能为空！！！",
+								type: 'warning'
+							});
+						}
+						
 					} else {
 						ElMessage({
 							message: "请完整填写信息",

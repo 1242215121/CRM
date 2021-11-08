@@ -1,179 +1,133 @@
 <template>
-	<el-tabs type="border-card">
-	  <el-tab-pane>
-	    <template #label>
-	      <span><i class="el-icon-date"></i> 团队管理</span>
-	    </template>
-		<div style="min-height: 500px;">
-			<div class="block" style="width: 400px;">
-			   <el-tree
-			         :data="data"
-			         node-key="id"
-			         default-expand-all
-			         :expand-on-click-node="false"
-			       >
-			         <template #default="{ node, data }">
-			           <span class="custom-tree-node" style="margin: 10px;">
-			             <span>{{ node.label }}</span>
-			             <span>
-			               <span @click="append(data)"> 新增 </span>
-			               <span @click="remove(node, data)"> 删除 </span>
-			             </span>
-			           </span>
-			         </template>
-			       </el-tree>
-			  </div>
+	<el-card style="margin: 10px;">
+		<div style="width: 200px;text-align: center;margin: auto;font-size: 28px;border-bottom: #C0C0C0 1px solid;">
+			权限管理
+			<span style="width: 140px;display: block;border-bottom: 1px sandybrown solid;margin:5px auto;"></span>
 		</div>
-	    
-	  </el-tab-pane>
-	  <el-tab-pane>
-	    <template #label>
-	      <span><i class="el-icon-date"></i> 团队管理</span>
-	    </template>
-	  		<div style="min-height: 500px;">
-	  			我的行程
-	  		</div>
-	    
-	  </el-tab-pane>
-	  <el-tab-pane>
-	    <template #label>
-	      <span><i class="el-icon-date"></i> 权限管理</span>
-	    </template>
-	  		<div style="min-height: 500px;">
-	  			我的行程
-	  		</div>
-	    
-	  </el-tab-pane>
-	  <el-tab-pane>
-	    <template #label>
-	      <span><i class="el-icon-date"></i> 团队管理</span>
-	    </template>
-	  		<div style="min-height: 500px;">
-	  			我的行程
-	  		</div>
-	    
-	  </el-tab-pane>
-	</el-tabs>
+		<el-row v-for="r in role" style="border-bottom: 1px solid silver;margin-bottom: 20px;">
+			<el-col :span="24" style="margin: 2px;font-style: italic;font-size: 20px;">
+				{{r.roleName}}
+				
+			</el-col>
+			<el-col :span="24" style="margin: 2px;padding-left: 10px;font-size: 12px;">
+				{{r.roleDesc}}
+			</el-col>
+			<el-col :span="24" style="margin: 2px;">
+				关联用户
+				<div style="margin: 10px 0px;">
+					<el-row>
+						<el-col v-for="u in r.usersRole" :span="2" style="text-align: center;">
+							<div>
+								<!-- <img
+								        :src="'../../'+o.empFileImg"
+								        class="image"
+								/> -->
+								<img
+										v-if="u.users.usersImgs"
+								        :src="'../../'+u.users.usersImgs"
+								        class="image"
+								/>
+								<img
+										v-if="!u.users.usersImgs"
+								        :src="'../../public/imgs/wjl.jpg'"
+								        class="image"
+								/>
+								<el-tag type="success">{{u.users.usersFullname}}</el-tag>
+							</div>
+						</el-col>
+						<el-button
+						title="添加用户"
+						class="btn">
+							+
+							</el-button>
+						<el-button 
+						title="删除用户"
+						class="btn">
+							-
+							</el-button>
+					</el-row>
+				</div>
+			</el-col>
+			<el-col :span="24" style="margin: 10px;">
+				关联模块
+				<div style="margin: 10px 0px;">
+				<el-row>
+					<el-col v-for="m in r.roleModule" :span="2" style="text-align: center;">
+						<div>
+							<i :class="m.module.moduleIcon" style="width: 80px;height: 80px;"></i>
+							<el-tag>{{m.module.moduleName}}</el-tag>
+						</div>
+					</el-col>
+					<el-button
+					title="添加模块"
+					class="btn">
+						+
+						</el-button>
+					<el-button 
+					title="删除模块"
+					class="btn">
+						-
+						</el-button>
+				</el-row>	
+			
+				</div>
+			</el-col>
+		</el-row>
+	</el-card>
 </template>
 
 <script>
-	 let id = 1000
-	
-	  export default {
-	    data() {
-	      const data = [
-	        {
-	          id: 1,
-	          label: '一级 1',
-	          children: [
-	            {
-	              id: 4,
-	              label: '二级 1-1',
-	              children: [
-	                {
-	                  id: 9,
-	                  label: '三级 1-1-1',
-	                },
-	                {
-	                  id: 10,
-	                  label: '三级 1-1-2',
-	                },
-	              ],
-	            },
-	          ],
-	        },
-	        {
-	          id: 2,
-	          label: '一级 2',
-	          children: [
-	            {
-	              id: 5,
-	              label: '二级 2-1',
-	            },
-	            {
-	              id: 6,
-	              label: '二级 2-2',
-	            },
-	          ],
-	        },
-	        {
-	          id: 3,
-	          label: '一级 3',
-	          children: [
-	            {
-	              id: 7,
-	              label: '二级 3-1',
-	            },
-	            {
-	              id: 8,
-	              label: '二级 3-2',
-	            },
-	          ],
-	        },
-	      ]
-	      return {
-	        data: JSON.parse(JSON.stringify(data)),
-	      }
-	    },
-	
-	    methods: {
-	      append(data) {
-			   console.log(data,"1111")
-	        const newChild = { id: id++, label: 'testtest', children: [] }
-	        if (!data.children) {
-	          data.children = []
-	        }
-	        data.children.push(newChild)
-	        this.data = [...this.data]
-	      },
-	
-	      remove(node, data) {
-			  console.log(node,data,"22222")
-	        const parent = node.parent
-	        const children = parent.data.children || parent.data
-	        const index = children.findIndex((d) => d.id === data.id)
-	        children.splice(index, 1)
-	        this.data = [...this.data]
-	      },
-	
-	      renderContent(h, { node, data, store }) {
-	        return h(
-	          'span',
-	          {
-	            class: 'custom-tree-node',
-	          },
-	          h('span', null, node.label),
-	          h(
-	            'span',
-	            null,
-	            h(
-	              'a',
-	              {
-	                onClick: () => this.append(data),
-	              },
-	              'Append '
-	            ),
-	            h(
-	              'a',
-	              {
-	                onClick: () => this.remove(node, data),
-	              },
-	              'Delete'
-	            )
-	          )
-	        )
-	      },
-	    },
-	  }
+	 export default {
+	   data() {
+	     return {
+	       role:[]
+	     }
+	   },
+	   methods: {
+	 		lodeDate(){
+	 			var $this=this;
+	 			this.axios.get("/role/all").then(res=>{
+	 				console.log("查询到的角色",res.data)
+	 				$this.role=res.data;
+	 				
+	 			})
+	 		}
+	   },
+	   created(){
+	 		this.lodeDate();
+	 	},
+	}
 </script>
 
 <style scoped="scoped">
-	.custom-tree-node {
-	    flex: 1;
-	    display: flex;
-	    align-items: center;
-	    justify-content: space-between;
-	    font-size: 14px;
-	    padding-right: 8px;
-	  }
+	.btn{
+		font-size: 40px;
+		width: 80px;
+		height: 80px;
+		margin: 10px;
+	}
+	img{
+		width: 80px;
+		height: 80px;
+	}
+	.el-icon-setting:before {
+	    font-size: 60px;
+		color: coral;
+	}
+	.el-icon-menu:before {
+	    font-size: 60px;
+		color: seagreen;
+	}
+	.el-icon-edit-outline:before {
+	    font-size: 60px;
+		color: cornflowerblue;
+	}
+	.el-icon-location:before {
+	    font-size: 60px;
+		color: lightsalmon;
+	}
+	.el-icon-document:before {
+	    font-size: 60px;
+		color: crimson;
+	}
 </style>

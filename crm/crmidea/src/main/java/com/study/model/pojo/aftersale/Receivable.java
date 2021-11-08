@@ -18,7 +18,7 @@ public class Receivable {
   private Saleorder receivableDdid;//关联订单
   private Users receivableJbr;//经办人
   private double receivablePrice;//回款金额
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="Asia/Shanghai")
+  @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")
   private Timestamp receivableDate;//回款日期
   private String receivableHkfs;//回款方式
   private String receivableBz;//备注

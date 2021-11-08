@@ -54,7 +54,12 @@
 	          periodoftimeFzr: {},
 	          periodoftimePrice: 0,
 	          periodoftimeDate: '',
-	          periodoftimeBz: ''
+	          periodoftimeBz: '',
+			  periodoftimeKhid:'',
+			  periodoftimeSjprice:0,
+			  periodoftimeQczt:3,
+			  periodoftimeKpprice:0
+			  
 	        },//期次对象（表单数据）
 	        formLabelWidth: '120px',
 			ddxx:{
