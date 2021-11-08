@@ -1,7 +1,11 @@
 package com.study.model.services.power;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.study.model.mapper.power.DeptMapper;
 import com.study.model.pojo.power.Dept;
+import com.study.model.pojo.power.Users;
+import com.study.model.vojo.power.PageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +26,16 @@ public class DeptServices {
         return mapper.selectByDeptId(deptid);
     }
 
+    /**
+     * 分页查询所有部门
+     * @return
+     */
+    public PageInfo selectAllPage(PageVo vo){
+        PageHelper.startPage(vo.getPageNo(),vo.getPageSize());
+        List<Dept> list= mapper.selectAll();
+        PageInfo pageInfo=PageInfo.of(list);
+        return pageInfo;
+    }
     /**
      * 查询所有部门
      * @return

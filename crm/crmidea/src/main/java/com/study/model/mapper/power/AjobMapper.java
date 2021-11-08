@@ -2,6 +2,7 @@ package com.study.model.mapper.power;
 
 import com.study.model.pojo.power.Ajob;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public interface AjobMapper {
      * @param ajobname
      * @return
      */
-    public Ajob selectByAjobName(String ajobname);
+    public Ajob selectByAjobName(@Param("ajobname") String ajobname,@Param("deptid") Integer deptid);
 
     /**
      * 新增职位
@@ -61,4 +62,11 @@ public interface AjobMapper {
      * @return
      */
     public Integer deleteByAjobId(Integer ajobid);
+
+    /**
+     * 根据部门编号 删除职位信息
+     * @param did
+     * @return
+     */
+    public Integer deleteByDeptId(Integer did);
 }

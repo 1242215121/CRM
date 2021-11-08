@@ -4,10 +4,12 @@ import com.study.model.mapper.power.AjobMapper;
 import com.study.model.pojo.power.Ajob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class AjobServices {
     @Autowired
     AjobMapper mapper;
@@ -42,8 +44,8 @@ public class AjobServices {
      * @param ajobname
      * @return
      */
-    public Ajob selectByAjobName(String ajobname){
-        return mapper.selectByAjobName(ajobname);
+    public Ajob selectByAjobName(String ajobname,Integer deptid){
+        return mapper.selectByAjobName(ajobname,deptid);
     }
 
     /**
@@ -84,6 +86,20 @@ public class AjobServices {
     public Integer deleteByAjobId(Integer ajobid){
         try {
             mapper.deleteByAjobId(ajobid);
+            return 1;
+        }catch (Exception e){
+            return -1;
+        }
+    }
+
+    /**
+     * 根据部门编号 删除职位信息
+     * @param did
+     * @return
+     */
+    public Integer deleteByDeptId(Integer did){
+        try {
+            mapper.deleteByDeptId(did);
             return 1;
         }catch (Exception e){
             return -1;

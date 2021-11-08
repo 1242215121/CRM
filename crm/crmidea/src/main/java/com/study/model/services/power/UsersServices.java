@@ -1,7 +1,10 @@
 package com.study.model.services.power;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.study.model.mapper.power.UsersMapper;
 import com.study.model.pojo.power.Users;
+import com.study.model.vojo.power.UsersVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,8 +38,11 @@ public class UsersServices {
      * 查询所有用户
      * @return
      */
-    public List<Users> selectAll(){
-        return mapper.selectAll();
+    public PageInfo selectAll(UsersVo vo){
+        PageHelper.startPage(vo.getPageNo(),vo.getPageSize());
+        List<Users> list= mapper.selectAll(vo);
+        PageInfo pageInfo=PageInfo.of(list);
+        return pageInfo;
     }
 
 

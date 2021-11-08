@@ -1,6 +1,7 @@
 package com.study.model.mapper.power;
 
 import com.study.model.pojo.power.Users;
+import com.study.model.vojo.power.UsersVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface UsersMapper {
      * 查询所有用户
      * @return
      */
-    public List<Users> selectAll();
+    public List<Users> selectAll(UsersVo vo);
 
     /**
      * 查询所有用户

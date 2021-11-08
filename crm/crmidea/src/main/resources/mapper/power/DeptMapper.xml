@@ -16,8 +16,8 @@
 
         </collection>
         <collection property="ajobs" column="dept_id"
-                    select="com.study.model.mapper.power.UsersMapper.selectByDeptId"
-                    ofType="com.study.model.pojo.power.Users">
+                    select="com.study.model.mapper.power.AjobMapper.selectByDeptId"
+                    ofType="com.study.model.pojo.power.Ajob">
 
         </collection>
     </resultMap>
@@ -49,4 +49,6 @@
     <delete id="deleteDept">
         delete from dept where dept_id=#{deptid}
     </delete>
+
+
 </mapper>

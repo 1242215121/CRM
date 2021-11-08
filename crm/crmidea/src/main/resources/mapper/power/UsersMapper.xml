@@ -34,13 +34,13 @@
         select * from users
         <where>
             <if test="name!=null and name!=''">
-                and users_fullname=#{name}
+                and users_fullname like concat("%",#{name},"%")
             </if>
-            <if test="dpetid!=null and deptid>0">
+            <if test="deptid!=null and deptid>0">
                 and dept_id=#{deptid}
             </if>
             <if test="ajobid!=null and ajobid>0">
-                and ajob_id=#{ajob_id}
+                and ajob_id=#{ajobid}
             </if>
         </where>
         order by users_id desc
@@ -70,7 +70,6 @@
     <insert id="insertUsers">
         insert into users values (null,
                                   #{usersName},
-                                  #{usersPwd},
                                   #{usersPwd},
                                   #{usersFullname},
                                   #{usersSex},

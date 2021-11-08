@@ -94,8 +94,8 @@
 					if (res.code == 1) {
 						//用户信息存入store中。调用./src/store/index.js的方法login，参数就是data.obj(当前登录的用户信息)
 						this.$store.commit('login',res.obj);
-						this.$router.push('/home');
-						 this.$message.success("登录成功！");
+						this.$router.replace('/usersfrom');
+						this.$message.success("登录成功！");
 					} else {
 						if(res.msg=="密码错误！！"){
 							this.ruleForm.pass='';
