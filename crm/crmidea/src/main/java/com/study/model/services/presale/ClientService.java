@@ -20,4 +20,7 @@ public class ClientService {
     public List<Client> seClient(){
         return clientMapper.seClient();
     }
+    public Integer inClient(Client client){
+        return clientMapper.inClient(client);
+    }
 }

@@ -13,4 +13,7 @@ public interface ClueMapper {
 
     //分页联表查询
     public List<Clue> selectClue(@Param("clueName")String clueName);
+
+    //新增
+    public Integer inClue(Clue clue);
 }

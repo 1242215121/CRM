@@ -1,4 +1,5 @@
 <template>
+<<<<<<< .merge_file_a12280
 	<h3>退货单</h3>
 	<div class="top">
 		<el-container>
@@ -119,6 +120,9 @@
 			</el-main>
 		</el-container>
 	</div>
+=======
+	<h3>�货单</h3>
+>>>>>>> .merge_file_a02252
 </template>
 
 <script>

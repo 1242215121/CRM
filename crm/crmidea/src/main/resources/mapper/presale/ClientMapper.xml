@@ -36,4 +36,10 @@
     <select id="seClient" resultType="com.study.model.pojo.presale.Client">
         select * from client
     </select>
+    <insert id="inClient" parameterType="com.study.model.pojo.presale.Client">
+        insert into client (client_id,client_rule,client_name,client_user,client_address,
+            client_phone,client_state,client_source,client_rank,client_scale)
+        values(0,#{clientRule},#{clientName},#{users.usersId},#{clientAddress},
+            #{clientPhone},#{clientState},#{clientSource},#{clientRank},#{clientScale})
+    </insert>
 </mapper>

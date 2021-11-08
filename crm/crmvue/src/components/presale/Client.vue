@@ -2,69 +2,17 @@
 	<div id="gap">
 		<el-row>
 			<el-col :span="5">
-				<el-input placeholder="客户名称/编码" size="mini" v-model="input">
+				<el-input placeholder="客户名称/编码" v-model="input">
 				</el-input>
 			</el-col>
 			<el-col :span="4" :push="1">
-				<el-button type="primary" size="mini" @click="getClientData()">查询</el-button>
+				<el-button type="primary" size="medium" @click="getClientData()">查询</el-button>
 			</el-col>
 			<el-col :span="4" :push="11">
-				<el-button type="primary" size="mini" @click="drawer=true">新增</el-button>
+				<el-button type="primary" size="medium" @click="drawer=true">新增</el-button>
 			</el-col>
 		</el-row>
 	</div>
-	<el-drawer title="新增线索" v-model="drawer" :with-header="false" size="50%">
-		<div class="big">
-			<el-form>
-				<el-form-item label="机会名称:" class="ttsalary">
-					<el-input placeholder="请输入机会名称"></el-input>
-				</el-form-item>
-				<el-form-item label="机会金额:" class="ttsalary">
-					<el-input placeholder="请输入机会金额"></el-input>
-				</el-form-item>
-				<!-- <el-form-item label="负责人员:" class="ttsalary" prop="">
-					<el-select v-model="" placeholder="请输入负责人员">
-						<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
-							:label="o.oadeptName" :value="o.oadeptId">
-						</el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item label="所属客户:" class="ttsalary" prop="custom">
-					<el-select v-model="formInline.custom" placeholder="请输入所属客户">
-						<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
-							:label="o.oadeptName" :value="o.oadeptId">
-						</el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item label="联系人员:" class="ttsalary" prop="person">
-					<el-select v-model="formInline.person" placeholder="请输入联系人员">
-						<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
-							:label="o.oadeptName" :value="o.oadeptId">
-						</el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item label="关联活动:" class="ttsalary" prop="activity">
-					<el-select v-model="formInline.activity" placeholder="请输入关联活动">
-						<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
-							:label="o.oadeptName" :value="o.oadeptId">
-						</el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item label="预成交日:" class="ttsalary" prop="value2">
-					<div class="block">
-						<el-date-picker v-model="formInline.value2" 
-						type="datetime" :disabledDate="dealDisabledDate"
-						placeholder="请选择时间">
-						</el-date-picker>
-					</div>
-				</el-form-item> -->
-				<el-form-item class="button">
-					<el-button type="primary" @click="submitForm('formInline')">提交</el-button>
-					<el-button @click="resetForm()">重置</el-button>
-				</el-form-item>
-			</el-form>
-		</div>
-	</el-drawer>
 	<!-- 表格 -->
 	<el-table :data="clientData" style="width: 100%">
 		<el-table-column prop="clientName" label="客户名称" width="140" />
@@ -149,10 +97,5 @@
 	.ttsalary {
 		width: 82%;
 	}
-	.big {
-		margin-top: 15px;
-		margin-left: 13%;
-		width: 80%;
-		/* box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1); */
-	}
+	
 </style>
