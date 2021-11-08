@@ -390,7 +390,7 @@
 			loadUser() {
 				let $this = this;
 				this.axios.get("/users").then(res => {
-					// console.log("负责人:",res);
+					/* console.log("负责人:",res); */
 					$this.users = res.data;
 				})
 			},

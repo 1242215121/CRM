@@ -1,5 +1,7 @@
 package com.study.model.pojo.power;
 
+import com.study.model.pojo.presale.Activity;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +16,15 @@ public class Dept {
     private Integer deptId;//部门编号
     private String deptName;//部门名称
     private String deptDesc;//部门描述
+    private Activity activity;//活动
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
 
     public List<Users> getUsers() {
         return users;

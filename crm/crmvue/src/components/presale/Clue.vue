@@ -76,6 +76,12 @@
 		<el-table-column prop="clueState" label="线索状态" />
 		<el-table-column prop="clueTime" label="更新时间" width="170" />
 		<el-table-column prop="cluePhone" label="联系电话" width="170" />
+		<!-- <el-table-column fixed="right" label="操作" width="180">
+			<template v-slot:default="r">
+				<el-button type="primary" size="medium" @click="dialogBj =true,editorYb(r.row)">编辑
+				</el-button>
+			</template>
+		</el-table-column> -->
 	</el-table>
 	<!-- 分页 -->
 	<el-pagination :current-page="pageNo" @current-change="getClueData" background
