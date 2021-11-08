@@ -10,6 +10,7 @@ import java.util.List;
 public interface ContactsMapper {
     public List<Contacts> selectContacts(@Param("contactsName")String contactsName);
 
+<<<<<<< .merge_file_a11772
 <<<<<<< .merge_file_a16984
 
 =======
@@ -18,5 +19,10 @@ public interface ContactsMapper {
 
     public Integer inContacts(Contacts contactse);
 
+=======
+    public List<Contacts> seContacts();
+    
+    public Integer inContacts(Contacts contactse);
+>>>>>>> .merge_file_a23040
 
 }

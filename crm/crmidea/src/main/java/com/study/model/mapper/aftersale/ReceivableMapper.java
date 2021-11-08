@@ -16,4 +16,11 @@ public interface ReceivableMapper {
     public List<Receivable> hkjlcx(@Param("nr")  String nr);
 
     public void ddhkjexg(@Param("price") double price,@Param("id")  Integer id);
+
+//    按期次查询没有被驳回的回款记录
+    public List<Receivable> hkcxqcid(Integer id);
+    //回款新增
+    public void hkxz(Receivable receivable);
+    //按期次查询所有回款记录
+    public List<Receivable> hkqccxall(long id);
 }

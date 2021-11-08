@@ -1,4 +1,4 @@
-GET http://localhost:8086/llw/hkcx?zt=1
+GET http://localhost:8086/llw/qcdel
 Accept: application/json
 
 ###
