@@ -5,10 +5,10 @@
 		<el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
 			<h3 class="login_title">账号密码登录</h3>
 			<el-form-item prop="account">
-				<el-input type="text" v-model="ruleForm.account" placeholder="账号" autocomplete="off"></el-input>
+				<el-input type="text" v-model="ruleForm.account" placeholder="账号" autocomplete="off" @keyup.enter="login()"></el-input>
 			</el-form-item>
 			<el-form-item prop="pass">
-				<el-input type="password" v-model="ruleForm.pass" placeholder="密码" autocomplete="off"></el-input>
+				<el-input type="password" v-model="ruleForm.pass" placeholder="密码" autocomplete="off" @keyup.enter="login()"></el-input>
 			</el-form-item>
 
 			<el-form-item>
@@ -97,7 +97,12 @@
 						this.$router.push('/home');
 						 this.$message.success("登录成功！");
 					} else {
-						// this.$message.error(res.msg);
+						if(res.msg=="密码错误！！"){
+							this.ruleForm.pass='';
+						}else if(res.msg=="用户名错误！！"){
+							this.ruleForm.account='';
+							this.ruleForm.pass='';
+						}
 					}
 				})
 			}

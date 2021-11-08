@@ -14,7 +14,7 @@
 						<router-link @click="addtabs($event)" style="color: #000000;text-decoration-line: none"  to="/personal">修改密码
 						</router-link>
 						</el-menu-item>
-					<el-menu-item index="1-2" @click="out()">退出登录</el-menu-item>
+					<el-menu-item index="1-2" @click="outUsers()">退出登录</el-menu-item>
 				</el-submenu>
 			</el-menu>
 		</el-header>
@@ -44,100 +44,20 @@
 				      background-color="slategray"
 				      text-color="#fff"
 				      active-text-color="#ffd04b">
-					  <el-submenu index="1">
+					  <el-submenu v-for="(item,index) in routers" :index="index">
 					       
 					          <template #title>
-								   <i class="el-icon-setting"></i>
-					  			 <router-link to="/FormAttribute">系统设置</router-link>
+								   <i :class="item.iconcls"></i>
+									<span>
+									{{item.name}}
+									</span>
 					  		</template>
-							<el-menu-item index="1-1">部门管理</el-menu-item>
-							<el-menu-item index="1-2">用户管理</el-menu-item>
-							<el-menu-item index="1-3">权限管理</el-menu-item>
+							<el-menu-item v-if="item.children!='' " v-for="item2,index2 in item.children" :index="index+'-'+index2">
+								<router-link :to="item2.path">{{item2.name}}</router-link>
+								</el-menu-item>
+							
 					  </el-submenu>
-				      <el-submenu index="2">
-						<!-- 标题插槽：完成版-->
-				        <template #title>
-				          <i class="el-icon-location"></i><!-- 图标 -->
-				          <span>
-							  市场及客户
-						  </span>
-				        </template>
-						<el-menu-item index="2-1">
-							<router-link to="/activity">市场活动</router-link>
-						</el-menu-item>
-						<el-menu-item index="2-2">
-							<router-link to="/clue">线索</router-link>
-						</el-menu-item>
-						<el-menu-item index="2-3">
-							<router-link to="/client">客户</router-link>
-					    </el-menu-item>
-						<el-menu-item index="2-4">
-							<router-link to="/contacts">联系人</router-link>
-						</el-menu-item>
-				      </el-submenu>
-	
-				      <el-submenu index="3">
-				        <template #title>
-							 <i class="el-icon-document"></i>
-							<span>
-								销售过程管理
-							</span>
-						</template>
-						<el-menu-item index="3-1">
-							<router-link to="/salefunnel">销售机会</router-link>
-						</el-menu-item>
-						<el-menu-item index="3-2">
-							<router-link to="/quotations">报价单</router-link>
-						</el-menu-item>
-						<el-menu-item index="3-3">
-							<router-link to="/saleorder">销售订单</router-link>
-						</el-menu-item>
-						<el-menu-item index="3-4">
-							<router-link to="/refunds">退货单</router-link>
-						</el-menu-item>
-				      </el-submenu>
-					  <el-submenu index="4">
-					    <template #title>
-					  		<i class="el-icon-menu"></i>
-					  		<span>
-					  			回款及开票
-					  		</span>
-					  	</template>
-					  		<el-menu-item index="4-1">
-								<router-link to="/kpbl">开票办理</router-link>
-							</el-menu-item>
-					  		<el-menu-item index="4-2">
-								<router-link to="/hkqr">回款确认</router-link>
-							</el-menu-item>
-					  		<el-menu-item index="4-3">
-								<router-link to="/ddhz">按订单汇总</router-link>
-							</el-menu-item>
-					  		<el-menu-item index="4-4">
-								<router-link to="/kpjl">开票记录</router-link>
-							</el-menu-item>
-							<el-menu-item index="4-5">
-								<router-link to="/hkjl">回款记录</router-link>
-							</el-menu-item>
-							<el-menu-item index="4-6">
-								<router-link to="/qcjl">回款期次</router-link>
-							</el-menu-item>
-					  </el-submenu>
-					  <el-submenu index="5">
-					    <template #title>
-					  		<i class="el-icon-menu"></i>
-					  		<span>
-					  			产品
-					  		</span>
-					  	</template>
-					  		<el-menu-item index="5-1">
-								<router-link to="/Product">产品库</router-link>
-							</el-menu-item>
-					  		<el-menu-item index="5-2">出入库办理</el-menu-item>
-					  		<el-menu-item index="5-3">出入库单</el-menu-item>
-					  		<el-menu-item index="5-4">出入库流水</el-menu-item>
-							<el-menu-item index="5-5">统计</el-menu-item>
-					  </el-submenu>
-					
+
 					  </el-menu>
 			
 			</el-aside>
@@ -165,11 +85,10 @@
 	import {
 		ElMessage
 	} from 'element-plus'
-	import { h } from 'vue'
 	export default {
 		data() {
 			return {
-			
+				
 			};
 		},
 		methods: {
@@ -179,13 +98,34 @@
 			handleClose(key, keyPath) {
 				console.log(key, keyPath);
 			},
+			outUsers(){
+				this.$confirm('确定退出系统?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					//退出登录
+					this.$store.state.routers = [];
+					this.$store.state.users = [];
+					this.$router.addRoute([]);
+					this.$router.replace({
+						path: '/login'
+					});
+				
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消'
+					});
+				});
+			}
 		},
 		created() {
 			console.log('当前登录用户',this.$store.state.users);
 		},
 		computed: {
-			routes() {
-				return this.$store.state.routes
+			routers() {
+				return this.$store.state.routers
 				
 			}
 		}

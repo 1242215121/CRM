@@ -1,16 +1,59 @@
 <template>
-	<div class="block">
-	    <p>使用 render-content</p>
-	    <el-tree
-	      :data="data"
-	      show-checkbox
-	      node-key="id"
-	      default-expand-all
-	      :expand-on-click-node="false"
-	      :render-content="renderContent"
-	    >
-	    </el-tree>
-	  </div>
+	<el-tabs type="border-card">
+	  <el-tab-pane>
+	    <template #label>
+	      <span><i class="el-icon-date"></i> 团队管理</span>
+	    </template>
+		<div style="min-height: 500px;">
+			<div class="block" style="width: 400px;">
+			   <el-tree
+			         :data="data"
+			         node-key="id"
+			         default-expand-all
+			         :expand-on-click-node="false"
+			       >
+			         <template #default="{ node, data }">
+			           <span class="custom-tree-node" style="margin: 10px;">
+			             <span>{{ node.label }}</span>
+			             <span>
+			               <span @click="append(data)"> 新增 </span>
+			               <span @click="remove(node, data)"> 删除 </span>
+			             </span>
+			           </span>
+			         </template>
+			       </el-tree>
+			  </div>
+		</div>
+	    
+	  </el-tab-pane>
+	  <el-tab-pane>
+	    <template #label>
+	      <span><i class="el-icon-date"></i> 团队管理</span>
+	    </template>
+	  		<div style="min-height: 500px;">
+	  			我的行程
+	  		</div>
+	    
+	  </el-tab-pane>
+	  <el-tab-pane>
+	    <template #label>
+	      <span><i class="el-icon-date"></i> 权限管理</span>
+	    </template>
+	  		<div style="min-height: 500px;">
+	  			我的行程
+	  		</div>
+	    
+	  </el-tab-pane>
+	  <el-tab-pane>
+	    <template #label>
+	      <span><i class="el-icon-date"></i> 团队管理</span>
+	    </template>
+	  		<div style="min-height: 500px;">
+	  			我的行程
+	  		</div>
+	    
+	  </el-tab-pane>
+	</el-tabs>
 </template>
 
 <script>

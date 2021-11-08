@@ -15,6 +15,11 @@
                     ofType="com.study.model.pojo.power.Users">
 
         </collection>
+        <collection property="ajobs" column="dept_id"
+                    select="com.study.model.mapper.power.UsersMapper.selectByDeptId"
+                    ofType="com.study.model.pojo.power.Users">
+
+        </collection>
     </resultMap>
 
     <select id="selectByDeptId" resultMap="deptResult">

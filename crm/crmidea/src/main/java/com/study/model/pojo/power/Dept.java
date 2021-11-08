@@ -10,6 +10,7 @@ import java.util.Objects;
  */
 public class Dept {
     private List<Users> users;//员工
+    private List<Ajob> ajobs;//部门下的职位
     private Integer deptId;//部门编号
     private String deptName;//部门名称
     private String deptDesc;//部门描述

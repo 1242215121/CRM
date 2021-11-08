@@ -12,6 +12,15 @@ public class Ajob {
     private String ajobName;//职位名称
     private String ajobDesc;//职位描述
     private List<Users> users;
+    private Dept dept;
+
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
 
     @Override
     public String toString() {

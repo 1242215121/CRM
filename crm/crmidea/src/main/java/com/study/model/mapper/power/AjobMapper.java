@@ -21,6 +21,13 @@ public interface AjobMapper {
     public Ajob selectByAjobId(Integer jobid);
 
     /**
+     * 根据部门查询职位
+     * @param deptid
+     * @return
+     */
+    public List<Ajob> selectByDeptId(Integer deptid);
+
+    /**
      * 根据职位编号查询职位  不查关系字段
      * @param jobid
      * @return
