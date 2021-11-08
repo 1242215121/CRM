@@ -40,6 +40,10 @@
 				      background-color="slategray"
 				      text-color="#fff"
 				      active-text-color="#ffd04b">
+					  <el-menu-item index="0">
+					  		<i class="el-icon-menu"></i>
+					  		<router-link to="/main">个人信息</router-link>
+					  </el-menu-item>
 					  <el-submenu v-for="(item,index) in routers" :index="index">
 					       
 					          <template #title>
