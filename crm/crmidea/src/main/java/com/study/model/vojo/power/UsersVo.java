@@ -9,6 +9,15 @@ public class UsersVo {
     private Integer ajobid;//职位
     private Integer pageNo;//当前页
     private Integer pageSize;//最大条数
+    private Integer state;//状态
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
     public Integer getPageNo() {
         return pageNo;

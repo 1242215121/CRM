@@ -34,4 +34,11 @@ public interface UsersRoleMapper {
      * @return
      */
     public Integer deleteByUsersId(Integer usersid);
+
+    /**
+     * 删除角色下的用户
+     * @param roleid
+     * @return
+     */
+    public Integer deleteByRoleId(Integer roleid);
 }

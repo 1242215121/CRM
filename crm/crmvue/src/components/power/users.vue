@@ -3,12 +3,12 @@
 
 		<div>
 
-			<el-form :model="ruleForm" ref="ruleForm" label-width="60px" class="demo-ruleForm">
+			<el-form :model="ruleForm" size="mini" ref="ruleForm" label-width="60px" class="demo-ruleForm">
 				<table>
 					<tr>
 						<td>
-							<el-form-item label="姓名" prop="usersName">
-								<el-input v-model="ruleForm.usersName" placeholder="请输入名字回车查询" @keyup.enter="loadData()"></el-input>
+							<el-form-item label="姓名" prop="usersName" >
+								<el-input v-model="ruleForm.usersName"  @change="loadData()" placeholder="输入名字回车查询" @keyup.enter="loadData()"></el-input>
 							</el-form-item>
 						</td>
 						<td>
@@ -31,11 +31,20 @@
 								</el-select>
 							</el-form-item>
 						</td>
+						<td>
+							<el-form-item label="状态" prop="state">
+								<el-select v-model="ruleForm.state" @change="loadData()">
+									<el-option label="全部" value="2"></el-option>
+									<el-option label="启用" value="1"></el-option>
+									<el-option label="停用" value="0"></el-option>
+								</el-select>
+							</el-form-item>
+						</td>
 						
 						<td>
 							<el-form-item>
-								<el-button type="primary" @click="submitForm('ruleForm')">查询</el-button>
-								<el-button type="primary" @click="addUsers()">新增</el-button>
+								<!-- <el-button type="primary" size="mini" @click="submitForm('ruleForm')">查询</el-button> -->
+								<el-button type="primary" size="mini" @click="addUsers()">新增</el-button>
 							</el-form-item>
 						</td>
 					</tr>
@@ -61,15 +70,11 @@
 					<span style="margin-left: 10px">{{ scope.row.usersFullname }}</span>
 				</template>
 			</el-table-column>
-			<el-table-column label="电话" width="200" align="center" header-align="center">
+			<el-table-column label="电话" width="160" align="center" header-align="center">
 				<template #default="scope">
-					<i class="el-icon-time"></i>
+					<i class="el-icon-phone"></i>
+      
 					<span style="margin-left: 10px">{{ scope.row.usersPhone }}</span>
-				</template>
-			</el-table-column>
-			<el-table-column label="邮箱" width="120" align="center" header-align="center">
-				<template #default="scope">
-					<span style="margin-left: 10px">{{ scope.row.usersEmail }}</span>
 				</template>
 			</el-table-column>
 			<el-table-column label="所属部门" width="180" align="center" header-align="center">
@@ -82,15 +87,29 @@
 					<span style="margin-left: 10px">{{ scope.row.ajob.ajobName }}</span>
 				</template>
 			</el-table-column>
+			<el-table-column label="用户状态" width="200" align="center" header-align="center">
+				<template #default="scope">
+					<el-switch
+					  style="display: block"
+					  v-model="scope.row.flag"
+					  active-color="#13ce66"
+					  inactive-color="#ff4949"
+					  active-text="启用"
+					  inactive-text="停用"
+					  @change="updateState(scope.row.usersId,scope.row.flag?1:0)"
+					>
+					</el-switch>
+				</template>
+			</el-table-column>
 		
 			<el-table-column label="操作" width="160" align="center" header-align="center">
 				<template #default="scope">
 
 							<div class="name-wrapper">
 								<el-tag type="info" size="medium" style="margin-right: 10px;" @click="rowClick(scope.row,1)">查看</el-tag>
-								<el-tag type="success" size="medium" style="margin-right: 10px;" @click="rowClick(scope.row,2)">编辑</el-tag>
+								<el-tag type="success" v-if="scope.row.flag" size="medium" style="margin-right: 10px;" @click="rowClick(scope.row,2)">编辑</el-tag>
 							</div>
-	
+							
 					
 				</template>
 			</el-table-column>
@@ -117,7 +136,8 @@
 				ruleForm: {
 					usersName: '',
 					ajobId:'0' ,
-					deptId:'0'
+					deptId:'0',
+					state:'2'
 				},
 				ajob:[],
 				dept:[]
@@ -145,6 +165,19 @@
 				this.loadData();
 				console.log(formName);
 			},
+			updateState(uid,sta){
+				this.axios.get("/users/updateState",{
+						params: {
+							usersid: uid,
+							state: sta
+						}
+					}).then(res=>{
+						if(res.code == 1){
+							this.$message.success("修改成功！");
+							this.loadData();
+					}
+				})
+			},
 			//查询绑值
 			loadData() {
 				
@@ -155,10 +188,18 @@
 					pageSize: $this.pageSize,
 					name: $this.ruleForm.usersName,
 					ajobid:$this.ruleForm.ajobId,
-					deptid:$this.ruleForm.deptId
+					deptid:$this.ruleForm.deptId,
+					state:$this.ruleForm.state
 				}).then(res => {
 					console.log(res, "后台返回的数据");
 					this.tableData = res.obj.list; //返回的是封装好的MyResult对象。data存储的是集合
+					this.tableData.forEach(v=>{
+						if(v.state==1){
+							v.flag=true;
+						}else{
+							v.flag=false;
+						}
+					})
 					this.total = res.obj.total;
 				})
 			},
@@ -187,7 +228,6 @@
 			},
 			//绑定部门
 			lodeDept(){
-		
 				var $this=this;
 				this.axios.get("/dept/all").then(res=>{
 					console.log("查询到的部门",res.data)

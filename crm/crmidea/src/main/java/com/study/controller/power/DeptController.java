@@ -31,7 +31,7 @@ public class DeptController {
 
     @GetMapping("all")
     public MyResult selectAllDept(){
-        return MyResult.SUCCESS_Object(deptServices.selectAll());
+        return MyResult.SUCCESS_DATA(deptServices.selectAll());
     }
 
     @PostMapping("add")

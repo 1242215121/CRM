@@ -102,4 +102,14 @@ public class UsersController {
             }
 
     }
+
+    @GetMapping("updateState")
+    public MyResult updateUsersState(@RequestParam(value = "usersid") Integer usersid,@RequestParam(value = "state") Integer state){
+
+        if(usersServices.updateUsersState(usersid,state)!=-1){
+            return MyResult.SUCCESS;
+        }else{
+            return MyResult.FAILURE("修改用户状态失败!");
+        }
+    }
 }

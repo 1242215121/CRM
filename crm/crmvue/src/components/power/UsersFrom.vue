@@ -80,6 +80,7 @@
 					usersPhone:'',
 					usersEmail:'',
 					usersImgs:'',
+					state:1,
 					ajob:{
 						ajobId:'',
 						ajobName:''
@@ -117,7 +118,7 @@
 						usersBrith:$this.ruleForm.usersBrith,
 						usersPhone:$this.ruleForm.usersPhone,
 						usersEmail:$this.ruleForm.usersEmail,
-						usersImgs:$this.ruleForm.usersImgs,
+						usersImgs:'public/imgs/wjl.jpg',
 						state:1,
 						ajob:{
 							ajobId:$this.ruleForm.ajob.ajobId,
