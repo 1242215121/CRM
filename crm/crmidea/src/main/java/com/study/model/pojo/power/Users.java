@@ -137,4 +137,14 @@ public class Users {
     public void setUsersRole(List<UsersRole> usersRole) {
         this.usersRole = usersRole;
     }
+
+    private String usersFullnames;//用户名
+
+    public String getUsersFullnames() {
+        return usersFullnames;
+    }
+
+    public void setUsersFullnames(String usersFullnames) {
+        this.usersFullnames = usersFullnames;
+    }
 }

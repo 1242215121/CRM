@@ -1,7 +1,11 @@
 package com.study.model.pojo.product;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.study.model.pojo.power.Users;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,16 +18,22 @@ public class Bill {
     private String billWay;//发起方式
     private Integer billOrder;//关联单据
     private Integer billPerson;//发起人
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     private Timestamp billCreateDate;//创建时间
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     private Timestamp billManageDate;//办理时间
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
+    private Timestamp billLibraryDate;//出入库时间
     private Integer billManagePerson;//办理人
     private Integer billState;//办理状态
+    private String billLibraryExplain;//出入库说明
+    private String billManageExplain;//办理说明
 
     public Bill() {
         super();
     }
 
-    public Bill(String billId, Integer billAction, Integer billCount, String billWay, Integer billOrder, Integer billPerson, Timestamp billCreateDate, Timestamp billManageDate, Integer billManagePerson, Integer billState) {
+    public Bill(String billId, Integer billAction, Integer billCount, String billWay, Integer billOrder, Integer billPerson, Timestamp billCreateDate, Timestamp billManageDate, Timestamp billLibraryDate, Integer billManagePerson, Integer billState, String billLibraryExplain, String billManageExplain) {
         this.billId = billId;
         this.billAction = billAction;
         this.billCount = billCount;
@@ -32,8 +42,43 @@ public class Bill {
         this.billPerson = billPerson;
         this.billCreateDate = billCreateDate;
         this.billManageDate = billManageDate;
+        this.billLibraryDate = billLibraryDate;
         this.billManagePerson = billManagePerson;
         this.billState = billState;
+        this.billLibraryExplain = billLibraryExplain;
+        this.billManageExplain = billManageExplain;
+    }
+
+    public Users users;//负责人
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+
+    //模糊查询
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+
+    private List<Bills> bills;
+
+    public List<Bills> getBills() {
+        return bills;
+    }
+
+    public void setBills(List<Bills> bills) {
+        this.bills = bills;
     }
 
     public String getBillId() {
@@ -116,6 +161,30 @@ public class Bill {
         this.billState = billState;
     }
 
+    public Timestamp getBillLibraryDate() {
+        return billLibraryDate;
+    }
+
+    public void setBillLibraryDate(Timestamp billLibraryDate) {
+        this.billLibraryDate = billLibraryDate;
+    }
+
+    public String getBillLibraryExplain() {
+        return billLibraryExplain;
+    }
+
+    public void setBillLibraryExplain(String billLibraryExplain) {
+        this.billLibraryExplain = billLibraryExplain;
+    }
+
+    public String getBillManageExplain() {
+        return billManageExplain;
+    }
+
+    public void setBillManageExplain(String billManageExplain) {
+        this.billManageExplain = billManageExplain;
+    }
+
     @Override
     public String toString() {
         return "Bill{" +
@@ -127,8 +196,11 @@ public class Bill {
                 ", billPerson=" + billPerson +
                 ", billCreateDate=" + billCreateDate +
                 ", billManageDate=" + billManageDate +
+                ", billLibraryDate=" + billLibraryDate +
                 ", billManagePerson=" + billManagePerson +
                 ", billState=" + billState +
+                ", billLibraryExplain='" + billLibraryExplain + '\'' +
+                ", billManageExplain='" + billManageExplain + '\'' +
                 '}';
     }
 }

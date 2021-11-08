@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.model.mapper.product.BillMapper">
+    <resultMap id="BillMap" type="com.study.model.pojo.product.Bill">
+        <id property="billId" column="bill_id"></id>
+        <result property="billAction" column="bill_action"></result>
+        <result property="billCount" column="bill_count"></result>
+        <result property="billWay" column="bill_way"></result>
+        <result property="billOrder" column="bill_order"></result>
+        <result property="billPerson" column="bill_person"></result>
+        <result property="billCreateDate" column="bill_create_date"></result>
+        <result property="billManageDate" column="bill_manage_date"></result>
+        <result property="billLibraryDate" column="bill_library_date"></result>
+        <result property="billManagePerson" column="bill_manage_person"></result>
+        <result property="billState" column="bill_state"></result>
+        <result property="billLibraryExplain" column="bill_library_explain"></result>
+        <result property="billManageExplain" column="bill_manage_explain"></result>
+
+        <association property="users" javaType="com.study.model.pojo.power.Users">
+            <id property="usersId" column="users_id"/>
+            <result property="usersName" column="users_name"/>
+            <result property="usersFullnames" column="users_fullnames"></result>
+            <result property="usersFullname" column="users_fullname"/>
+        </association>
+        <collection property="bills" ofType="com.study.model.pojo.product.Bills">
+            <id property="billsId" column="bills_id"></id>
+            <result property="preId" column="pre_id"></result>
+            <result property="preName" column="pre_name"></result>
+            <result property="preUnit" column="pre_unit"></result>
+            <result property="billsCount" column="bills_count"></result>
+            <result property="billsRemark" column="bills_remark"></result>
+            <result property="billId" column="bill_id"></result>
+        </collection>
+    </resultMap>
+
+    <!--查询所有出入库单-->
+    <select id="selectBill" resultMap="BillMap">
+        select u1.users_id as users_ids ,u1.users_fullname as users_fullnames,b.*,bs.*,u.* from bill b left join bills bs on b.bill_id = bs.bill_id
+        left join users u on b.bill_person = u.users_id
+        left join users u1 on b.bill_manage_person = u1.users_id
+        <where>
+            <if test="billAction != '' and billAction != null ">
+                and b.bill_action = #{billAction}
+            </if>
+            <if test="billState != '' and billState != null ">
+                and b.bill_state = #{billState}
+            </if>
+            <if test="billWay != '' and billWay != null ">
+                and b.bill_Way = #{billWay}
+            </if>
+            <if test="content != '' and content != null ">
+                and  (b.bill_id like '%${content}%'  )
+            </if>
+
+        </where>
+    </select>
+    <select id="selectBill1" resultMap="BillMap">
+        select * from bill b left join bills bs on b.bill_id = bs.bill_id
+        left join users u on b.bill_person = u.users_id
+
+        <where>
+            <if test="billAction != '' and billAction != null ">
+                and b.bill_action = #{billAction}
+            </if>
+            <if test="billState != '' and billState != null ">
+                and b.bill_state = #{billState}
+            </if>
+            <if test="billWay != '' and billWay != null ">
+                and b.bill_Way = #{billWay}
+            </if>
+            <if test="content != '' and content != null ">
+                and  (b.bill_id like '%${content}%'  )
+            </if>
+            and b.bill_state = 1
+        </where>
+    </select>
+
+
+
+
+    <!--新增出入库单-->
+    <insert id="insertBill" parameterType="com.study.model.pojo.product.Bill" useGeneratedKeys="true">
+        <selectKey>
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into bill values(#{billId},#{billAction},#{billCount},#{billWay},#{billOrder},#{billPerson},
+        current_timestamp ,null,null,#{billManagePerson},#{billState},#{billLibraryExplain},#{billManageExplain})
+    </insert>
+
+    <!--新增出入库详单-->
+    <insert id="insertBills">
+        insert into bills(bills_id,pre_id,pre_name,pre_unit,bills_count,bills_remark,bill_id) values
+        <foreach collection="billsList" item="bs" separator=",">
+            (0,#{bs.preId},#{bs.preName},#{bs.preUnit},#{bs.billsCount},#{bs.billsRemark},#{bs.billId})
+        </foreach>
+    </insert>
+
+    <!--办理出入库单-->
+    <update id="updateBill">
+        update bill set bill_manage_date=current_timestamp ,bill_library_date=#{billLibraryDate}
+        ,bill_manage_person = #{billManagePerson},bill_manage_explain = #{billManageExplain},
+        bill_state = 2
+        where bill_id = #{billId}
+    </update>
+
+
+    <!--根据id删除出入库单-->
+    <delete id="deleteBill">
+        delete from bill where bill_id= #{billId}
+    </delete>
+    <!--根据id删除出入库详情单-->
+    <delete id="deleteBills">
+        delete from bills where bill_id= #{billId}
+    </delete>
+</mapper>
