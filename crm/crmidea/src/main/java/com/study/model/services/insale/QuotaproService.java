@@ -22,4 +22,15 @@ public class QuotaproService {
     public List<Quotapro> selectByQid(Integer qid){
         return mapper.selectByQid(qid);
     }
+
+    /**
+     * 新增中间表
+     * @param num
+     * @param quotation
+     * @param product
+     * @return
+     */
+    public Integer insert(Integer num,Integer quotation,String product){
+        return mapper.insert(num,quotation,product);
+    }
 }

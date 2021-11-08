@@ -43,7 +43,8 @@
 						<template #default="scope">
 							<el-button type="primary" size="mini" 
 							v-if="scope.row.qStage=='草稿'"
-							@click="update(scope.row)" plain>修改</el-button>
+							@click="update(scope.row)" 
+							icon="el-icon-edit-outline" plain>修改</el-button>
 							<el-button type="primary" size="mini" 
 							@click="look(scope.row)"
 							icon="el-icon-bank-card"  plain>查看产品</el-button>
@@ -65,15 +66,15 @@
 							</el-form-item>
 							<el-form-item label="关联的机会:" class="ttsalary" prop="activity">
 								<el-select v-model="formInline.activity" placeholder="请输入关联机会">
-									<el-option v-if="oadept!=null" v-for="o in oadept" :key="o.oadeptId"
-										:label="o.oadeptName" :value="o.oadeptId">
+									<el-option v-if="salefunnel!=null" v-for="s in salefunnel" :key="s.sfId"
+										:label="s.sfName" :value="s.sfId">
 									</el-option>
 								</el-select>
 							</el-form-item>
 							<el-form-item label="&nbsp;&nbsp;添加产品:">
 								<el-button type="text" @click="add" icon="el-icon-circle-plus-outline">关联产品</el-button>
 							</el-form-item>
-							<div v-if="dpp=true"
+							<div v-if="dpp"
 							style="margin-left: 2%;border: 1px solid gray;margin-bottom:5%;width: 80%;">
 								<el-table :data="oppro" style="margin: 20px;width: 95%;">
 									<el-table-column prop="proId" label="产品编号" width="100px"></el-table-column>
@@ -129,6 +130,8 @@
 	export default {
 		data() {
 			return {
+				userid:null,//登录人员编号
+				salefunnel:[],//所有销售机会
 				fabric: [], //所有产品信息
 				oppro: [], //选中的产品信息
 				dpp: false, //表单中的div是否显示
@@ -141,7 +144,6 @@
 				pageNo: 1, //第几页
 				index: 0,
 				dialogVisible:false,//产品产看状态
-				starttime:null,
 				drawer: false, //面板状态新增
 				formInline:{},
 				rules:{
@@ -190,6 +192,7 @@
 			},
 			//重置
 			resetForm() {
+				this.dpp = false;
 				this.formInline = {};
 				this.oppro = [];
 			},
@@ -207,36 +210,33 @@
 					if (valid) {
 						//数据不为空，
 						let $this = this;
-						console.log("选择的时间：",$this.formInline.value2);
-						$this.starttime = this.formatDate($this.formInline.value2);
-						console.log("选择时间：", $this.starttime);
-						console.log("出差原因：",$this.formInline.name);
-						console.log("出差地点：",$this.formInline.money);
-						
-						// this.axios.post("/bussiness/insert",Qs.stringify({
-						// 	starttime:$this.starttime,
-						// 	endtime:$this.endtime,
-						// 	reason:$this.formInline.reason,
-						// 	address:$this.formInline.address,
-						// 	eeid:$this.eeid,
-						// })).then(res=>{
-						// 	// console.log("调薪申请：",res.code);
-						// 	if (res.code == 1) {
-						// 		ElMessage({
-						// 			message: "出差申请新增成功!",
-						// 			type: 'success'
-						// 		});
-						// 		//关闭，并重新刷新页面
-						// 		$this.drawer = false;
-						// 		this.loadData();
+						console.log("报价单名称：",$this.formInline.name);
+						console.log("报价单金额：",$this.formInline.money);
+						console.log("关联机会：", $this.formInline.activity);
+						console.log("添加的产品：", $this.oppro);
+						this.axios.post("/quotations/insert",{
+							name:$this.formInline.name,
+							money:$this.formInline.money,
+							activity:$this.formInline.activity,
+							product: $this.oppro,
+						}).then(res=>{
+							// console.log("调薪申请：",res.code);
+							if (res.code == 1) {
+								ElMessage({
+									message: "报价单新增成功!",
+									type: 'success'
+								});
+								//关闭，并重新刷新页面
+								this.cancel();
+								this.loadData();
 								
-						// 	}else{
-						// 		ElMessage({
-						// 			message: res.msg,
-						// 			type: 'erro'
-						// 		});
-						// 	}
-						// })
+							}else{
+								ElMessage({
+									message: res.msg,
+									type: 'erro'
+								});
+							}
+						})
 						
 					} else {
 						ElMessage({
@@ -301,6 +301,8 @@
 			},
 			loadData() {
 				let $this = this;
+				$this.userid = this.$store.state.users.usersId;
+				console.log("当前登录人员编号：",$this.userid);
 				this.axios.get("/quotations", {
 					params: {
 						no: $this.pageNo,
@@ -327,10 +329,19 @@
 					$this.fabric = res.data;
 				})
 			},
+			loadSale() {
+				var $this = this;
+				//查询所有产品
+				this.axios.get("/salefunnel/select").then(res => {
+					// console.log("产品信息:",res);
+					$this.salefunnel = res.data;
+				})
+			},
 		},
 		created() {
 			this.loadData();
 			this.loadProduct();
+			this.loadSale();
 		}
 	}
 </script>

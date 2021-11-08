@@ -14,6 +14,7 @@
             <result property="proPrice" column="pro_price"/>
         </association>
     </resultMap>
+
     <!--  public List<Quotapro> selectByQid(Integer qid);
      根据报价单编号获取产品信息-->
     <select id="selectByQid" resultMap="baseMap">
@@ -22,5 +23,11 @@
         where q_id = #{qid}
         order by quotapro_id desc
     </select>
+
+    <!-- public Integer insert(@Param("num") Integer num, @Param("quotation") Integer quotation, @Param("product") String product);
+     新增中间表-->
+    <insert id="insert" keyColumn="quotapro_id" useGeneratedKeys="true">
+        insert into quotapro(quotapro_id, q_id, pro_id, pro_num) VALUES (null,#{quotation},#{product},#{num})
+    </insert>
 
 </mapper>

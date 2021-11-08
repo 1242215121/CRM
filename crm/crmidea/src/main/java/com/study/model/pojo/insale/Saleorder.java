@@ -39,6 +39,7 @@ public class Saleorder {
     private List<Sorderpro> sorderpros;//销售订单和产品中间表
 
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getSoId() {

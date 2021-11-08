@@ -21,4 +21,9 @@ public class ContactsController {
         return MyResult.SUCCESS_Object(contactsService.selectContactsByPage(contacts.getPageNo(),
                 contacts.getSize(),contacts.getContactsName()));
     }
+
+    @GetMapping
+    public MyResult seContacts(){
+        return MyResult.SUCCESS_DATA(contactsService.seContacts());
+    }
 }

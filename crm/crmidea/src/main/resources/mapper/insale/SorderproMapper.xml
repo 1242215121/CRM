@@ -23,4 +23,10 @@
         order by sorderpro_id desc
     </select>
 
+    <!--  public Integer insert(@Param("num") Integer num, @Param("saleorder") Integer saleorder, @Param("product") String product);
+     新增中间表-->
+    <insert id="insert" keyColumn="sorderpro_id" useGeneratedKeys="true">
+        insert into sorderpro(sorderpro_id, so_id, pro_id, pro_num) VALUES (null,#{saleorder},#{product},#{num})
+    </insert>
+
 </mapper>

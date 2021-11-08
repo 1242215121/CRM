@@ -96,7 +96,7 @@
 							<el-form-item label="&nbsp;&nbsp;添加产品:">
 								<el-button type="text" @click="add" icon="el-icon-circle-plus-outline">关联产品</el-button>
 							</el-form-item>
-							<div v-if="dpp=true"
+							<div v-if="dpp"
 							style="margin-left: 2%;border: 1px solid gray;margin-bottom:5%;width: 80%;">
 								<el-table :data="oppro" style="margin: 20px;width: 95%;">
 									<el-table-column prop="proId" label="产品编号" width="100px"></el-table-column>
@@ -254,6 +254,7 @@
 			},
 			//重置
 			resetForm() {
+				this.dpp = false;
 				this.formInline = {};
 				this.oppro = [];
 			},
@@ -298,7 +299,7 @@
 									type: 'success'
 								});
 								//关闭，并重新刷新页面
-								$this.drawer = false;
+								this.cancel();
 								this.loadData();
 
 							} else {
@@ -409,7 +410,7 @@
 			},
 			loadActivity() {
 				let $this = this;
-				this.axios.get("/activity").then(res => {
+				this.axios.get("/activity/select").then(res => {
 					// console.log("市场活动:",res);
 					$this.activitys = res.data;
 				})

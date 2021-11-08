@@ -19,5 +19,7 @@ public class ContactsService {
         return contactsMapper.selectContacts(contactsName);
     }
 
-
+    public List<Contacts> seContacts(){
+        return contactsMapper.seContacts();
+    }
 }

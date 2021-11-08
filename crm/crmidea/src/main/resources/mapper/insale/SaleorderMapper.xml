@@ -77,9 +77,9 @@
         insert into saleorder(so_id, sf_id, so_name, so_money, so_orderstatu,
         so_back, so_pay, so_return, so_backstatu, so_invoicing, so_invostatu,
         so_date, so_num, so_wynum, so_nonum, so_warestatu,so_charge, so_customer)
-        VALUES (#{so_id},#{salefunnelBySfId.sf_id},#{so_name},#{so_money},#{so_orderstatu},
-        #{so_back},#{so_pay},#{so_return},#{so_backstatu},#{so_invoicing},#{so_invostatu},
-        #{so_date},#{so_num},#{so_wynum},#{so_nonum},#{so_warestatu},#{user.so_charge},#{client.so_customer})
+        VALUES (#{soId},#{salefunnelBySfId.sfId},#{soName},#{soMoney},#{soOrderstatu},
+        #{soBack},#{soPay},#{soReturn},#{soBackstatu},#{soInvoicing},#{soInvostatu},
+        #{soDate},#{soNum},#{soWynum},#{soNonum},#{soWarestatu},#{user.usersId},#{client.clientId})
     </insert>
 
 </mapper>

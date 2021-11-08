@@ -33,6 +33,12 @@
         <collection property="salepros" select="com.study.model.mapper.insale.SaleproMapper.selectBySfid" column="sf_id"/>
     </resultMap>
 
+    <!-- public List<Salefunnel> select();
+    单表查询销售机会-->
+    <select id="select" resultType="com.study.model.pojo.insale.Salefunnel">
+         SELECT sf_id, sf_name from salefunnel
+    </select>
+
     <!--连接客户表，员工表，市场活动表，联系人表，查询销售机会
       public List<Salefunnel> selectAll();-->
     <select id="selectAll" resultMap="baseMap">
