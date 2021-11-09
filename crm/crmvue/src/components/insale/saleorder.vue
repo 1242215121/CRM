@@ -116,7 +116,7 @@
 								<el-col :span="4"></el-col>
 								<el-col :span="4">
 									<p style="padding-top: 6%;">
-										<el-button type="primary" size="mini" v-if="statu!=true"
+										<el-button type="primary" size="mini" 
 										@click="adds()">新增</el-button>
 									</p>
 								</el-col>
@@ -143,7 +143,7 @@
 						<el-table-column prop="proId" label="产品编号" width="100px"></el-table-column>
 						<el-table-column prop="proName" label="产品名称"></el-table-column>
 						<el-table-column prop="proPrice" label="产品价格"></el-table-column>
-						<el-table-column prop="proInventoryAmount" label="库存数量"></el-table-column>
+						<el-table-column prop="proInventoryUsable" label="库存数量"></el-table-column>
 					</el-table>
 					<el-button type="primary" @click="sure" size="mini">确定</el-button>
 				</el-dialog>
@@ -232,7 +232,7 @@
 				orders: [],
 				product:[],
 				total: 0, //总页数
-				pageSize: 2, //每页的条数
+				pageSize: 3, //每页的条数
 				pageNo: 1, //第几页
 				index: 0,
 				dialogVisible:false,//产品产看状态
@@ -557,60 +557,65 @@
 			},
 			
 			ware(row){
-				this.axios.get("/sorderpro", {
-					params: {
-						soid: row.soId,
-					}
-				}).then(res => {
-					res.data.forEach(z=>{
-						this.billsObject.preId = z.product.proId;
-						this.billsObject.preName = z.product.proName;
-						this.billsObject.preUnit = z.product.proUnit;
-						this.billsObject.billsCount = z.proNum;
-						
-						this.billObject.bills.push(this.billsObject)
-						this.billsObject = {
-							billsId:0,
-							preId:'',
-							preName:'',
-							preUnit:'',
-							billsCount:0,
-							billsRemark:'',
-							billId:'',
-							maxCount:''
+				if(confirm("确定要新增该退货单的入库单吗？")){
+					this.axios.get("/sorderpro", {
+						params: {
+							soid: row.soId,
 						}
+					}).then(res => {
+						res.data.forEach(z=>{
+							this.billsObject.preId = z.product.proId;
+							this.billsObject.preName = z.product.proName;
+							this.billsObject.preUnit = z.product.proUnit;
+							this.billsObject.billsCount = z.proNum;
+							
+							this.billObject.bills.push(this.billsObject)
+							this.billsObject = {
+								billsId:0,
+								preId:'',
+								preName:'',
+								preUnit:'',
+								billsCount:0,
+								billsRemark:'',
+								billId:'',
+								maxCount:''
+							}
+						})
+						
 					})
 					
-				})
-				
-				 let c = 0;
-				 this.billObject.bills.forEach(z=>{				
-					 //数量合计
-					 c += parseInt(z.billsCount) ;
-				 })
-				 //给出入库单主表赋值
-				 var vm = this;
-				 var y = new Date().getFullYear();
-				 var m = vm.appendZero(new Date().getSeconds() + 1);
-				 var miao  =vm.appendZero(new Date().getMilliseconds())
-				 this.billObject.billId ='CKD'+ y+''+m+''+miao; 
-				 this.billObject.billAction = 1;
-				 this.billObject.billCount = c;
-				 this.billObject.billPerson = this.$store.state.users.usersId;
-				 this.billObject.billOrder = row.soId ;
-				 
-				 console.log(this.billObject)
-				 this.axios.post('/hzc/insertBill',this.billObject)
-				 .then((res)=>{
-					if(res.code == 1){
-						 ElMessage.success({
-							message: '新增成功',
-							type: 'success'
-						 });					 
-					}	
-					this.loadData();
-				 }).catch(()=>{})
-				 
+					 let c = 0;
+					 this.billObject.bills.forEach(z=>{				
+						 //数量合计
+						 c += parseInt(z.billsCount) ;
+					 })
+					 //给出入库单主表赋值
+					 var vm = this;
+					 var y = new Date().getFullYear();
+					 var m = vm.appendZero(new Date().getSeconds() + 1);
+					 var miao  =vm.appendZero(new Date().getMilliseconds())
+					 this.billObject.billId ='CKD'+ y+''+m+''+miao; 
+					 this.billObject.billAction = 1;
+					 this.billObject.billCount = c;
+					 this.billObject.billPerson = this.$store.state.users.usersId;
+					 this.billObject.billOrder = row.soId ;
+					 
+					 console.log(this.billObject)
+					 this.axios.post('/hzc/insertBill',this.billObject)
+					 .then((res)=>{
+						if(res.code == 1){
+							 ElMessage.success({
+								message: '新增成功',
+								type: 'success'
+							 });					 
+						}	
+						this.loadData();
+					 }).catch(()=>{})
+					 
+					
+				}else{
+					return false;
+				}
 				
 			},
 			
