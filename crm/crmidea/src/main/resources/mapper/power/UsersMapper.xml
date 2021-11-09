@@ -80,9 +80,9 @@
                                   #{usersPhone},
                                   #{usersEmail},
                                   #{usersImgs},
-                                  #{state},
                                   #{ajob.ajobId},
-                                  #{dept.deptId}
+                                  #{dept.deptId},
+                                  #{state}
                                   )
     </insert>
 

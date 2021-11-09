@@ -178,7 +178,6 @@
 								usersPhone:$this.ruleForm.usersPhone,
 								usersEmail:$this.ruleForm.usersEmail,
 								usersImgs:'public/imgs/wjl.jpg',
-								state:1,
 								ajob:{
 									ajobId:$this.ruleForm.ajob.ajobId,
 								},
