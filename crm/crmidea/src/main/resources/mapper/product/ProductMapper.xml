@@ -55,7 +55,7 @@
 
     <!--  public List<Product> selectAll();-->
     <select id="selectAll" resultType="com.study.model.pojo.product.Product">
-        select p.pro_id,p.pro_name,p.pro_price,p.pro_inventory_amount from product p
+        select p.pro_id,p.pro_name,p.pro_price,p.pro_inventory_amount,p.pro_inventory_usable from product p
         where p.pro_state = 1
     </select>
 
