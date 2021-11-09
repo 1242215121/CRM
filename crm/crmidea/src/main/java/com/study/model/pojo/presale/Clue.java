@@ -4,6 +4,7 @@ package com.study.model.pojo.presale;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.study.model.pojo.power.Users;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
@@ -19,8 +20,8 @@ public class Clue {
     private String clueGoState;//跟进状态
     private String clueDuty;//职务
     private String clueState;//线索状态
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    private Timestamp clueTime;//更新时间
+   /* @JsonFormat(pattern = "yyyy-MM-dd")*/
+    private Date clueTime;//更新时间
     private String cluePhone;//联系电话
     private Integer pageNo;
     private Integer size;
@@ -121,14 +122,13 @@ public class Clue {
     }
 
 
-    public Timestamp getClueTime() {
+    public Date getClueTime() {
         return clueTime;
     }
 
-    public void setClueTime(Timestamp clueTime) {
+    public void setClueTime(Date clueTime) {
         this.clueTime = clueTime;
     }
-
 
     public String getCluePhone() {
         return cluePhone;
@@ -142,9 +142,10 @@ public class Clue {
     public Clue() {
     }
 
-    public Clue(Integer clueId, String clueName, String clueCompany, String cluePost, String clueGoState, String clueDuty, String clueState, Timestamp clueTime, String cluePhone) {
+    public Clue(Integer clueId, String clueName, Integer clueUser, String clueCompany, String cluePost, String clueGoState, String clueDuty, String clueState, Date clueTime, String cluePhone, Integer pageNo, Integer size, Users users) {
         this.clueId = clueId;
         this.clueName = clueName;
+        this.clueUser = clueUser;
         this.clueCompany = clueCompany;
         this.cluePost = cluePost;
         this.clueGoState = clueGoState;
@@ -152,6 +153,9 @@ public class Clue {
         this.clueState = clueState;
         this.clueTime = clueTime;
         this.cluePhone = cluePhone;
+        this.pageNo = pageNo;
+        this.size = size;
+        this.users = users;
     }
 
     @Override
