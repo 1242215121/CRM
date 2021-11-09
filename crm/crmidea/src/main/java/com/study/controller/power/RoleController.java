@@ -7,10 +7,7 @@ import com.study.model.services.power.RoleServices;
 import com.study.model.services.power.UsersRoleSevices;
 import com.study.utils.MyResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("role")
@@ -28,14 +25,21 @@ public class RoleController {
     }
 
     @PostMapping("usersRole")
-    public MyResult usersRole(UsersRole usersRole){
+    public MyResult usersRole(@RequestBody UsersRole usersRole){
         //角色和用户关联
-        ues.insertUsersRole(usersRole);
-        return MyResult.SUCCESS;
+        //判断该角色是否已经存在要添加的用户
+        UsersRole ur=ues.byUsersRole(usersRole);
+        if(ur!=null){
+            return MyResult.FAILURE("该用户已存在!");
+        }else{
+            ues.insertUsersRole(usersRole);
+            return MyResult.SUCCESS;
+        }
+
     }
 
     @PostMapping("roleModule")
-    public MyResult roleModule(RoleModule roleModule){
+    public MyResult roleModule(@RequestBody RoleModule roleModule){
         //用户和模块关联
         rms.insertRoleModule(roleModule);
         return MyResult.SUCCESS;

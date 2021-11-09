@@ -29,6 +29,13 @@ public interface UsersRoleMapper {
     public Integer insertUsersRole(UsersRole usersRole);
 
     /**
+     * 用于验证是否存在当前用户和角色的关联
+     * @param usersRole
+     * @return
+     */
+    public UsersRole byUsersRole(UsersRole usersRole);
+
+    /**
      * 删除用户下的角色
      * @param usersid
      * @return
