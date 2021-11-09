@@ -295,7 +295,7 @@
 					 var y = new Date().getFullYear();
 					 var m = vm.appendZero(new Date().getSeconds() + 1);
 					 var miao  =vm.appendZero(new Date().getMilliseconds())
-					 this.billObject.billId ='CKD'+ y+''+m+''+miao; 
+					 this.billObject.billId ='RKD'+ y+''+m+''+miao; 
 					 this.billObject.billAction = 2;
 					 this.billObject.billCount = c;
 					 this.billObject.billPerson = this.$store.state.users.usersId;
