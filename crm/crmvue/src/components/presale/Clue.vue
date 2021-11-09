@@ -69,7 +69,7 @@
 	<!-- 表格 -->
 	<el-table :data="clueData" style="width: 100%">
 		<el-table-column prop="clueName" label="线索名称" width="140" />
-		<el-table-column prop="users.usersName" label="负责人" width="140" />
+		<el-table-column prop="users.usersFullname" label="负责人" width="140" />
 		<el-table-column prop="clueCompany" label="公司" width="170" />
 		<el-table-column prop="cluePost" label="行业" width="140" />
 		<el-table-column prop="clueGoState" label="跟进状态" width="140" />
@@ -126,7 +126,7 @@
 				</el-form-item>
 				<el-form-item class="button">
 					<el-button type="primary" @click="getInClient('client')">提交</el-button>
-					<el-button @click="resetForm()">重置</el-button>
+					<el-button @click="reastFroms">重置</el-button>
 				</el-form-item>
 		</el-form>
 	</div>
@@ -141,12 +141,26 @@
 
 
 <script>
+	
 	import {
 		ElMessage
 	} from 'element-plus'
 	import Qs from 'qs'
 	export default {
 		data() {
+			// 手机号验证
+			var cluePhone = (rule, value, callback) => {
+				if (!value) {
+					return callback(new Error('手机号不能为空'));
+				} else {
+					const reg = /^1[3456789]\d{9}$/
+					if (reg.test(value)) {
+						callback();
+					} else {
+						return callback(new Error('请输入正确的手机号'));
+					}
+				}
+			};
 			return {
 				drawer1:false,
 				drawer: false, //面板状态
@@ -186,7 +200,6 @@
 					},
 				},
 				rule:{
-					
 					clientName: [{
 						required: true,
 						message: '请输入客户名称',
@@ -230,8 +243,8 @@
 						trigger: 'blur'
 					}, ],
 					cluePhone: [{
-						required: true,
-						message: '请输入联系电话',
+						validator:cluePhone,
+						required:true,
 						trigger: 'blur'
 					}, ],
 					users: [{
@@ -335,6 +348,10 @@
 			}
 		},
 		methods: {
+			//时间
+			dealDisabledDate(time) {
+				return time.getTime() <= Date.now() - 24 * 60 * 60 * 1000;
+			},
 			/* 查user所有 */
 			loadUser() {
 				let $this = this;
@@ -346,6 +363,10 @@
 			//重置
 			resetForm() {
 				this.clue = {};
+			},
+			//重置
+			reastFroms() {
+				this.client={};
 			},
 			theRandom() {
 				var k = Math.round(Math.random() * 10000000)
@@ -379,6 +400,8 @@
 									type: 'success'
 								});
 								this.drawer = false;
+								this.getClueData();
+								this.reastFroms();
 							}else{
 								ElMessage({
 									message: x.msg,

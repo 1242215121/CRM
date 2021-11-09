@@ -8,9 +8,6 @@
 			<el-col :span="4" :push="1">
 				<el-button type="primary" size="medium" @click="getClientData()">查询</el-button>
 			</el-col>
-			<el-col :span="4" :push="11">
-				<el-button type="primary" size="medium" @click="drawer=true">新增</el-button>
-			</el-col>
 		</el-row>
 	</div>
 	<!-- 表格 -->

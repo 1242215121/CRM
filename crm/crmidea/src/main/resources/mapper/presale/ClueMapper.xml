@@ -14,7 +14,7 @@
         <result column="clue_phone" property="cluePhone"/>
         <association property="users" javaType="com.study.model.pojo.power.Users">
             <id column="users_id" property="usersId"/>
-            <result column="users_name" property="usersName"/>
+            <result column="users_fullname" property="usersFullname"/>
         </association>
     </resultMap>
     <select id="selectClue" resultMap="clueMap">
