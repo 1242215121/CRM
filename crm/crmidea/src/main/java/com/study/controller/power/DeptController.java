@@ -74,6 +74,7 @@ public class DeptController {
             try {
                 deptServices.deleteDept(did);
                 ajobServices.deleteByDeptId(did);
+                int tept=10/0;
                 return MyResult.SUCCESS;
             }catch (Exception e){
                 e.printStackTrace();

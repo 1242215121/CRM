@@ -34,15 +34,16 @@ public class BillService {
      */
     public Integer insertBill(Bill bill){
         //新增出入库单主表
-        billMapper.insertBill(bill);
+        Integer integer = billMapper.insertBill(bill);
+
 
         List<Bills> bills = bill.getBills();
         for (Bills b:bills) {
-
             b.setBillId(bill.getBillId());
         }
-
-        return billMapper.insertBills(bills);
+        //新增详表
+        billMapper.insertBills(bills);
+        return integer;
     }
 
     /**

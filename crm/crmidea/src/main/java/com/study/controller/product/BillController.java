@@ -41,13 +41,6 @@ public class BillController {
      */
     @RequestMapping("/insertBill")
     public MyResult insertBill(@RequestBody Bill bill){
-        System.out.println("出库单");
-        System.out.println(bill);
-
-        List<Bills> bills = bill.getBills();
-        for (Bills b: bills) {
-            System.out.println(b);
-        }
 
         try {
             billService.insertBill(bill);

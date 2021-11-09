@@ -51,7 +51,7 @@
 					<el-table-column label="操作" width="250px">
 						<template #default="scope">
 							<el-button type="primary" size="mini" @click="look(scope.row)" plain>查看产品</el-button>
-							<el-button type="primary" size="mini" @click="ware(scope.row)" plain>新增出入库单</el-button>
+							<el-button type="primary" size="mini" @click="ware(scope.row)" plain>新增入库单</el-button>
 						</template>
 					</el-table-column>
 				</el-table>
@@ -59,44 +59,6 @@
 				<el-pagination hide-on-single-page background @current-change="handleCurrentChange" layout="prev, pager, next"
 					:page-size="pageSize" :total="total">
 				</el-pagination>
-				<el-drawer title="新增退货单" v-model="drawer" :with-header="false" size="55%">
-					<div class="big overflowAuto">
-						<el-form :model="formInline" ref="formInline" :rules="rules">
-							<el-form-item label="退货单名称:" class="ttsalary" prop="name">
-								<el-input v-model="formInline.name" placeholder="请输入退货单名称"></el-input>
-							</el-form-item>
-							<el-form-item label="销售订单:" class="ttsalary" prop="person">
-								<el-select v-model="formInline.person" placeholder="请输入销售订单">
-									<el-option v-if="salefunnel!=null" v-for="s in salefunnel" :key="s.sfId"
-										:label="s.sfName" :value="s.sfId">
-									</el-option>
-								</el-select>
-							</el-form-item>
-							<el-form-item label="&nbsp;&nbsp;添加产品:">
-								<el-button type="text" @click="add" icon="el-icon-circle-plus-outline">关联产品</el-button>
-							</el-form-item>
-							<div v-if="dpp"
-							style="margin-left: 2%;border: 1px solid gray;margin-bottom:5%;width: 80%;">
-								<el-table :data="oppro" style="margin: 20px;width: 95%;">
-									<el-table-column prop="proId" label="产品编号" width="100px"></el-table-column>
-									<el-table-column prop="proName" label="产品名称"></el-table-column>
-									<el-table-column prop="proPrice" label="产品价格"></el-table-column>
-									<el-table-column label="销售数量">
-										<template #default="scope">
-											<el-input-number v-model="scope.row.num" :min="1" size="mini">
-											</el-input-number>
-										</template>
-									</el-table-column>
-								</el-table>
-							</div>
-							<el-form-item class="button">
-								<el-button type="primary" @click="submitForm('formInline')">提交</el-button>
-								<el-button @click="resetForm()">重置</el-button>
-								<el-button @click="cancel()">取消</el-button>
-							</el-form-item>
-						</el-form>
-					</div>
-				</el-drawer>
 				<el-dialog title="产品明细" v-model="dialogVisible" width="42%" :before-close="handleClose">
 					<!-- 查看产品 -->
 					<el-table :data="product" style="width: 100%">
@@ -216,90 +178,14 @@
 				let $this = this;
 				$this.Visible = false;
 			},
-			//选中的产品信息
-			handleSelectionChange(val) {
-				this.oppro = val;
-				if (this.oppro.length > 0) {
-					this.dpp = true;
-				}
-				console.log("选中的产品：", this.oppro);
-			},
-			//重置
-			resetForm() {
-				this.dpp = false;
-				this.formInline = {};
-				this.oppro = [];
-			},
-			//取消
-			cancel() {
-				//关闭窗口，并重置
-				console.log("取消")
-				this.resetForm();
-				this.drawer = false;
-				console.log("取消2")
-			},
-			//提交
-			submitForm(formName) { //销售机会新增
-				this.$refs[formName].validate((valid) => {
-					if (valid) {
-						//数据不为空，
-						let $this = this;
-						console.log("订单名称：",$this.formInline.name);
-						console.log("所属客户：", $this.formInline.custom);
-						console.log("联系人员：", $this.formInline.person);
-						console.log("添加的产品：", $this.oppro);
-						//添加的产品不能为空
-						if($this.oppro.length>0){
-							this.axios.post("/saleorder/insert",{
-								name: $this.formInline.name,
-								custom: $this.formInline.custom,
-								person: $this.formInline.person,
-								user: $this.userid,
-								product: $this.oppro,
-							}).then(res=>{
-								// console.log("调薪申请：",res.code);
-								if (res.code == 1) {
-									ElMessage({
-										message: "销售订单新增成功!",
-										type: 'success'
-									});
-									//关闭，并重新刷新页面
-									this.cancel();
-									this.loadData();
-									
-								}else{
-									ElMessage({
-										message: res.msg,
-										type: 'erro'
-									});
-								}
-							})
-							
-						}else{
-							ElMessage({
-								message: "产品不能为空！！！",
-								type: 'warning'
-							});
-						}
-						
-					} else {
-						ElMessage({
-							message: "请完整填写信息",
-							type: 'erro'
-						});
-						return false;
-					}
-				});
-			},
-			
 			//查看产品详情
 			look(row) {
 				let $this = this;
 				console.log("退货单编号：",row.rId)
 				$this.dialogVisible = true;
-				this.axios.get("/refundspro", {
+				this.axios.get("/sorderpro", {
 					params: {
-						rid: row.rId,
+						soid: row.saleorderBySoId.soId,
 					}
 				}).then(res => {
 					console.log("产品组成：", res);
@@ -370,60 +256,66 @@
 			},
 			ware(row){
 				console.log("row==",row);
-				this.axios.get("/refundspro", {
-					params: {
-						rid: row.rId,
-					}
-				}).then(res => {
-					res.data.forEach(z=>{
-						this.billsObject.preId = z.product.proId;
-						this.billsObject.preName = z.product.proName;
-						this.billsObject.preUnit = z.product.proUnit;
-						this.billsObject.billsCount = z.proNum;
-						
-						this.billObject.bills.push(this.billsObject)
-						this.billsObject = {
-							billsId:0,
-							preId:'',
-							preName:'',
-							preUnit:'',
-							billsCount:0,
-							billsRemark:'',
-							billId:'',
-							maxCount:''
+				if(confirm("确定要新增该退货单的入库单吗？")){
+					this.axios.get("/sorderpro", {
+						params: {
+							soid: row.saleorderBySoId.soId,
 						}
+					}).then(res => {
+						console.log("进去循环前")
+						res.data.forEach(z=>{
+							console.log("进去循环后")
+							this.billsObject.preId = z.product.proId;
+							this.billsObject.preName = z.product.proName;
+							this.billsObject.preUnit = z.product.proUnit;
+							this.billsObject.billsCount = z.proNum;
+							
+							this.billObject.bills.push(this.billsObject)
+							this.billsObject = {
+								billsId:0,
+								preId:'',
+								preName:'',
+								preUnit:'',
+								billsCount:0,
+								billsRemark:'',
+								billId:'',
+								maxCount:''
+							}
+						})
+						
 					})
 					
-				})
-				
-				 let c = 0;
-				 this.billObject.bills.forEach(z=>{				
-					 //数量合计
-					 c += parseInt(z.billsCount) ;
-				 })
-				 //给出入库单主表赋值
-				 var vm = this;
-				 var y = new Date().getFullYear();
-				 var m = vm.appendZero(new Date().getSeconds() + 1);
-				 var miao  =vm.appendZero(new Date().getMilliseconds())
-				 this.billObject.billId ='CKD'+ y+''+m+''+miao; 
-				 this.billObject.billAction = 2;
-				 this.billObject.billCount = c;
-				 this.billObject.billPerson = this.$store.state.users.usersId;
-				 this.billObject.billOrder = row.saleorderBySoId.soId;
-				 console.log(this.billObject)
-				 this.axios.post('/hzc/insertBill',this.billObject)
-				 .then((res)=>{
-					if(res.code == 1){
-						 ElMessage.success({
-							message: '新增成功',
-							type: 'success'
-						 });					 
-					}	
-					this.loadData();
-				 }).catch(()=>{})
-				 
-				
+					 let c = 0;
+					 this.billObject.bills.forEach(z=>{				
+						 //数量合计
+						 c += parseInt(z.billsCount) ;
+					 })
+					 //给出入库单主表赋值
+					 var vm = this;
+					 var y = new Date().getFullYear();
+					 var m = vm.appendZero(new Date().getSeconds() + 1);
+					 var miao  =vm.appendZero(new Date().getMilliseconds())
+					 this.billObject.billId ='RKD'+ y+''+m+''+miao; 
+					 this.billObject.billAction = 2;
+					 this.billObject.billCount = c;
+					 this.billObject.billPerson = this.$store.state.users.usersId;
+					 this.billObject.billOrder = row.saleorderBySoId.soId;
+					 console.log(this.billObject)
+					 this.axios.post('/hzc/insertBill',this.billObject)
+					 .then((res)=>{
+						if(res.code == 1){
+							 ElMessage.success({
+								message: '新增成功',
+								type: 'success'
+							 });					 
+						}	
+						this.loadData();
+					 }).catch(()=>{})
+					 
+				}else{
+					return false;
+				}
+			
 			},
 			//日期方法
 			appendZero(obj) {

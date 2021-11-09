@@ -70,6 +70,7 @@
         select * from users where dept_id=#{deptid} order by users_id desc
     </select>
 
+
     <insert id="insertUsers">
         insert into users values (null,
                                   #{usersName},
