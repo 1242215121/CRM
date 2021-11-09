@@ -27,8 +27,6 @@ public class ReceivableController {
     //根据订单名称查询回款记录
     @RequestMapping("hkjlcx")
     public MyResult getHkjl(Integer pageNo,Integer size,String nr){
-        System.out.println("emm");
-        System.out.println(pageNo);
         return MyResult.SUCCESS_Object(receivableService.hkjlcx(pageNo,size,nr));
     }
 
@@ -41,7 +39,6 @@ public class ReceivableController {
     //新增回款
     @RequestMapping("hkxz")
     public MyResult hkxz(@RequestBody Map<String,Object> map){
-        System.out.println(map.get("receivable"));
         return MyResult.SUCCESS_Object(receivableService.hkxz(map));
     }
 
