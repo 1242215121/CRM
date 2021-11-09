@@ -37,6 +37,7 @@
 						</el-col>
 						<el-button
 						title="添加用户"
+						@click="setRoleId(r.roleId)"
 						class="btn">
 							+
 							</el-button>
@@ -60,6 +61,7 @@
 					</el-col>
 					<el-button
 					title="添加模块"
+					@click="addModule(r.roleId)"
 					class="btn">
 						+
 						</el-button>
@@ -74,27 +76,146 @@
 			</el-col>
 		</el-row>
 	</el-card>
+	
+	<el-drawer title="消息通知" size="45%;" v-model="drawer" :direction="direction"
+		:before-close="newshandleClose" destroy-on-close>
+		
+	<el-table :data="tableData" size="mini" style="width: 100%">
+		<el-table-column label="用户编号" width="80" align="center" header-align="center">
+			<template #default="scope">
+				<span style="margin-left: 10px">{{ scope.row.usersId }}</span>
+			</template>
+		</el-table-column>
+		<el-table-column label="姓名" width="100" align="center" header-align="center">
+			<template #default="scope">
+				<span style="margin-left: 10px">{{ scope.row.usersFullname }}</span>
+			</template>
+		</el-table-column>
+		<el-table-column label="所属部门" width="180" align="center" header-align="center">
+			<template #default="scope">
+				<span style="margin-left: 10px" v-if="scope.row.dept">{{ scope.row.dept.deptName }}</span>
+			</template>
+		</el-table-column>
+		<el-table-column label="所属职位" width="100" align="center" header-align="center">
+			<template #default="scope">
+				<span style="margin-left: 10px" v-if="scope.row.ajob">{{ scope.row.ajob.ajobName }}</span>
+			</template>
+		</el-table-column>
+	
+		<el-table-column label="操作" width="160" align="center" header-align="center">
+			<template #default="scope">
+
+				<div class="name-wrapper">
+					<el-tag type="success" size="medium" style="margin-right: 10px;" @click="addUsers(scope.row.usersId)">添加</el-tag>
+				</div>
+				
+		
+			</template>
+		</el-table-column>
+	</el-table>
+		
+		<div class="block" style="text-align: center; margin: 10px;">
+			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page=pageNo
+				:page-sizes="[5,8,10,15]" :page-size=pageSize layout="total, sizes, prev, pager, next, jumper"
+				:total=total>
+			 </el-pagination>
+		</div>
+		
+	</el-drawer>
 </template>
 
 <script>
 	 export default {
 	   data() {
 	     return {
-	       role:[]
+	       role:[],
+		   tableData: [],
+		   total: 0,
+		   pageSize: 5,
+		   pageNo: 1,
+		   roleid:'',
+		   drawer: false,
+		   direction: 'rtl',
 	     }
 	   },
 	   methods: {
-	 		lodeDate(){
+	 		lodeRole(){
 	 			var $this=this;
 	 			this.axios.get("/role/all").then(res=>{
 	 				console.log("查询到的角色",res.data)
 	 				$this.role=res.data;
 	 				
 	 			})
-	 		}
+	 		},
+			setRoleId(rid){
+				this.roleid=rid;
+				this.drawer=true;
+			},
+			addUsers(uid){
+				var $this=this;
+				this.axios.post("/role/usersRole",{
+					users:{
+						usersId:uid
+					},
+					role:{
+						roleId:$this.roleid
+					}
+				}).then(res=>{
+					console.log("查询到的角色",res)
+					if(res.code==1){
+						this.$message.success("添加成功！");
+					}
+					//关闭抽屉
+					this.drawer=false;
+					//重新加载数据
+					this.lodeRole();
+				})
+			},
+			addModule(mid){
+				
+			},
+			//查询绑值
+			loadData() {
+				
+				var $this = this;
+				
+				this.axios.post("/users/allpage", {
+					pageNo: $this.pageNo,
+					pageSize: $this.pageSize
+				}).then(res => {
+					console.log(res, "后台返回的数据");
+					this.tableData = res.obj.list; //返回的是封装好的MyResult对象。data存储的是集合
+					this.total = res.obj.total;
+				})
+			},
+			handleEdit(index, row) {
+				console.log(index, row);
+			},
+			handleDelete(index, row) {
+				console.log(index, row);
+			},
+			handleSizeChange(val) {
+				console.log(`每页 ${val} 条`);
+				this.pageNo = 1;
+				this.pageSize = val;
+				this.loadData();
+			},
+			handleCurrentChange(val) {
+				this.pageNo = val;
+				console.log(`当前页: ${val}`);
+				this.loadData();
+			},
+			newshandleClose(done) {
+				this.$confirm('确认关闭？')
+					.then(_ => {
+						done();
+					})
+					.catch(_ => {});
+			},
 	   },
 	   created(){
-	 		this.lodeDate();
+	 		this.lodeRole();
+			this.loadData();
 	 	},
 	}
 </script>

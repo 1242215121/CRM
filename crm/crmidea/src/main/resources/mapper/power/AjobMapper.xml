@@ -28,7 +28,7 @@
     </select>
 
     <select id="selectByAjobName" resultType="com.study.model.pojo.power.Ajob">
-        select * from ajob where ajbo_name=#{ajobname} and dept_id=#{deptid}
+        select * from ajob where ajob_name=#{ajobname} and dept_id=#{deptid}
     </select>
 
     <select id="selectByDeptId" resultType="com.study.model.pojo.power.Ajob">
@@ -40,7 +40,7 @@
     </insert>
 
     <update id="updateAjob">
-        update ajob set ajob_name=#{ajobName},ajob_desc=#{ajobDesc} where ajob_id=#{ajobId}
+        update ajob set ajob_name=#{ajobName},ajob_desc=#{ajobDesc},dept_id=#{dept.deptId} where ajob_id=#{ajobId}
     </update>
 
     <delete id="deleteByAjobId">

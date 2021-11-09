@@ -33,6 +33,14 @@ public class UsersRoleSevices {
     }
 
     /**
+     * 用于验证是否存在当前用户和角色的关联
+     * @param usersRole
+     * @return
+     */
+    public UsersRole byUsersRole(UsersRole usersRole){
+        return mapper.byUsersRole(usersRole);
+    }
+    /**
      * 用户角色关联
      * @param usersRole
      */

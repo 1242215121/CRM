@@ -4,7 +4,7 @@
 		
 	<el-card>
 		<div style="text-align: center;margin: 20px;font-size: 22px;font-weight: 600;">
-			{{lookstate?butstate?"修改用户信息":"新增用户":"用户信息"}}
+			个人信息
 		</div>
 	<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 		<el-form-item label="姓名" required prop="usersFullname">
@@ -32,11 +32,11 @@
 		</el-form-item>
 		<el-form-item label="所在部门" required prop="dept">
 			<el-input  v-if="!lookstate" v-model="ruleForm.dept.deptName" :readonly="!lookstate"></el-input>
-				<el-select v-if="lookstate" v-model="ruleForm.dept.deptId">
-					<el-option v-for="v in dept" :label="v.deptName" :key="v.deptId" :value="v.deptId" >
+			<el-select v-if="lookstate" v-model="ruleForm.dept.deptId">
+			<el-option v-for="v in dept" :label="v.deptName" :key="v.deptId" :value="v.deptId" >
 				
-					</el-option>
-				</el-select>
+			</el-option>
+			</el-select>
 		</el-form-item>
 		<el-form-item label="联系电话" required prop="usersPhone">
 			<el-input v-model="ruleForm.usersPhone" maxlength="11" :readonly="!lookstate"></el-input>
@@ -52,8 +52,9 @@
 			<el-input v-model="ruleForm.usersEmail" maxlength="25" :readonly="!lookstate"></el-input>
 		</el-form-item>
 		<div style="text-align: center;">
-			<el-button type="primary" v-show="lookstate" @click="commitfrom('ruleForm')">{{butstate?"修改":"新增"}}</el-button>
-			<el-button type="primary" @click="descrout">返回</el-button>
+			<el-button type="primary" v-show="!lookstate" @click="lookstate=!lookstate">修改</el-button>
+			<el-button type="primary" v-show="lookstate" @click="commitfrom('ruleForm')">确定</el-button>
+			<el-button type="primary" v-show="lookstate" @click="dont()">取消</el-button>
 		</div>
 		
 	</el-form>
@@ -80,7 +81,7 @@
 					usersPhone:'',
 					usersEmail:'',
 					usersImgs:'',
-					state:0,
+					state:1,
 					ajob:{
 						ajobId:'',
 						ajobName:''
@@ -112,9 +113,9 @@
 							trigger: 'blur'
 						},
 						{
-							min: 6,
+							min: 2,
 							max: 16,
-							message: '长度在 6 到 16 个字符',
+							message: '长度在 2 到 16 个字符',
 							trigger: 'blur'
 						}
 					],
@@ -156,7 +157,7 @@
 				//修改还是新增
 				butstate: false,
 				//查看还是修改
-				lookstate: true,
+				lookstate: false,
 				
 			};
 		},
@@ -166,35 +167,6 @@
 				console.log($this.ruleForm,"ruleForm");
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
-						if(!this.butstate){
-							//新增
-							this.axios.post("/users/add",{
-								usersId:$this.ruleForm.usersId,
-								usersName:$this.ruleForm.usersName,
-								usersPwd:$this.ruleForm.usersPwd,
-								usersFullname:$this.ruleForm.usersFullname,
-								usersSex:$this.ruleForm.usersSex=="男"?1:0,
-								usersBrith:$this.ruleForm.usersBrith,
-								usersPhone:$this.ruleForm.usersPhone,
-								usersEmail:$this.ruleForm.usersEmail,
-								usersImgs:'public/imgs/wjl.jpg',
-								state:1,
-								ajob:{
-									ajobId:$this.ruleForm.ajob.ajobId,
-								},
-								dept:{
-									deptId:$this.ruleForm.dept.deptId,
-								}
-							}).then(res=>{
-								if(res.code == 1){
-									this.$message.success("新增成功！");
-									this.$router.push("users");
-								}else if(res.msg=="该用户名已被注册!"){
-									this.ruleForm.usersName='';
-								}
-								
-							})
-						}else{
 							//修改
 							this.axios.post("/users/update",{
 								usersId:$this.ruleForm.usersId,
@@ -215,17 +187,13 @@
 							}).then(res=>{
 								if(res.code == 1){
 									this.$message.success("修改成功！");
-									this.$router.push("users");
+									this.lookstate=!this.lookstate;
 								}
 							})
-						}
 					}
 				})
 				
 				
-			},
-			descrout(){
-				this.$router.push("users");
 			},
 			bandform(usersId,edit){
 				if(usersId){
@@ -235,7 +203,7 @@
 							usersid:usersId
 						}
 					}).then(res=>{
-						this.ruleForm.usersPwd="**********";
+						console.log("查到的users",res)
 						this.ruleForm=res.obj;
 						if(this.ruleForm.usersSex==1){
 							this.ruleForm.usersSex="男"
@@ -244,14 +212,11 @@
 						}
 					})
 					
-					//判断是编辑、查看、新增状态
-					if(edit==1){
-						this.lookstate=false;
-					}else if(edit==2){
-						this.butstate=true;
-						
-					}
 				}
+			},
+			dont(){
+				this.lookstate=!this.lookstate;
+				this.bandform(this.$store.state.users.usersId);
 			},
 			//绑定职位
 			loadAjob(){
@@ -268,9 +233,9 @@
 					
 				var $this=this;
 				this.axios.get("/dept/all").then(res=>{
-					
+					console.log("查询到的部门",res.data)
 					$this.dept=res.data;
-					console.log("查询到的部门$this.dept",$this.dept)
+					
 				})
 			},
 		},
@@ -278,9 +243,7 @@
 		created() {
 			this.loadAjob();
 			this.lodeDept();
-			if (this.$route.params.usersId||this.$route.params.edit) {
-				this.bandform(this.$route.params.usersId, this.$route.params.edit);
-			}
+			this.bandform(this.$store.state.users.usersId);
 
 		}
 	}

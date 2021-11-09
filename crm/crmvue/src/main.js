@@ -27,8 +27,7 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 //路由卫士
 router.beforeEach((to, from, next) => {
-	console.log(to,"to");
-	console.log(next,"next");
+
 	if(to.name=="Login"){
 		next();
 		return;

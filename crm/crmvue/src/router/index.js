@@ -21,7 +21,7 @@ let routes = [
 		path: '/',
 		component: Home,
 		name: 'Home',
-		redirect: '/usersfrom',
+		redirect: '/main',
 		meta: {
 			title: "CRM后台管理系统"
 		},
@@ -32,6 +32,14 @@ let routes = [
 					name: 'usersfrom',
 					meta: {
 						title: "用户新增"
+					},
+				},
+				{
+					path: '/main',
+					component:() => import('@/components/power/Main.vue'),
+					name: 'main',
+					meta: {
+						title: "个人信息"
 					},
 				},
 				// {

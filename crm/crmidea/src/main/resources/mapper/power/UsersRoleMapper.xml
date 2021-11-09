@@ -23,6 +23,10 @@
 
         </association>
     </resultMap>
+<!--    onlyById只做验证-->
+    <resultMap id="onlyById" type="com.study.model.pojo.power.UsersRole">
+        <id column="id" property="id"/>
+    </resultMap>
 
     <select id="selectByUsersId" resultMap="usersRoleResult">
         select * from users_role where users_id=#{usersid}
@@ -30,6 +34,10 @@
 
     <select id="ByRoleId" resultMap="roleGetUsers">
         select * from users_role where role_id=#{roleid}
+    </select>
+
+    <select id="byUsersRole" resultMap="onlyById">
+        select id from users_role where role_id=#{role.roleId} and users_id=#{users.usersId}
     </select>
 
     <insert id="insertUsersRole">

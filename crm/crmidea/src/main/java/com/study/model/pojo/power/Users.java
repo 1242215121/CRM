@@ -1,5 +1,6 @@
 package com.study.model.pojo.power;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.study.model.pojo.insale.Refunds;
 import com.study.model.pojo.presale.Activity;
 import com.study.model.pojo.presale.Client;
@@ -17,6 +18,7 @@ public class Users {
     private String usersPwd;//密码
     private String usersFullname;//姓名
     private Integer usersSex;//性别
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date usersBrith;//生日
     private String usersPhone;//电话
     private String usersEmail;//邮箱
