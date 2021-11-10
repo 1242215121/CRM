@@ -36,26 +36,14 @@ public class ProductService {
      * 新增产品
      */
     public Integer insertPro(Product product){
-        try{
-            productMapper.insertPro(product);
-            return 1;
-        }catch (Exception e){
-            e.printStackTrace();
-            return 0;
-        }
+        return productMapper.insertPro(product);
     }
 
     /**
      * 修改产品
      */
     public Integer updatePro(Product product){
-        try{
-            productMapper.updatePro(product);
-            return 1;
-        }catch (Exception e){
-            e.printStackTrace();
-            return 0;
-        }
+        return productMapper.updatePro(product);
     }
 
     /**

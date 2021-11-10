@@ -69,8 +69,6 @@ public class TypeController {
      */
     @RequestMapping("/deleteType")
     public MyResult deleteType(String typeId){
-        System.out.println("类别id");
-        System.out.println(typeId);
 
         Integer integer = typeService.deleteType(typeId);
 
